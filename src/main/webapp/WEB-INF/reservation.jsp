@@ -3,47 +3,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
-    <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
-
-    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
-
 
     <title>Customer page</title>
 </head>
-<body>
-<div id="statusbar">
-    <div id="statusbarcontent">
-        <form action="#search" method="post" id="searchform">
-            <p>
-                Welcome, ${user.username} !
-                <br/>
+<t:genericpage>
 
-            </p>
-
-        </form>
-
-    </div>
-</div>
-<div id="header">
-    <div id="logo">
-        <h1><a href="#home" title="Home Page">Сказочный отель на берегу моря</a></h1>
-
-    </div>
-    <div id="logo1">
-
-        <h2>Зурбаган</h2>
-    </div>
-
+    <jsp:attribute name="header">
+<div id="statusbarcontent">
+    <p id="welcome"> Welcome, ${user.username} ! </p>
+    <a id="account" href="/welcome">Вернуться на главную</a>
 
 </div>
+    </jsp:attribute>
+    <jsp:attribute name="accordion"/>
+    <jsp:attribute name="carousel"/>
+    <jsp:attribute name="footer"/>
+    <jsp:body>
 
 
-<h3></h3>
 <form  method="post" class="form-horizontal" role="form">
     <div class="form-group" hidden="true">
 
@@ -146,15 +127,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Remember Password
-                                </label>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -168,6 +140,7 @@
     </div>
 
 </form>
+    </jsp:body>
+</t:genericpage>
 
-</body>
 </html>

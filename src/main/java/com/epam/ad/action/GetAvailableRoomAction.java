@@ -23,7 +23,7 @@ public class GetAvailableRoomAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult customerform = new ActionResult("customerform", true);
+        ActionResult customerform = new ActionResult("reservation", true);
         ActionResult welcome=new ActionResult("welcome");
         HttpSession session = request.getSession();
         String date1 = request.getParameter("calendar");

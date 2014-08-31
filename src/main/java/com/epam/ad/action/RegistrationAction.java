@@ -18,7 +18,7 @@ public class RegistrationAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult registration = new ActionResult("registrationform");
+        ActionResult registration = new ActionResult("registration");
         ActionResult welcome = new ActionResult("welcome", true);
         String username = request.getParameter("inputUsername");
         String password = request.getParameter("inputPassword");

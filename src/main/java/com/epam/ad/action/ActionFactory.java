@@ -11,8 +11,8 @@ public class ActionFactory {
     static {
         actions.put("GET/", new ShowLoginPageAction()); //переводит на страницу Приветствия, если Пользователь залогинился, иначе на страницу авторизации
         actions.put("POST/", new LoginAction());// проверяет на соответствие введенные логин и пароль и перенаправляет на страницу приветствия при верной валидации пользователя с ролью "Клиент" или на страницу с формой админа, если роль "Админ"
-        actions.put("GET/registrationform", new ShowPageAction("registrationform"));// * обеспечивает переход к странице через сервлет, а не напрямую
-        actions.put("POST/registrationform", new RegistrationAction());//проверяет корректность ввода пароля и его подтверждения, корректность на уникальный логин, устанавливает в атрибут поздравления при успешной регистрации и перенаправляет на страницу приветствия
+        actions.put("GET/registration", new ShowPageAction("registration"));// * обеспечивает переход к странице через сервлет, а не напрямую
+        actions.put("POST/registration", new RegistrationAction());//проверяет корректность ввода пароля и его подтверждения, корректность на уникальный логин, устанавливает в атрибут поздравления при успешной регистрации и перенаправляет на страницу приветствия
         actions.put("GET/adminform", new ShowPageAction("adminform"));//*
         actions.put("GET/bookingtable", new BookingTableAction());//**осуществляет вывод всех строк таблицы BookingTable и устанавливает атрибуты пагинации
         actions.put("POST/bookingtable",new BookingTableEditAction());// изменяет данные таблицы BookingTable(операции CRUD), а также подтверждает бронирование заказа
@@ -22,8 +22,8 @@ public class ActionFactory {
         actions.put("GET/account", new AccountAction()); // ищет в таблице заказов все заказы, залогинившегося пользователя; по полям заказа "ID комнаты" и "ID данных о клиенте" выводит подробности заказа в виде двух табличных строк
         actions.put("GET/welcome", new ShowPageAction("welcome"));//*
         actions.put("POST/welcome", new GetAvailableRoomAction());// выбирает свободный номер для бронирования в соответствии с выбранными пользователем параметрами и перенаправляет на страницу подтверждения и заполнения данных гостя/клиента (если все номера с данными параметрами заняты - выводит соотв. сообщение)
-        actions.put("GET/customerform", new ShowPageAction("customerform"));//*
-        actions.put("POST/customerform", new ConfirmAction());// получает параметры заказа/бронирования и данных клиента и заносит все в соответствующие таблицы (при удачном выполнении переводит на страницу приветствия с оповещением, что номер забронирован)
+        actions.put("GET/reservation", new ShowPageAction("reservation"));//*
+        actions.put("POST/reservation", new ConfirmAction());// получает параметры заказа/бронирования и данных клиента и заносит все в соответствующие таблицы (при удачном выполнении переводит на страницу приветствия с оповещением, что номер забронирован)
         actions.put("GET/bookingtablecreate",new ShowPageAction("bookingtablecreate"));
         actions.put("POST/bookingtablecreate",new BookingTableCreateAction());
 

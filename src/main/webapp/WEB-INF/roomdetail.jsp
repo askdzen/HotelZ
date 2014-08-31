@@ -1,6 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--@elvariable id="counts" type="java.lang.Integer"--%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%! String pageName = "Roomdetail";%>
 

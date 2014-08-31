@@ -11,7 +11,7 @@
 
     <jsp:attribute name="header">
 <div id="statusbarcontent">
-            Welcome, ${user.username} !
+    <p id="welcome"> Welcome, ${user.username} ! </p>
             <a id="account" href="/welcome">Выйти</a>
 
 </div>
@@ -20,7 +20,7 @@
     <jsp:attribute name="carousel"/>
     <jsp:attribute name="footer"/>
     <jsp:body>
-        <body>
+
         <div>
             <h3>Добро пожаловать, ${user.username} в Ваш личный кабинет!</h3>
             <table class="table table-bordered table-hover table-condensed">
@@ -140,7 +140,7 @@
             </div>
 
         </div>
-        </body>
+
     </jsp:body>
 </t:genericpage>
 

@@ -16,7 +16,7 @@
     <link href="../../static/bootstrap.min.css" rel="stylesheet" media="screen">
 
         <div id="logo">
-            <h1><a href="#home" title="Home Page">Сказочный отель на берегу моря <p id="yes">${yes}</p></a></h1>
+            <h1><a href="/" title="Home Page">Сказочный отель на берегу моря <p id="yes">${yes}</p></a></h1>
 
         </div>
         <div id="logo1">

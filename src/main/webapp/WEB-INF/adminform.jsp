@@ -1,22 +1,23 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%! String pageName ="Main";%>
-
-
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>Main page</title>
-    <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
+    <title>Admin Main page</title>
 
-    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
-<body>
-<p>admin form</p>
- <%--<%@include file="adminnav.jspf"%>--%>
+<t:genericpage>
+  <jsp:attribute name="header">
+<div id="statusbarcontent">
+    <p id="welcome"> Welcome, ${user.username} ! </p>
+    <a id="account" href="/welcome">Выйти</a>
 
-
-
+</div>
+    </jsp:attribute>
+<jsp:attribute name="accordion"/>
+<jsp:attribute name="carousel"/>
+<jsp:attribute name="footer"/>
+<jsp:body>
 
     <button  onClick='location.href="/bookingtable"'   type="submit" class="btn">Редактирование Журнала бронирования</button>
     <hr>
@@ -25,7 +26,6 @@
     <button  onClick='location.href="/roomdetail"' type="submit" class="btn">Редактирование параметров комнат</button>
     <hr>
 
-
-
-</body>
+</jsp:body>
+</t:genericpage>
 </html>

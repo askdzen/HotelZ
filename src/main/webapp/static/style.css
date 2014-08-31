@@ -3,6 +3,11 @@ body {
     margin: auto;
     width: 100%;
 }
+div#error {
+    background: url("error.jpg")center no-repeat;
+margin: auto;
+
+}
 div#image1 {
     background: url("img1.jpg") center no-repeat;
     height: 60%;
@@ -87,14 +92,13 @@ form#searchform input[type="password"] {
 a#account{
     float: right;
     padding-top: 7px;
-    width: 150px;
+    width: 250px;
 }
 
 p#welcome {
     float: left;
     padding-top: 7px;
-    padding-left: 150px;
-    width: 150px;
+    width: 350px;
 }
 
 
@@ -202,7 +206,7 @@ form#pagination{
 }
 form#registration{
     width: 50%;
-    float: left;
+
 }
 form#conf{
     float: left;
