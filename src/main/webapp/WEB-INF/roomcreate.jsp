@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Booking Create</title>
+    <title>Room Create</title>
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
@@ -13,42 +13,43 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<h3>Добавление записи о бронировании</h3>
+<h3>Добавление номера/комнаты</h3>
 <form method="post" class="form-horizontal" role="form">
 
     <div class="form-group">
-        <label for="datefrom" class="col-sm-2 control-label">Date From</label>
+        <label for="roomnum" class="col-sm-2 control-label">Room No</label>
 
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="datefrom" name="datefromc" value=""
+            <input type="text" class="form-control" id="roomnum" name="roomnum" value=""
                    placeholder="">
         </div>
     </div>
     <div class="form-group">
-        <label for="dateto" class="col-sm-2 control-label">Date To</label>
+        <label for="type" class="col-sm-2 control-label">Room Type</label>
 
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="dateto" name="datetoc" value=""
-                   placeholder="">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="roomno" class="col-sm-2 control-label">Room No</label>
-
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="roomno" name="roomnoc" value=""
+            <input type="text" class="form-control" id="type" name="type" value=""
                    placeholder="">
         </div>
     </div>
     <div class="form-group">
-        <label for="userid" class="col-sm-2 control-label">User ID</label>
+        <label for="bed" class="col-sm-2 control-label">Bed Type</label>
 
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="userid" name="useridc" value=""
+            <input type="text" class="form-control" id="bed" name="bed" value=""
                    placeholder="">
         </div>
     </div>
+    <div class="form-group">
+        <label for="rate" class="col-sm-2 control-label">Tarif</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="rate" name="rate" value=""
+                   placeholder="">
+        </div>
+    </div>
+
+
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
@@ -59,4 +60,5 @@
 </form>
 </body>
 </html>
+
 

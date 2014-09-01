@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Booking Edit</title>
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
@@ -75,15 +75,7 @@
         </tbody>
     </table>
 
-    <hr>
-
-
-
-
-
 </div>
 
-
-</div>
 </body>
 </html>

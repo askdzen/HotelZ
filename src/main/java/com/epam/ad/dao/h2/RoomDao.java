@@ -15,6 +15,10 @@ import java.util.List;
  * Created by Askar on 06.08.2014.
  */
 public class RoomDao extends AbstractJDBCDao<Room>{
+
+Connection connection;
+
+
     private class PersistRoom extends Room {
         @Override
         public void setId(int ID) {
@@ -113,10 +117,11 @@ try {
 
     public RoomDao(Connection connection) {
         super(connection);
+        this.connection=connection;
     }
 
     @Override
-    public Room create() throws SQLException, DaoException {
+    public Room create() throws DaoException {
         Room room=new Room();
         room.setRoomType("неопред");
         room.setRoomBed("неопр");
@@ -125,5 +130,28 @@ try {
          return persist(room);
     }
 
+    public void createRecord(String roomNo, String roomtype, String bedtype, String tarif) throws  DaoException {
+RoomDao roomDao=new RoomDao(connection);
+        Room room = new Room();
+        room.setRoomNo(Integer.parseInt(roomNo));
+        room.setRoomType(roomtype);
+        room.setRoomBed(bedtype);
+        room.setRoomRate(Integer.parseInt(tarif));
+        room.setId(roomDao.create().getId());
+        roomDao.update(room);
+    }
+    public void updateRecord(String roomNo, String roomType, String bedType, String tarif, String roomId) throws DaoException {
+       RoomDao roomDao = new RoomDao(connection);
+       int roomNoInt=Integer.parseInt(roomNo);
+       int tarifInt=Integer.parseInt(tarif);
+       int id=Integer.parseInt(roomId);
+        Room room=new Room();
+        room.setRoomNo(roomNoInt);
+        room.setRoomType(roomType);
+        room.setRoomBed(bedType);
+        room.setRoomRate(tarifInt);
+        room.setId(id);
+        roomDao.update(room);
+    }
 
 }

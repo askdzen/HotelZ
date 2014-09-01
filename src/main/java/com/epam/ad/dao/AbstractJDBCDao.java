@@ -84,10 +84,11 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
                 throw new DaoException("Exception on findByPK new persist data.");
             }
             persistInstance = list.iterator().next();
+            return persistInstance;
         } catch (Exception e) {
               throw new DaoException("Проблема при создании новой записи",e.getCause());
                     }
-        return persistInstance;
+
     }
 
     @Override

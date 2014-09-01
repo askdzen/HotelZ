@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Booking Update</title>
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
@@ -76,7 +76,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
 
-            <button type="submit" class="btn"> Confirm</button>
+            <button type="submit" class="btn"> Update </button>
         </div>
     </div>
 </form>

@@ -214,4 +214,25 @@ try {
         bookingTableDao.update(bookingTable);
      return bookingTable;
     }
+    public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId) throws DaoException {
+        BookingTableDao bookingTableDao = new BookingTableDao(connection);
+        Date datefromDate=Date.valueOf(dateFrom);
+        Date dateToDate = Date.valueOf(dateTo);
+        int dayCountInt=Integer.parseInt(dayCount);
+        int roomNoInt=Integer.parseInt(roomNo);
+        int userIdInt = Integer.parseInt(userId);
+        BookingTable.Confirm confirmEnum= BookingTable.Confirm.valueOf(confirm);
+        int id=Integer.parseInt(btId);
+
+        BookingTable tableRecord =new BookingTable();
+        tableRecord.setDateFrom(datefromDate);
+        tableRecord.setDateTo(dateToDate);
+        tableRecord.setDayCount(dayCountInt);
+        tableRecord.setRoomNo(roomNoInt);
+        tableRecord.setUserId(userIdInt);
+        tableRecord.setConfirm(confirmEnum);
+        tableRecord.setId(id);
+        bookingTableDao.update(tableRecord);
+
+    }
 }

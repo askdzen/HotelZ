@@ -4,7 +4,7 @@
 
 <div id="paginationtag">
     <jsp:invoke fragment="paginationtag"/>
-    <hr>
+
 
     <form class="form-inline">
         <label for="rows1"> Введите количество строк на странице:</label>

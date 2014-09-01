@@ -16,9 +16,10 @@ public class ActionFactory {
         actions.put("GET/adminform", new ShowPageAction("adminform"));//*
         actions.put("GET/bookingtable", new BookingTableAction());//**осуществляет вывод всех строк таблицы BookingTable и устанавливает атрибуты пагинации
         actions.put("POST/bookingtable",new BookingTableEditAction());// изменяет данные таблицы BookingTable(операции CRUD), а также подтверждает бронирование заказа
-        actions.put("GET/roomdetail", new RoomTableAction());//**
         actions.put("GET/customerdetail", new CustomerTableAction());//**
         actions.put("POST/customerdetail", new CustomerEditAction());//изменяет данные таблицы CustDetail(операции CRUD)
+        actions.put("GET/roomdetail", new RoomTableAction());//**
+        actions.put("POST/roomdetail",new RoomEditAction());
         actions.put("GET/account", new AccountAction()); // ищет в таблице заказов все заказы, залогинившегося пользователя; по полям заказа "ID комнаты" и "ID данных о клиенте" выводит подробности заказа в виде двух табличных строк
         actions.put("GET/welcome", new ShowPageAction("welcome"));//*
         actions.put("POST/welcome", new GetAvailableRoomAction());// выбирает свободный номер для бронирования в соответствии с выбранными пользователем параметрами и перенаправляет на страницу подтверждения и заполнения данных гостя/клиента (если все номера с данными параметрами заняты - выводит соотв. сообщение)
@@ -26,6 +27,10 @@ public class ActionFactory {
         actions.put("POST/reservation", new ConfirmAction());// получает параметры заказа/бронирования и данных клиента и заносит все в соответствующие таблицы (при удачном выполнении переводит на страницу приветствия с оповещением, что номер забронирован)
         actions.put("GET/bookingtablecreate",new ShowPageAction("bookingtablecreate"));
         actions.put("POST/bookingtablecreate",new BookingTableCreateAction());
+        actions.put("GET/customercreate",new ShowPageAction("customercreate"));
+        actions.put("POST/customercreate",new CustomerCreateAction());
+        actions.put("GET/roomcreate",new ShowPageAction("roomcreate"));
+        actions.put("POST/roomcreate",new RoomCreateAction());
 
     }
 

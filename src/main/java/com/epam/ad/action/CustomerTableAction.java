@@ -4,69 +4,64 @@ import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.h2.CustomerDao;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.Customer;
-
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 
 public class CustomerTableAction implements Action {
-    public static final int DEFAULT_PAGE_NUMBER = 1;
-    public static final int DEFAULT_ROWS_COUNT = 10;
-
 
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult customeradmin = new ActionResult("customerdetail");
-            DaoFactory daoFactory = DaoFactory.getInstance();
-            int pageNumber = DEFAULT_PAGE_NUMBER;
-            int rowsCount = DEFAULT_ROWS_COUNT;
-            String pageString = request.getParameter("page");
-            String rowsString = request.getParameter("rows");
-            if (pageString != null) pageNumber = Integer.valueOf(pageString);
-            if (rowsString != null) rowsCount = Integer.valueOf(rowsString);
-
-
+        ActionResult customerupdate = new ActionResult("customerupdate");
+        ActionResult customercreate = new ActionResult("customercreate", true);
+        DaoFactory daoFactory = DaoFactory.getInstance();
         CustomerDao customerDao = null;
         try {
             customerDao = (CustomerDao) daoFactory.getDao(Customer.class);
         } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы Customer",e.getCause());
+            throw new ActionException("Исключение при поиске таблицы Customer", e.getCause());
         }
-
-        List<Customer> tableList = null;
-        try {
-            tableList = customerDao.getRange(pageNumber, rowsCount);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при выводе таблицы Customer с заданными параметрами выводо количества строк",e.getCause());
+        String customerUpdateDataString = request.getParameter("update");
+        String customerCreate = request.getParameter("create");
+        if (customerCreate != null) {
+            return customercreate;
         }
-        List<Customer> pagLenghtList = null;
-        try {
-            pagLenghtList = customerDao.getAll();
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при выводе всех данных таблицы Customer",e.getCause());
+        if (customerUpdateDataString != null) {
+            SetAttributesForUpdate(request, customerDao, customerUpdateDataString);
+            return customerupdate;
+        } else {
+            try {
+                Pagination<Customer, CustomerDao> pagination = new Pagination<>();
+                pagination.executePaginationAction(request, customerDao, "customerdetail");
+                return customeradmin;
+            } catch (DaoException e) {
+                throw new ActionException("Исключение при выводе всех данных таблицы Customer", e.getCause());
+            }
+
         }
-        int tableLenght = pagLenghtList.size();
-            List<Integer> paginationList = new ArrayList<>();
-            for (int i = 0; i < tableLenght / rowsCount + 1; i++) {
-                paginationList.add(i + 1);
-            }
-            if (pageNumber == tableLenght / rowsCount + 1) {
-                request.setAttribute("nextdisabled", "disabled");
-            }
-            if (pageNumber == 1) {
-                request.setAttribute("backdisabled", "disabled");
-            }
-            request.setAttribute("paginationlist", paginationList);
-            request.setAttribute("list", tableList);
-            request.setAttribute("pageNumber", pageNumber);
-            request.setAttribute("rowsCount", rowsCount);
-
-            daoFactory.releaseContext();
-            return customeradmin;
-
     }
 
+    private void SetAttributesForUpdate(HttpServletRequest request, CustomerDao customerDao, String customerUpdateDataString) throws ActionException {
+        int customerUpdateDataId = Integer.parseInt(customerUpdateDataString);
+        Customer tableRecord = null;
+        try {
+            tableRecord = customerDao.getByPK(customerUpdateDataId);
+        } catch (DaoException e) {
+            throw new ActionException("Исключение при поиске таблицы BookingTable", e.getCause());
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("firstname", tableRecord.getFirstName());
+        session.setAttribute("lastname", tableRecord.getLastName());
+        session.setAttribute("city", tableRecord.getCity());
+        session.setAttribute("region", tableRecord.getRegion());
+        session.setAttribute("country", tableRecord.getCountry());
+        session.setAttribute("passport", tableRecord.getPassport());
+        session.setAttribute("phone", tableRecord.getPhone());
+        session.setAttribute("prepayment", tableRecord.getPrepayment());
+        session.setAttribute("bookid", tableRecord.getBookId());
+        session.setAttribute("userid", tableRecord.getUserId());
+        session.setAttribute("customerid", tableRecord.getId());
+    }
 }

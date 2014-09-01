@@ -18,20 +18,23 @@ public class BookingTableCreateAction implements Action {
         } catch (DaoException e) {
             throw new ActionException("Исключение при поиске таблицы BookingTable",e.getCause());
         }
+        getParametersAndCreate(request, bookingTableDao);
+
+        return bookingtable;
+
+    }
+
+    private void getParametersAndCreate(HttpServletRequest request, BookingTableDao bookingTableDao) throws ActionException {
         String dateFrom= request.getParameter("datefromc");
         String dateTo = request.getParameter("datetoc");
         String roomNo = request.getParameter("roomnoc");
         String userId=request.getParameter("useridc");
-        //String confirm=request.getParameter("confirm");
-         int userIdInt = Integer.parseInt(userId);
+        int userIdInt = Integer.parseInt(userId);
         BookingTable.Confirm confirmEnum= BookingTable.Confirm.UNPROCESSED;
         try {
             bookingTableDao.createBookingTableRecord(dateFrom,dateTo,roomNo,userIdInt,false, confirmEnum);
         } catch (DaoException e) {
             throw new ActionException("Исключение при создании записи в таблице BookingTable",e.getCause());
         }
-
-        return bookingtable;
-
     }
 }

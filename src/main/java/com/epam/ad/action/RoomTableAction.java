@@ -6,55 +6,66 @@ import com.epam.ad.dao.h2.RoomDao;
 import com.epam.ad.entity.Room;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class RoomTableAction implements Action {
-    public static final int DEFAULT_PAGE_NUMBER = 1;
-    public static final int DEFAULT_ROWS_COUNT = 10;
+
 
     @Override
 
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult roomadmin = new ActionResult("roomdetail");
+        ActionResult roomdetail = new ActionResult("roomdetail");
+        ActionResult roomupdate = new ActionResult("roomupdate");
+        ActionResult roomcreate = new ActionResult("roomcreate", true);
         DaoFactory daoFactory=DaoFactory.getInstance();
-            int pageNumber = DEFAULT_PAGE_NUMBER;
-            int rowsCount = DEFAULT_ROWS_COUNT;
-            String pageString = request.getParameter("page");
-            String rowsString = request.getParameter("rows");
-            if (pageString != null) pageNumber = Integer.valueOf(pageString);
-            if (rowsString != null) rowsCount = Integer.valueOf(rowsString);
-        RoomDao roomDao = null;
+        RoomDao roomDao=null;
         try {
-            roomDao = (RoomDao) daoFactory.getDao(Room.class);
-            List<Room> tableList = roomDao.getRange(pageNumber, rowsCount);
-            List<Room> pagLenghtList = roomDao.getAll();
-            int tableLenght = pagLenghtList.size();
-            List<Integer> paginationList = new ArrayList<>();
-            for (int i = 0; i < tableLenght / rowsCount + 1; i++) {
-                paginationList.add(i + 1);
-            }
-            if (pageNumber == tableLenght / rowsCount + 1) {
-                request.setAttribute("nextdisabled", "disabled");
-            }
-            if (pageNumber == 1) {
-                request.setAttribute("backdisabled", "disabled");
-            }
-
-            request.setAttribute("paginationlist", paginationList);
-            request.setAttribute("list", tableList);
-            request.setAttribute("pageNumber", pageNumber);
-            request.setAttribute("rowsCount", rowsCount);
-
-            daoFactory.releaseContext();
-            return roomadmin;
+            roomDao=(RoomDao) daoFactory.getDao(Room.class);
         } catch (DaoException e) {
-            throw new ActionException("Исключение при выводе таблицы Room с заданными параметрами выводо количества строк",e.getCause());
+            throw new ActionException("Исключение при попытке получить данные таблицы Room",e.getCause());
+        }
+        String roomUpdateDataString = request.getParameter("update");
+        String roomCreate = request.getParameter("create");
+        if (roomCreate !=null){
+            return roomcreate;
+        }
+        if (roomUpdateDataString!=null){
+            setAttributesForUpdate(request, roomDao, roomUpdateDataString);
+            return roomupdate;
+        }else {
+            try {
+                Pagination<Room, RoomDao> pagination = new Pagination<>();
+                pagination.executePaginationAction(request, roomDao, "roomdetail");
+                return roomdetail;
+
+            } catch (DaoException e) {
+                throw new ActionException("Исключение при выводе таблицы BookingTable с заданными параметрами вывода количества строк ", e.getCause());
+            }
         }
 
+    }
+
+    private void setAttributesForUpdate(HttpServletRequest request, RoomDao roomDao, String roomUpdateDataString) throws ActionException {
+        int bookingtableUpdateDataId = Integer.parseInt(roomUpdateDataString);
+        Room tableRecord = null;
+        try {
+            tableRecord = roomDao.getByPK(bookingtableUpdateDataId);
+        } catch (DaoException e) {
+            throw new ActionException("Исключение при поиске таблицы Room", e.getCause());
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("roomno",tableRecord.getRoomNo());
+        session.setAttribute("roomtype",tableRecord.getRoomType());
+        session.setAttribute("bedtype",tableRecord.getRoomBed());
+        session.setAttribute("tarif",tableRecord.getRoomRate());
+        session.setAttribute("roomid",tableRecord.getId());
 
     }
+
 
 }
