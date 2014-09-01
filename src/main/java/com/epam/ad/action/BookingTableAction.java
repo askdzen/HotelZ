@@ -86,6 +86,7 @@ public class BookingTableAction implements Action {
                  request.setAttribute("list", tableList);
                  request.setAttribute("pageNumber", pageNumber);
                  request.setAttribute("rowsCount", rowsCount);
+                 request.setAttribute("pagename","bookingtable");
                  daoFactory.releaseContext();
                  return bookingtableadmin;
              } catch (DaoException e) {
