@@ -22,7 +22,6 @@ public class CustomerEditAction implements Action {
         ActionResult customerDetail = new ActionResult("customerdetail", true);
         String customerDelete = request.getParameter("delete");
         DaoManager daoManager=new DaoManager();
-     //   DaoFactory daoFactory = DaoFactory.getInstance();
         CustomerDao customerDao= null;
         customerDao = daoManager.getCustomerDao();
         if (customerDelete !=null){
@@ -31,8 +30,6 @@ public class CustomerEditAction implements Action {
         }
 
         ActionResult result=getParametersAndUpdate(request,daoManager);
-
-      //  daoFactory.releaseContext();
         return result;
     }
 

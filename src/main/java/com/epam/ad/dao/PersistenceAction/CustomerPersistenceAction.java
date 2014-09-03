@@ -111,7 +111,7 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
         this.id = id;
     }
 
-    private String inputFirstName;
+   private String inputFirstName;
    private String inputLastName;
    private String inputCity;
    private String inputRegion;

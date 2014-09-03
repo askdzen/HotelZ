@@ -14,15 +14,12 @@ public class CustomerCreateAction implements Action{
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-
-       // DaoFactory daoFactory=DaoFactory.getInstance();
        ActionResult result= getParametersAndCreate(request);
-      //  daoFactory.releaseContext();
-        return result;
-
+       return result;
     }
 
     private ActionResult getParametersAndCreate(HttpServletRequest request) throws ActionException {
+        DaoManager daoManager=new DaoManager();
         ActionResult customerdetail=new ActionResult("customerdetail",true);
         ActionResult customercreate = new ActionResult("customercreate");
         String inputFirstName = request.getParameter("inputFirstNamec");
@@ -51,25 +48,9 @@ public class CustomerCreateAction implements Action{
             return customercreate;
         }
         int prepayment = (Integer.parseInt(inputPrepayment));
-        DaoManager daoManager=new DaoManager();
-        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
-        persistenceAction.setInputFirstName(inputFirstName);
-        persistenceAction.setInputLastName(inputLastName);
-        persistenceAction.setInputCity(inputCity);
-        persistenceAction.setInputRegion(inputRegion);
-        persistenceAction.setInputCountry(inputCountry);
-        persistenceAction.setInputPassport(inputPassport);
-        persistenceAction.setInputPhone(inputPhone);
-        persistenceAction.setInputEmail(inputEmail);
-        persistenceAction.setPrepayment(prepayment);
-        persistenceAction.setUserId(userId);
-        persistenceAction.setBookId(bookId);
-        try {
-            persistenceAction.doCreateAction();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
-
+        daoManager.getCustomerDao().createCustomerWithDaoManager(daoManager,inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, bookId, userId, prepayment);
         return customerdetail;
     }
+
+
 }

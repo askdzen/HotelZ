@@ -77,7 +77,22 @@ public abstract class PersistenceActionBase {
             throw new DaoException(e.getCause());
         }
     }
+    public void doAction() throws DaoException {
+        try {
+            this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException {
+                    doPersistenceAction(daoManager);
+                    return null;
+                }
+            });
+        } catch (SQLException e) {
+            throw new DaoException(e.getCause());
+        }
+    }
 
+    protected void   doPersistenceAction(DaoManager daoManager) throws DaoException {
+    }
     protected void   doDeletePersistenceAction(DaoManager daoManager) throws DaoException {
     }
     protected void   doCreatePersistenceAction(DaoManager daoManager) throws DaoException {

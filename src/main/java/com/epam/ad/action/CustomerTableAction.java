@@ -1,6 +1,7 @@
 package com.epam.ad.action;
 
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.CustomerDao;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.Customer;
@@ -16,28 +17,23 @@ public class CustomerTableAction implements Action {
         ActionResult customeradmin = new ActionResult("customerdetail");
         ActionResult customerupdate = new ActionResult("customerupdate");
         ActionResult customercreate = new ActionResult("customercreate", true);
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        CustomerDao customerDao = null;
-        try {
-            customerDao = (CustomerDao) daoFactory.getDao(Customer.class);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы Customer", e.getCause());
-        }
+        DaoManager daoManager=new DaoManager();
+        CustomerDao customerDao = daoManager.getCustomerDao();
         String customerUpdateDataString = request.getParameter("update");
         String customerCreate = request.getParameter("create");
         if (customerCreate != null) {
-            daoFactory.releaseContext();
+            daoManager.releaseConnection();
             return customercreate;
         }
         if (customerUpdateDataString != null) {
             SetAttributesForUpdate(request, customerDao, customerUpdateDataString);
-            daoFactory.releaseContext();
+            daoManager.releaseConnection();
             return customerupdate;
         } else {
             try {
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
-                daoFactory.releaseContext();
+                daoManager.releaseConnection();
                 return customeradmin;
             } catch (DaoException e) {
                 throw new ActionException("Исключение при выводе всех данных таблицы Customer", e.getCause());

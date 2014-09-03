@@ -222,4 +222,23 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
             throw new DaoException("Исключение при обновлении записи таблицы Customer",e.getCause());
         }
     }
+    public void createCustomerWithDaoManager(DaoManager daoManager,String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment) {
+        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
+        persistenceAction.setInputFirstName(inputFirstName);
+        persistenceAction.setInputLastName(inputLastName);
+        persistenceAction.setInputCity(inputCity);
+        persistenceAction.setInputRegion(inputRegion);
+        persistenceAction.setInputCountry(inputCountry);
+        persistenceAction.setInputPassport(inputPassport);
+        persistenceAction.setInputPhone(inputPhone);
+        persistenceAction.setInputEmail(inputEmail);
+        persistenceAction.setPrepayment(prepayment);
+        persistenceAction.setUserId(userId);
+        persistenceAction.setBookId(bookId);
+        try {
+            persistenceAction.doCreateAction();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
 }
