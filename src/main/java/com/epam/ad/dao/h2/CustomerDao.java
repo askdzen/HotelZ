@@ -2,7 +2,9 @@ package com.epam.ad.dao.h2;
 
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.Identified;
+import com.epam.ad.dao.PersistenceAction.CustomerPersistenceAction;
 import com.epam.ad.entity.Customer;
 
 import java.sql.Connection;
@@ -198,5 +200,26 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
         customer.setId(id);
         customerDao.update(customer);
 
+    }
+    public void updateWithDaoManager(DaoManager daoManager, String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int userId, int bookId, int prepayment, int id) throws  DaoException {
+        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
+        persistenceAction.setInputFirstName(inputFirstName);
+        persistenceAction.setInputLastName(inputLastName);
+        persistenceAction.setInputCity(inputCity);
+        persistenceAction.setInputRegion(inputRegion);
+        persistenceAction.setInputCountry(inputCountry);
+        persistenceAction.setInputPassport(inputPassport);
+        persistenceAction.setInputPhone(inputPhone);
+        persistenceAction.setInputEmail(inputEmail);
+        persistenceAction.setPrepayment(prepayment);
+        persistenceAction.setUserId(userId);
+        persistenceAction.setBookId(bookId);
+        persistenceAction.setId(id);
+        try {
+            persistenceAction.doUpdateAction();
+
+        } catch (Exception e) {
+            throw new DaoException("Исключение при обновлении записи таблицы Customer",e.getCause());
+        }
     }
 }

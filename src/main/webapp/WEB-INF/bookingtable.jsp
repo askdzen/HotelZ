@@ -36,7 +36,7 @@
 
             <tr>
                 <td>${bt.dateFrom}</td>
-                <td>"${bt.dateTo}</td>
+                <td>${bt.dateTo}</td>
                 <td>${bt.dayCount}</td>
                 <td>${bt.roomNo}</td>
                 <td>${bt.userId}</td>

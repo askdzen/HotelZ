@@ -58,9 +58,9 @@ public class DaoFactory implements com.epam.ad.dao.DaoFactory<Connection> {
 
         ConnectionPool.dispose();
     }
-    public DaoManager createDaoManager(){
-        return new DaoManager(connection);
-    }
+//    public DaoManager createDaoManager(){
+//        return new DaoManager(connection);
+//    }
 
     public DaoFactory() {
 

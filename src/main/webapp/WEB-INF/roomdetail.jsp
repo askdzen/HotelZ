@@ -33,7 +33,7 @@
             <tr>
                 <td>${roomI.id}</td>
                 <td>${roomI.roomNo}</td>
-                <td>"${roomI.roomType}</td>
+                <td>${roomI.roomType}</td>
                 <td>${roomI.roomBed}</td>
                 <td>${roomI.roomRate}</td>
                 <td>

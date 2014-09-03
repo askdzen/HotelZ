@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class TestDaoManager {
     public static void main(String[] args) throws SQLException, DaoException {
 //        DaoFactory daoFactory=new DaoFactory();
-        DaoManager daoManager= DaoFactory.getInstance().createDaoManager();
+        DaoManager daoManager= new DaoManager();
 
             Customer customer = (Customer) daoManager.executeAndClose(new DaoManager.DaoCommand() {
                 @Override
@@ -20,11 +20,11 @@ public class TestDaoManager {
                     return  daoManager.getCustomerDao().getByPK(98);
                 }
             });
-        DaoManager daoManager1=DaoFactory.getInstance().createDaoManager();
+        DaoManager daoManager1=new DaoManager();
         BookingTable table= (BookingTable) daoManager1.executeAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException {
-                return daoManager.getBookingTableDao().getByPK(167);
+                return daoManager.getBookingTableDao().getByPK(189);
             }
         });
             System.out.println(customer.getFirstName());

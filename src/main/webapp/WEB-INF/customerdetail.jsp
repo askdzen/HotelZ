@@ -41,17 +41,17 @@
 
         <tr>
             <td>${cust.id}</td>
-            <td>"${cust.firstName}</td>
+            <td>${cust.firstName}</td>
             <td>${cust.lastName}</td>
             <td>${cust.city}</td>
             <td>${cust.region}</td>
-            <td>"${cust.country}</td>
+            <td>${cust.country}</td>
             <td>${cust.passport}</td>
             <td>${cust.phone}</td>
             <td>${cust.email}</td>
-            <td>"${cust.prepayment}</td>
-            <td>"${cust.bookId}</td>
-            <td>"${cust.userId}</td>
+            <td>${cust.prepayment}</td>
+            <td>${cust.bookId}</td>
+            <td>${cust.userId}</td>
             <td>
                 <form method="get">
                     <button type="submit" name="update" value="${cust.id}">Edit</button>

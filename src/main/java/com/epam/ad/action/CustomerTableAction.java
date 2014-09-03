@@ -26,15 +26,18 @@ public class CustomerTableAction implements Action {
         String customerUpdateDataString = request.getParameter("update");
         String customerCreate = request.getParameter("create");
         if (customerCreate != null) {
+            daoFactory.releaseContext();
             return customercreate;
         }
         if (customerUpdateDataString != null) {
             SetAttributesForUpdate(request, customerDao, customerUpdateDataString);
+            daoFactory.releaseContext();
             return customerupdate;
         } else {
             try {
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
+                daoFactory.releaseContext();
                 return customeradmin;
             } catch (DaoException e) {
                 throw new ActionException("Исключение при выводе всех данных таблицы Customer", e.getCause());

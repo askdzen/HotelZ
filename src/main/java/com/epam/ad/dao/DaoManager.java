@@ -2,6 +2,7 @@ package com.epam.ad.dao;
 
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.CustomerDao;
+import com.epam.ad.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,9 +12,12 @@ public class DaoManager {
     protected Connection connection = null;
     protected BookingTableDao bookingTableDao = null;
     protected CustomerDao customerDao = null;
+    protected ConnectionPool pool;
 
-    public DaoManager(Connection connection) {
-        this.connection = connection;
+    public DaoManager() {
+        ConnectionPool.init();
+        this.pool = ConnectionPool.getInstance();
+        this.connection = pool.takeConnection();
     }
 
     public CustomerDao getCustomerDao() {
@@ -35,7 +39,7 @@ public class DaoManager {
             return command.execute(this);
         } finally {
 
-            this.connection.close();
+            this.pool.releaseConnection(connection);
 
         }
     }
@@ -68,7 +72,9 @@ public class DaoManager {
             }
         });
 
-
     }
-
+    public void releaseConnection()  {
+        pool.releaseConnection(connection);
+        ConnectionPool.dispose();
+    }
 }

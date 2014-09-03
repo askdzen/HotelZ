@@ -14,10 +14,10 @@
 
     <h3>Пожалуйста введите данные: </h3>
 
-    <form method="post" class="form-horizontal" role="form">
+    <form id="registration" method="post" class="form-horizontal" role="form">
 
         <div class="form-group">
-            <label for="inputFirstName" class="col-sm-2 control-label">First name</label>
+            <label  for="inputFirstName" class="col-sm-2 control-label">First name</label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" value="${firstname}"
@@ -85,7 +85,8 @@
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="inputPrepayment" name="inputPrepayment" value="${prepayment}"
-                       placeholder="inputPrepayment">
+                       placeholder="inputPrepayment">${prepaymentisnull}
+
             </div>
         </div>
         <div class="form-group">
@@ -93,7 +94,7 @@
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="inputBookId" name="inputBookId" value="${bookid}"
-                       placeholder="inputBookId">
+                       placeholder="inputBookId">${bookidisempty}
             </div>
         </div>
         <div class="form-group">
@@ -101,10 +102,10 @@
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="userId" name="userId" value="${userid}"
-                       placeholder="inputBookId">
+                       placeholder="inputBookId">${useridisempty}
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden="hidden">
             <label for="customerId" class="col-sm-2 control-label">Customer Id</label>
 
             <div class="col-sm-10">
