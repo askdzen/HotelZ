@@ -2,6 +2,8 @@ package com.epam.ad.dao.h2;
 
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
+import com.epam.ad.dao.PersistenceAction.BookingPersistenceAction;
 import com.epam.ad.entity.BookingTable;
 
 
@@ -21,19 +23,19 @@ public class BookingTableDao extends AbstractJDBCDao<BookingTable>{
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM FROM BOOKINGTABLE";
+        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED FROM BOOKINGTABLE";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO BOOKINGTABLE(DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM) \n" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        return "INSERT INTO BOOKINGTABLE(DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED /) \n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
         return "UPDATE BOOKINGTABLE \n" +
-                "SET DATE_FRO = ?, DATE_TO = ?, NO_OF_DAY = ?, ROOM_NO = ?, USER_ID=?, CONFIRMED=?, CONFIRM=? \n" +
+                "SET DATE_FRO = ?, DATE_TO = ?, NO_OF_DAY = ?, ROOM_NO = ?, USER_ID=?, CONFIRMED=?, CONFIRM=?, ISDELETED=? \n" +
                 "WHERE ID = ?;";
     }
 
@@ -57,6 +59,7 @@ public class BookingTableDao extends AbstractJDBCDao<BookingTable>{
                 bookingTable.setUserId(rs.getInt("USER_ID"));
                 bookingTable.setConfirmed(rs.getBoolean("CONFIRMED"));
                 bookingTable.setConfirm((BookingTable.Confirm) rs.getObject("CONFIRM"));
+                bookingTable.setDelete(rs.getBoolean("ISDELETED"));
         //        bookingTable.setDelete(rs.getBoolean("DEL"));
                 result.add(bookingTable);
 
@@ -81,8 +84,8 @@ public class BookingTableDao extends AbstractJDBCDao<BookingTable>{
             statement.setInt(5, object.getUserId());
             statement.setBoolean(6, object.isConfirmed());
             statement.setObject(7, object.getConfirm());
-   //         statement.setBoolean(8,object.isDelete());
-            statement.setInt(8, object.getId());
+            statement.setBoolean(8,object.isDelete());
+            statement.setInt(9, object.getId());
 
         } catch (SQLException e) {
            throw  new DaoException("Исключение при обновлении таблицы BookingTable",e.getCause());
@@ -106,7 +109,7 @@ try {
     statement.setInt(5,userId);
     statement.setBoolean(6,object.isConfirmed());
     statement.setObject(7,object.getConfirm());
-  //  statement.setBoolean(8,object.isDelete());
+    statement.setBoolean(8,object.isDelete());
 
 } catch (SQLException e) {
 
@@ -136,7 +139,7 @@ try {
     @Override
     public String getSelectQueryForRange() {
         //todo PreparedStatement
-        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM FROM BOOKINGTABLE ORDER BY ID LIMIT ? OFFSET ?;";
+        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED FROM BOOKINGTABLE WHERE ISDELETED=FALSE ORDER BY ID LIMIT ? OFFSET ?;";
     }
     public List<BookingTable> getByUserId(int key) throws DaoException {
             List<BookingTable> list;
@@ -197,23 +200,23 @@ try {
             throw new DaoException("Исключение при создании списка дат в указанном интервале",e.getCause());
         }
     }
-    public BookingTable createBookingTableRecord(String dateFrom, String dateTo, String roomId, int userId, boolean confirmed, BookingTable.Confirm confirm) throws DaoException {
-        BookingTableDao bookingTableDao = new BookingTableDao(connection);
-        BookingTable bookingTable=new BookingTable();
-        Date dateFromSql = Date.valueOf(dateFrom);
-        Date dateToSql = Date.valueOf(dateTo);
-        bookingTable.setDateFrom(dateFromSql);
-        bookingTable.setDateTo(dateToSql);
-        bookingTable.setDayCount((int) (dateToSql.getTime() - dateFromSql.getTime()) / (24 * 60 * 60 * 1000));
-        bookingTable.setRoomNo(Integer.valueOf(roomId));
-        bookingTable.setUserId(userId);
-        bookingTable.setConfirmed(confirmed);
-        bookingTable.setConfirm(confirm);
-      //  bookingTable.setDelete(false);
-        bookingTable.setId(bookingTableDao.create().getId());
-        bookingTableDao.update(bookingTable);
-     return bookingTable;
-    }
+//    public BookingTable createBookingTableRecord(String dateFrom, String dateTo, String roomId, int userId, boolean confirmed, BookingTable.Confirm confirm) throws DaoException {
+//        BookingTableDao bookingTableDao = new BookingTableDao(connection);
+//        BookingTable bookingTable=new BookingTable();
+//        Date dateFromSql = Date.valueOf(dateFrom);
+//        Date dateToSql = Date.valueOf(dateTo);
+//        bookingTable.setDateFrom(dateFromSql);
+//        bookingTable.setDateTo(dateToSql);
+//        bookingTable.setDayCount((int) (dateToSql.getTime() - dateFromSql.getTime()) / (24 * 60 * 60 * 1000));
+//        bookingTable.setRoomNo(Integer.valueOf(roomId));
+//        bookingTable.setUserId(userId);
+//        bookingTable.setConfirmed(confirmed);
+//        bookingTable.setConfirm(confirm);
+//      //  bookingTable.setDelete(false);
+//        bookingTable.setId(bookingTableDao.create().getId());
+//        bookingTableDao.update(bookingTable);
+//     return bookingTable;
+//    }
     public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId) throws DaoException {
         BookingTableDao bookingTableDao = new BookingTableDao(connection);
         Date datefromDate=Date.valueOf(dateFrom);
@@ -235,4 +238,19 @@ try {
         bookingTableDao.update(tableRecord);
 
     }
+    public void createBookingWithDaoManager(DaoManager daoManager,String dateFrom, String dateTo, String roomNo, String userId) throws DaoException {
+        BookingPersistenceAction persistenceAction=new BookingPersistenceAction(daoManager);
+        persistenceAction.setDateFrom(dateFrom);
+        persistenceAction.setDateTo(dateTo);
+        persistenceAction.setRoomNo(roomNo);
+        persistenceAction.setUserId(userId);
+
+        try {
+            persistenceAction.doCreateAction();
+
+        } catch (Exception e) {
+            throw new DaoException("Исключение при создании записи BookingTable",e.getCause());
+        }
+    }
+
 }

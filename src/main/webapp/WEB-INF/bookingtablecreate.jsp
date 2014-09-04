@@ -38,7 +38,7 @@
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="roomno" name="roomnoc" value=""
-                   placeholder="">
+                   placeholder="">${roomidisempty}
         </div>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="userid" name="useridc" value=""
-                   placeholder="">
+                   placeholder="">${useridisempty}
         </div>
     </div>
 

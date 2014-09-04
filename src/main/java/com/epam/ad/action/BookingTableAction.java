@@ -1,6 +1,7 @@
 package com.epam.ad.action;
 
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.BookingTable;
@@ -21,26 +22,30 @@ public class BookingTableAction implements Action {
         ActionResult bookingtableadmin = new ActionResult("bookingtable");
         ActionResult bookingtableupdate = new ActionResult("bookingtableupdate");
         ActionResult bookingtablecreate = new ActionResult("bookingtablecreate", true);
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        BookingTableDao bookingTableDao = null;
-        try {
-            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при запросе к таблице BookingTable", e.getCause());
-        }
+//        DaoFactory daoFactory = DaoFactory.getInstance();
+//        BookingTableDao bookingTableDao = null;
+//        try {
+//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
+//        } catch (DaoException e) {
+//            throw new ActionException("Исключение при запросе к таблице BookingTable", e.getCause());
+//        }
         String bookingtableUpdateDataString = request.getParameter("update");
         String bookingtableCreate = request.getParameter("create");
-
+        DaoManager daoManager=new DaoManager();
+        BookingTableDao bookingTableDao=daoManager.getBookingTableDao();
         if (bookingtableCreate != null) {
+            daoManager.releaseConnection();
             return bookingtablecreate;
         }
         if (bookingtableUpdateDataString != null) {
             setAttributesForUpdate(request, bookingTableDao, bookingtableUpdateDataString);
+            daoManager.releaseConnection();
             return bookingtableupdate;
         } else {
             try {
                 Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, bookingTableDao, "bookingtable");
+                daoManager.releaseConnection();
                 return bookingtableadmin;
 
             } catch (DaoException e) {

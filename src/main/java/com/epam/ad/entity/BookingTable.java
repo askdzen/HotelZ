@@ -18,7 +18,7 @@ public class BookingTable implements Identified {
     private Integer userId;
     private boolean confirmed;
     private Confirm confirm;
-    private boolean delete;
+    private boolean isDeleted;
     public static List<BookingTable>tableList=new ArrayList<BookingTable>();
 
     public Integer getUserId() {
@@ -38,11 +38,11 @@ public class BookingTable implements Identified {
     }
 
     public boolean isDelete() {
-        return delete;
+        return isDeleted;
     }
 
     public void setDelete(boolean delete) {
-        this.delete = delete;
+        this.isDeleted = delete;
     }
 
     public List<BookingTable> getTableList() {

@@ -26,6 +26,7 @@ public class CustomerEditAction implements Action {
         customerDao = daoManager.getCustomerDao();
         if (customerDelete !=null){
             customerDelete(customerDelete, customerDao);
+            daoManager.releaseConnection();
             return customerDetail;
         }
 

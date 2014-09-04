@@ -8,9 +8,7 @@ import com.epam.ad.entity.Customer;
 
 import java.sql.Date;
 
-/**
- * Created by Askar on 03.09.2014.
- */
+
 public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
     public void setBookId(int bookId) {
         this.bookId = bookId;
@@ -28,9 +26,6 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
         this.dateTo = dateTo;
     }
 
-    public void setDayCount(String dayCount) {
-        this.dayCount = dayCount;
-    }
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -76,15 +71,12 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
         this.prepayment = prepayment;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+
 
     private int bookId;
     private String roomNo;
     private String dateFrom;
     private String  dateTo;
-    private String dayCount;
     private String userId;
     private String confirm;
     private String inputFirstName;
@@ -96,7 +88,7 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
     private String inputPhone;
     private String inputEmail;
     private int prepayment;
-    private int customerId;
+
 
     public ConfirmTransactionPersistenceAction(DaoManager daoManager) {
         super(daoManager);
