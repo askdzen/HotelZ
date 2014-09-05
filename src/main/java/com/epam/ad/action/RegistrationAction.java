@@ -29,23 +29,24 @@ public class RegistrationAction implements Action {
             request.setAttribute("badparol", "Не правильно подтвержден пароль!");
             return registration;
         }
-
-        UserDao userDao = null;
+           DaoFactory daoFactory=new DaoFactory();
+            UserDao userDao = daoFactory.createDaoManager().getUserDao();
+        List<User> users = null;
         try {
-            userDao = (UserDao) DaoFactory.getInstance().getDao(User.class);
-            List<User> users = new ArrayList<>(userDao.getAll());
-            for (User user : users) {
+            users = new ArrayList<>(userDao.getAll());
+        } catch (DaoException e) {
+            throw new ActionException("Исключение при сполучении данных из таблицы User",e.getCause());
+        }
+        for (User user : users) {
                 if (user.getUsername().equals(username)) {
                     request.setAttribute("badusername", "Пользователь с таким именем уже существует!");
                     return registration;
                 }
 
             }
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы User",e.getCause());
-        }
 
-        User newUser = createUser(username, password);
+
+        User newUser = createUser(username, password, userDao);
         HttpSession session = request.getSession();
 
         session.setAttribute("user", newUser);
@@ -55,18 +56,18 @@ public class RegistrationAction implements Action {
 
     }
 
-    private User createUser(String username, String password) throws ActionException {
-        DaoFactory daoFactory=DaoFactory.getInstance();
-        UserDao userDao1 = null;
+    private User createUser(String username, String password, UserDao userDao) throws ActionException {
+     //   DaoFactory daoFactory=DaoFactory.getInstance();
+     //   UserDao userDao1 = null;
         try {
-            userDao1 = (UserDao) daoFactory.getDao(User.class);
+        //    userDao = (UserDao) daoFactory.getDao(User.class);
             User newUser = new User();
-            Identified pk = userDao1.create();
+            Identified pk = userDao.create();
             newUser.setUsername(username);
             newUser.setPassword(password);
             newUser.setRole("CLIENT");
             newUser.setId((Integer) pk.getId());
-            userDao1.update(newUser);
+            userDao.update(newUser);
             return newUser;
         } catch (DaoException e) {
             throw new ActionException("Исключение при создании записи в таблице User",e.getCause());

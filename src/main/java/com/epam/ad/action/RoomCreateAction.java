@@ -12,7 +12,7 @@ public class RoomCreateAction implements Action {
     public ActionResult execute(HttpServletRequest request) throws ActionException {
 
         ActionResult roomdetail=new ActionResult("roomdetail",true);
-        DaoFactory daoFactory=DaoFactory.getInstance();
+        DaoFactory daoFactory=new DaoFactory();
         getParametersAndCreate(request, daoFactory);
         daoFactory.releaseContext();
         return roomdetail;

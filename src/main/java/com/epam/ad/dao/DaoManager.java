@@ -2,6 +2,8 @@ package com.epam.ad.dao;
 
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.CustomerDao;
+import com.epam.ad.dao.h2.RoomDao;
+import com.epam.ad.dao.h2.UserDao;
 import com.epam.ad.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -12,12 +14,14 @@ public class DaoManager {
     protected Connection connection = null;
     protected BookingTableDao bookingTableDao = null;
     protected CustomerDao customerDao = null;
-    protected ConnectionPool pool;
+    protected RoomDao roomDao=null;
+    protected UserDao userDao=null;
+    //protected ConnectionPool pool;
 
-    public DaoManager() {
-        ConnectionPool.init();
-        this.pool = ConnectionPool.getInstance();
-        this.connection = pool.takeConnection();
+    public DaoManager(Connection connection) {
+      //  ConnectionPool.init();
+      //  this.pool = ConnectionPool.getInstance();
+        this.connection = connection;
     }
 
     public CustomerDao getCustomerDao() {
@@ -33,13 +37,32 @@ public class DaoManager {
         }
         return this.bookingTableDao;
     }
+    public RoomDao getRoomDao() {
+        if (this.roomDao == null) {
+            this.roomDao = new RoomDao(this.connection);
+        }
+        return roomDao;
+    }
 
-    public Object executeAndClose(DaoCommand command) throws DaoException, SQLException {
+    public UserDao getUserDao(){
+        if (this.userDao==null){
+            this.userDao=new UserDao(this.connection);
+        }
+        return userDao;
+    }
+
+    public Object executeAndClose(DaoCommand command) throws DaoException {
         try {
             return command.execute(this);
+        } catch (SQLException e) {
+            throw  new DaoException("Исключение при выполнении команды DAO Manager",e.getCause());
         } finally {
 
-            this.pool.releaseConnection(connection);
+            try {
+                this.connection.close();
+            } catch (SQLException e) {
+                throw  new DaoException("Исключение при закрытии соединения",e.getCause());
+            }
 
         }
     }
@@ -63,7 +86,7 @@ public class DaoManager {
         }
     }
 
-    public void transactionAndClose(DaoCommand command) throws SQLException, DaoException {
+    public void transactionAndClose(DaoCommand command) throws DaoException {
         executeAndClose(new DaoCommand() {
 
             public Object execute(DaoManager daoManager) throws DaoException, SQLException {
@@ -73,8 +96,5 @@ public class DaoManager {
         });
 
     }
-    public void releaseConnection()  {
-        pool.releaseConnection(connection);
-        ConnectionPool.dispose();
-    }
+
 }

@@ -10,7 +10,8 @@ import java.sql.SQLException;
  */
 public class TestTransaction {
     public static void main(String[] args) throws SQLException, DaoException {
-        DaoManager daoManager= new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager= daoFactory.createDaoManager();
         daoManager.transaction(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException {

@@ -45,7 +45,7 @@ public class ConfirmAction implements Action {
         int prepayment = (Integer.parseInt(inputPrepayment) * 50) / 100;
         int userId = user.getId();
         BookingTable.Confirm confirm= BookingTable.Confirm.UNPROCESSED;
-      //  DaoFactory daoFactory=DaoFactory.getInstance();
+        DaoFactory daoFactory=new DaoFactory();
 //        BookingTableDao bookingTableDao= null;
 //        try {
 //            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
@@ -78,7 +78,7 @@ public class ConfirmAction implements Action {
 //
 //        daoManager.releaseConnection();
 
-        DaoManager daoManager=new DaoManager();
+        DaoManager daoManager=daoFactory.createDaoManager();
         ConfirmTransactionPersistenceAction transactionPersistenceAction =new ConfirmTransactionPersistenceAction(daoManager);
         transactionPersistenceAction.setDateFrom(dateFrom);
         transactionPersistenceAction.setDateTo(dateTo);

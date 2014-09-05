@@ -11,8 +11,8 @@ import java.sql.SQLException;
  */
 public class TestDaoManager {
     public static void main(String[] args) throws SQLException, DaoException {
-//        DaoFactory daoFactory=new DaoFactory();
-        DaoManager daoManager= new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager= daoFactory.createDaoManager();
 
             Customer customer = (Customer) daoManager.executeAndClose(new DaoManager.DaoCommand() {
                 @Override
@@ -20,7 +20,7 @@ public class TestDaoManager {
                     return  daoManager.getCustomerDao().getByPK(98);
                 }
             });
-        DaoManager daoManager1=new DaoManager();
+        DaoManager daoManager1=daoFactory.createDaoManager();
         BookingTable table= (BookingTable) daoManager1.executeAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException {

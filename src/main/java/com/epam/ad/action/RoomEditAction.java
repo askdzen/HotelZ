@@ -16,7 +16,7 @@ public class RoomEditAction implements Action {
 
         ActionResult roomdetail = new ActionResult("roomdetail", true);
         String roomDeleteString = request.getParameter("delete");
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        DaoFactory daoFactory = new DaoFactory();
         RoomDao roomDao= null;
         try {
             roomDao = (RoomDao) daoFactory.getDao(Room.class);

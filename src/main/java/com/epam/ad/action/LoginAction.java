@@ -21,15 +21,12 @@ public class LoginAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req) throws ActionException {
-       DaoFactory daoFactory=DaoFactory.getInstance();
+       DaoFactory daoFactory=new DaoFactory();
         String username = req.getParameter(USERNAME);
         String password = req.getParameter(PASSWORD);
         UserDao userDao = null;
-        try {
-            userDao = (UserDao) daoFactory.getDao(User.class);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы User",e.getCause());
-        }
+        userDao = daoFactory.createDaoManager().getUserDao();
+
         User user = userDao.findByCredentials(username, password);
         if (user == null) {
             return login;

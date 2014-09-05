@@ -7,6 +7,7 @@ import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.Customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 public class CustomerTableAction implements Action {
@@ -17,23 +18,26 @@ public class CustomerTableAction implements Action {
         ActionResult customeradmin = new ActionResult("customerdetail");
         ActionResult customerupdate = new ActionResult("customerupdate");
         ActionResult customercreate = new ActionResult("customercreate", true);
-        DaoManager daoManager=new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager=daoFactory.createDaoManager();
+
         CustomerDao customerDao = daoManager.getCustomerDao();
+
         String customerUpdateDataString = request.getParameter("update");
         String customerCreate = request.getParameter("create");
         if (customerCreate != null) {
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return customercreate;
         }
         if (customerUpdateDataString != null) {
-            SetAttributesForUpdate(request, customerDao, customerUpdateDataString);
-            daoManager.releaseConnection();
+            SetAttributesForUpdate(request, daoManager.getCustomerDao(), customerUpdateDataString);
+            daoFactory.releaseContext();
             return customerupdate;
         } else {
             try {
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
-                daoManager.releaseConnection();
+                daoFactory.releaseContext();
                 return customeradmin;
             } catch (DaoException e) {
                 throw new ActionException("Исключение при выводе всех данных таблицы Customer", e.getCause());

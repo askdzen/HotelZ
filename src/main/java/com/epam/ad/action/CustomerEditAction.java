@@ -21,12 +21,13 @@ public class CustomerEditAction implements Action {
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult customerDetail = new ActionResult("customerdetail", true);
         String customerDelete = request.getParameter("delete");
-        DaoManager daoManager=new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager=daoFactory.createDaoManager();
         CustomerDao customerDao= null;
         customerDao = daoManager.getCustomerDao();
         if (customerDelete !=null){
             customerDelete(customerDelete, customerDao);
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return customerDetail;
         }
 

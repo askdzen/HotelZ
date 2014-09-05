@@ -8,7 +8,7 @@ import com.epam.ad.entity.Room;
  */
 public class TestRoomCreate {
     public static void main(String[] args) {
-        DaoFactory daoFactory=DaoFactory.getInstance();
+        DaoFactory daoFactory=new DaoFactory();
         RoomDao roomDao = null;
         try {
             roomDao = (RoomDao) daoFactory.getDao(Room.class);

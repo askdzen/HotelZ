@@ -19,7 +19,8 @@ public class CustomerCreateAction implements Action{
     }
 
     private ActionResult getParametersAndCreate(HttpServletRequest request) throws ActionException {
-        DaoManager daoManager=new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager=daoFactory.createDaoManager();
         ActionResult customerdetail=new ActionResult("customerdetail",true);
         ActionResult customercreate = new ActionResult("customercreate");
         String inputFirstName = request.getParameter("inputFirstNamec");

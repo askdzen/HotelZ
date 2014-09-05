@@ -18,4 +18,5 @@ public class SessionListener implements
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
         httpSessionEvent.getSession();
     }
+
 }

@@ -21,7 +21,7 @@ public class RoomTableAction implements Action {
         ActionResult roomdetail = new ActionResult("roomdetail");
         ActionResult roomupdate = new ActionResult("roomupdate");
         ActionResult roomcreate = new ActionResult("roomcreate", true);
-        DaoFactory daoFactory=DaoFactory.getInstance();
+        DaoFactory daoFactory=new DaoFactory();
         RoomDao roomDao=null;
         try {
             roomDao=(RoomDao) daoFactory.getDao(Room.class);

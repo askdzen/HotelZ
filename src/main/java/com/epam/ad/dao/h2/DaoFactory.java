@@ -14,20 +14,16 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Askar on 06.08.2014.
- */
+
 public class DaoFactory implements com.epam.ad.dao.DaoFactory<Connection> {
     private Map<Class, DaoCreator> creators;
-    private static DaoFactory instance = new DaoFactory();
-    public static DaoFactory getInstance(){
-              instance.getContext();
-              return instance;
-    }
-    private Connection connection;
+    //ConnectionPool pool = getPool();
+
+     private Connection connection=getContext();
+
     @Override
     public Connection getContext() {
-        ConnectionPool.init();
+     //   ConnectionPool.init();
         ConnectionPool pool = getPool();
         Connection connection = pool.takeConnection();
         this.connection=connection;
@@ -56,39 +52,41 @@ public class DaoFactory implements com.epam.ad.dao.DaoFactory<Connection> {
         ConnectionPool pool=getPool();
         pool.releaseConnection(connection);
 
-        ConnectionPool.dispose();
+       // ConnectionPool.dispose();
     }
-//    public DaoManager createDaoManager(){
-//        return new DaoManager(connection);
-//    }
+    public DaoManager createDaoManager(){
+       // connection = getContext();
+        return new DaoManager(connection);
+    }
 
     public DaoFactory() {
+       // this.getContext();
 
-        creators = new HashMap<Class, DaoCreator>();
-        creators.put(Room.class, new DaoCreator<Connection>() {
-            @Override
-            public RoomDao create(Connection connection) {
-                return new RoomDao(connection);
-            }
-        });
-        creators.put(Customer.class, new DaoCreator<Connection>() {
-            @Override
-            public CustomerDao create(Connection connection) {
-                return new CustomerDao(connection);
-            }
-        });
-        creators.put(BookingTable.class, new DaoCreator<Connection>() {
-            @Override
-            public BookingTableDao create(Connection connection) {
-                return new BookingTableDao(connection);
-            }
-        });
-        creators.put(User.class, new DaoCreator<Connection>() {
-            @Override
-            public UserDao create(Connection connection) {
-                return new UserDao(connection);
-            }
-        });
+//        creators = new HashMap<Class, DaoCreator>();
+//        creators.put(Room.class, new DaoCreator<Connection>() {
+//            @Override
+//            public RoomDao create(Connection connection) {
+//                return new RoomDao(connection);
+//            }
+//        });
+//        creators.put(Customer.class, new DaoCreator<Connection>() {
+//            @Override
+//            public CustomerDao create(Connection connection) {
+//                return new CustomerDao(connection);
+//            }
+//        });
+//        creators.put(BookingTable.class, new DaoCreator<Connection>() {
+//            @Override
+//            public BookingTableDao create(Connection connection) {
+//                return new BookingTableDao(connection);
+//            }
+//        });
+//        creators.put(User.class, new DaoCreator<Connection>() {
+//            @Override
+//            public UserDao create(Connection connection) {
+//                return new UserDao(connection);
+//            }
+//        });
 
 
     }

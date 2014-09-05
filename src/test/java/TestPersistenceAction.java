@@ -10,7 +10,8 @@ import java.sql.SQLException;
  */
 public class TestPersistenceAction {
     public static void main(String[] args) throws DaoException, SQLException {
-        DaoManager daoManager= new DaoManager();
+        DaoFactory daoFactory=new DaoFactory();
+        DaoManager daoManager= daoFactory.createDaoManager();
         CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
         persistenceAction.setId(78);
         persistenceAction.setBookId(1);

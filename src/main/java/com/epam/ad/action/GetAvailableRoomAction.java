@@ -40,10 +40,10 @@ public class GetAvailableRoomAction implements Action {
         session.setAttribute("singledouble", bedNo);
         request.setAttribute("registrationGood", "");
      //   LOGGER.info(date1 + " " + date2 + " " + roomType + " " + bedNo);
-            DaoFactory daoFactory=DaoFactory.getInstance();
-            List<Room> roomList = getRooms();
+            DaoFactory daoFactory=new DaoFactory();
+            List<Room> roomList = getRooms(daoFactory);
             List<Room> selectedRooms = getUserSelectedRooms(roomType, bedNo, roomList);
-            List<BookingTable> bookingRecords = selectRoomsByDate(date1, date2);
+            List<BookingTable> bookingRecords = selectRoomsByDate(date1, date2,daoFactory);
         RoomDao roomDao = null;
         try {
             roomDao = (RoomDao) daoFactory.getDao(Room.class);
@@ -92,14 +92,9 @@ public class GetAvailableRoomAction implements Action {
         }
    }
 
-    private List<BookingTable> selectRoomsByDate(String date1, String date2) throws ActionException {
+    private List<BookingTable> selectRoomsByDate(String date1, String date2,DaoFactory daoFactory) throws ActionException {
 
-        BookingTableDao bookingTableDao = null;
-        try {
-            bookingTableDao = (BookingTableDao) DaoFactory.getInstance().getDao(BookingTable.class);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы Room",e.getCause());
-        }
+        BookingTableDao bookingTableDao=daoFactory.createDaoManager().getBookingTableDao();
         List<BookingTable> bookingTables = null;
         try {
             bookingTables = bookingTableDao.getByDateIntervalId(date1,date2);
@@ -122,16 +117,14 @@ public class GetAvailableRoomAction implements Action {
         return selectedRooms;
     }
 
-    private List<Room> getRooms() throws ActionException {
-        DaoFactory daoFactory=DaoFactory.getInstance();
-        RoomDao roomDao = null;
+    private List<Room> getRooms(DaoFactory daoFactory) throws ActionException {
+
+       RoomDao roomDao = daoFactory.createDaoManager().getRoomDao();
         try {
-            roomDao = (RoomDao) daoFactory.getDao(Room.class);
             return roomDao.getAll();
         } catch (DaoException e) {
             throw new ActionException("Исключение при поиске таблицы Room",e.getCause());
         }
     }
-
 
 }

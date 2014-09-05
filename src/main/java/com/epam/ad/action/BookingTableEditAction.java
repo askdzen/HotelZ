@@ -18,7 +18,7 @@ public class BookingTableEditAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult bookingtable=new ActionResult("bookingtable",true);
-//        DaoFactory daoFactory=DaoFactory.getInstance();
+        DaoFactory daoFactory=new DaoFactory();
 //        BookingTableDao bookingTableDao= null;
 //        try {
 //            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
@@ -29,27 +29,27 @@ public class BookingTableEditAction implements Action {
         String bookingtableConfirmedIdString=request.getParameter("confirm");
         String bookingtableUnConfirmedIdString=request.getParameter("unconfirm");
         String bookingtableDelete = request.getParameter("delete");
-        DaoManager daoManager=new DaoManager();
+        DaoManager daoManager=daoFactory.createDaoManager();
 
         if (bookingtableConfirmedIdString !=null){
               bookConfirm(daoManager, bookingtableConfirmedIdString, BookingTable.Confirm.CONFIRM);
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return bookingtable;
 
         }
         if (bookingtableUnConfirmedIdString !=null){
             bookConfirm(daoManager, bookingtableUnConfirmedIdString, BookingTable.Confirm.UNCONFIRM);
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return bookingtable;
         }
         if (bookingtableUnprocessedString !=null){
            bookConfirm(daoManager,bookingtableUnprocessedString, BookingTable.Confirm.UNPROCESSED);
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return bookingtable;
         }
         if (bookingtableDelete !=null){
             bookDelete(daoManager, bookingtableDelete);
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
 //            daoFactory.releaseContext();
             return bookingtable;
        }

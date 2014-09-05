@@ -13,7 +13,7 @@ public class BookingTableCreateAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
 
-//        DaoFactory daoFactory=DaoFactory.getInstance();
+
 //        BookingTableDao bookingTableDao= null;
 //        try {
 //            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
@@ -26,6 +26,7 @@ public class BookingTableCreateAction implements Action {
     }
 
     private ActionResult getParametersAndCreate(HttpServletRequest request) throws ActionException {
+        DaoFactory daoFactory=new DaoFactory();
         ActionResult bookingtable=new ActionResult("bookingtable",true);
         ActionResult createBooking=new ActionResult("bookingtablecreate");
         String dateFrom= request.getParameter("datefromc");
@@ -41,7 +42,7 @@ public class BookingTableCreateAction implements Action {
             request.setAttribute("roomidisempty","Введите ID бронируемой комнаты!");
             return createBooking;
         }
-        DaoManager daoManager=new DaoManager();
+        DaoManager daoManager=daoFactory.createDaoManager();
         try {
             daoManager.getBookingTableDao().createBookingWithDaoManager(daoManager, dateFrom, dateTo, roomNo, userId);
         } catch (DaoException e) {

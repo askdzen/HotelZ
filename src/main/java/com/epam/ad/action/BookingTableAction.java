@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 
 public class BookingTableAction implements Action {
@@ -22,7 +23,7 @@ public class BookingTableAction implements Action {
         ActionResult bookingtableadmin = new ActionResult("bookingtable");
         ActionResult bookingtableupdate = new ActionResult("bookingtableupdate");
         ActionResult bookingtablecreate = new ActionResult("bookingtablecreate", true);
-//        DaoFactory daoFactory = DaoFactory.getInstance();
+        DaoFactory daoFactory = new DaoFactory();
 //        BookingTableDao bookingTableDao = null;
 //        try {
 //            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
@@ -31,21 +32,26 @@ public class BookingTableAction implements Action {
 //        }
         String bookingtableUpdateDataString = request.getParameter("update");
         String bookingtableCreate = request.getParameter("create");
-        DaoManager daoManager=new DaoManager();
-        BookingTableDao bookingTableDao=daoManager.getBookingTableDao();
+        DaoManager daoManager=daoFactory.createDaoManager();
+        BookingTableDao bookingTableDao= null;
+        try {
+            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
+        } catch (DaoException e) {
+            throw new ActionException(e.getCause());
+        }
         if (bookingtableCreate != null) {
-            daoManager.releaseConnection();
+            daoFactory.releaseContext();
             return bookingtablecreate;
         }
         if (bookingtableUpdateDataString != null) {
-            setAttributesForUpdate(request, bookingTableDao, bookingtableUpdateDataString);
-            daoManager.releaseConnection();
+            setAttributesForUpdate(request, bookingTableDao, bookingtableUpdateDataString,daoManager);
+            daoFactory.releaseContext();
             return bookingtableupdate;
         } else {
             try {
                 Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, bookingTableDao, "bookingtable");
-                daoManager.releaseConnection();
+                daoFactory.releaseContext();
                 return bookingtableadmin;
 
             } catch (DaoException e) {
@@ -55,23 +61,28 @@ public class BookingTableAction implements Action {
         }
     }
 
-    private void setAttributesForUpdate(HttpServletRequest request, BookingTableDao bookingTableDao, String bookingtableUpdateDataString) throws ActionException {
-        int bookingtableUpdateDataId = Integer.parseInt(bookingtableUpdateDataString);
-        BookingTable tableRecord = null;
+    private void setAttributesForUpdate(HttpServletRequest request, BookingTableDao bookingTableDao, String bookingtableUpdateDataString,DaoManager daoManager) throws ActionException {
         try {
-            tableRecord = bookingTableDao.getByPK(bookingtableUpdateDataId);
+            daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException {
+                    int bookingtableUpdateDataId = Integer.parseInt(bookingtableUpdateDataString);
+                    BookingTable tableRecord=bookingTableDao.getByPK(bookingtableUpdateDataId);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("datefrom", tableRecord.getDateFrom());
+                    session.setAttribute("dateto", tableRecord.getDateTo());
+                    session.setAttribute("daycount", tableRecord.getDayCount());
+                    session.setAttribute("roomno", tableRecord.getRoomNo());
+                    session.setAttribute("userid", tableRecord.getUserId());
+                    session.setAttribute("confirmupdate", tableRecord.getConfirm());
+                    session.setAttribute("btid", tableRecord.getId());
+                    return null;
+                }
+            });
         } catch (DaoException e) {
             throw new ActionException("Исключение при поиске таблицы BookingTable", e.getCause());
         }
-        //  System.out.println(tableRecord.getId());
-        HttpSession session = request.getSession();
-        session.setAttribute("datefrom", tableRecord.getDateFrom());
-        session.setAttribute("dateto", tableRecord.getDateTo());
-        session.setAttribute("daycount", tableRecord.getDayCount());
-        session.setAttribute("roomno", tableRecord.getRoomNo());
-        session.setAttribute("userid", tableRecord.getUserId());
-        session.setAttribute("confirmupdate", tableRecord.getConfirm());
-        session.setAttribute("btid", tableRecord.getId());
+
     }
 
 
