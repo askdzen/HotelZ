@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class LoginAction implements Action {
@@ -33,11 +34,27 @@ public class LoginAction implements Action {
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
                     String username = req.getParameter(USERNAME);
                     String password = req.getParameter(PASSWORD);
-
+                    if (username.isEmpty()||password.isEmpty()){
+                        req.setAttribute("badusername","Введите логин и пароль!");
+                        result=login;
+                        return result;
+                    }
                     UserDao userDao = null;
                     userDao = daoManager.getUserDao();
-
+                    boolean validation=false;
+                    List<User>users=userDao.getAll();
+                    for (User user : users) {
+                        if (user.getUsername().equals(username)&&user.getPassword().equals(password)){
+                            validation=true;
+                        }
+                    }
+                    if (!validation){
+                        req.setAttribute("badusername","Вы ввели не правильный логин или пароль!");
+                        result=login;
+                        return result;
+                    }
                     User user = userDao.findByCredentials(username, password);
+
                 if (user == null) {
                     result= login;
                     return result;

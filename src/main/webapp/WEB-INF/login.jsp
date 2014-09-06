@@ -19,7 +19,7 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-
+<h3 align="center">${badusername}</h3>
     </jsp:attribute>
 
     <jsp:attribute name="accordion">
