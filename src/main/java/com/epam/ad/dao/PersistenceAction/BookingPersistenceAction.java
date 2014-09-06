@@ -15,6 +15,8 @@ public class BookingPersistenceAction extends PersistenceActionBase {
     private String dayCount;
     private String userId;
     private String confirm;
+    private boolean isDeleted;
+
 
     public BookingPersistenceAction(DaoManager daoManager) {
         super(daoManager);
@@ -46,6 +48,14 @@ public class BookingPersistenceAction extends PersistenceActionBase {
 
     public void setConfirm(String confirm) {
         this.confirm = confirm;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public int getId() {
@@ -88,7 +98,8 @@ public class BookingPersistenceAction extends PersistenceActionBase {
         bookingTable.setRoomNo(Integer.valueOf(roomNo));
         bookingTable.setUserId(Integer.valueOf(userId));
         bookingTable.setConfirm(BookingTable.Confirm.UNPROCESSED);
-        //  bookingTable.setDelete(false);
+        isDeleted = false;
+        bookingTable.setDelete(isDeleted);
         bookingTable.setId(bookingTable.getId());
         daoManager.getBookingTableDao().update(bookingTable);
 
@@ -110,6 +121,7 @@ public class BookingPersistenceAction extends PersistenceActionBase {
         if (getRoomNo()!=null)booking.setRoomNo(roomNoInt);
         if (getUserId()!=null)booking.setUserId(userIdInt);
         if (getConfirm()!=null)booking.setConfirm(confirmEnum);
+         booking.setDelete(isDeleted);
         if (getId()!=0)booking.setId(id);
         daoManager.getBookingTableDao().update(booking);
     }

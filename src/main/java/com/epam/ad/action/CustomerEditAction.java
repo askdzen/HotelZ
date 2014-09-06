@@ -26,23 +26,29 @@ public class CustomerEditAction implements Action {
         CustomerDao customerDao= null;
         customerDao = daoManager.getCustomerDao();
         if (customerDelete !=null){
-            customerDelete(customerDelete, customerDao);
+            customerDelete(customerDelete, daoManager);
             daoFactory.releaseContext();
             return customerDetail;
         }
 
         ActionResult result=getParametersAndUpdate(request,daoManager);
+        daoFactory.releaseContext();
         return result;
     }
 
-    private void customerDelete(String customerDelete, CustomerDao customerDao) throws ActionException {
-        //  tableRecord.setDelete(true);
-        // bookingTableDao.update(tableRecord);
+    private void customerDelete(String customerDelete, DaoManager daoManager) throws ActionException {
         try {
+            daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
+                    int customerRecordDeleteId=Integer.parseInt(customerDelete);
+                    Customer customer = daoManager.getCustomerDao().getByPK(customerRecordDeleteId);
+                    customer.setIsDeleted(true);
+                    daoManager.getCustomerDao().update(customer);
+                    return null;
+                }
+            });
 
-            int customerRecordDeleteId=Integer.parseInt(customerDelete);
-            Customer tableRecord = customerDao.getByPK(customerRecordDeleteId);
-            customerDao.delete(tableRecord);
         } catch (DaoException e) {
             throw new ActionException("Исключение при удалении записи таблицы Customer",e.getCause());
         }
@@ -65,6 +71,7 @@ public class CustomerEditAction implements Action {
         String customerId=request.getParameter("customerId");
         if (inputBookId.isEmpty()){
             request.setAttribute("bookidisempty","Введите ID заказа клиента!");
+
             return customerUpdate;
         }
         if (inputUserId.isEmpty()){

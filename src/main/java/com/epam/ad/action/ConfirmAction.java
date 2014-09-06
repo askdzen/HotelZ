@@ -46,37 +46,6 @@ public class ConfirmAction implements Action {
         int userId = user.getId();
         BookingTable.Confirm confirm= BookingTable.Confirm.UNPROCESSED;
         DaoFactory daoFactory=new DaoFactory();
-//        BookingTableDao bookingTableDao= null;
-//        try {
-//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-//
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при поиске таблицы BookingTable",e.getCause());
-//        }
-
-//        boolean confirmed = false;
-//
-//        BookingTable bookingTable = null;
-//        try {
-//            bookingTable = daoManager.getBookingTableDao().createBookingTableRecord(dateFrom, dateTo, roomId, userId, confirmed, confirm);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при создании записи в таблице BookingTable",e.getCause());
-//        }
-//        int bookId=(bookingTable.getId());
-//        CustomerDao customerDao= null;
-//        try {
-//            customerDao = (CustomerDao) daoFactory.getDao(Customer.class);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при поиске таблицы Customer",e.getCause());
-//        }
-
-//        try {
-//            daoManager.getCustomerDao().createCustomerRecord(inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, prepayment, bookId, userId);
-//        } catch (DaoException e) {
-//            e.printStackTrace();
-//        }
-//
-//        daoManager.releaseConnection();
 
         DaoManager daoManager=daoFactory.createDaoManager();
         ConfirmTransactionPersistenceAction transactionPersistenceAction =new ConfirmTransactionPersistenceAction(daoManager);
@@ -100,7 +69,7 @@ public class ConfirmAction implements Action {
         } catch (DaoException e) {
             throw new ActionException("Исключение при выполнении транзакции",e.getCause());
         }
-
+        daoFactory.releaseContext();
         return reservation;
     }
 

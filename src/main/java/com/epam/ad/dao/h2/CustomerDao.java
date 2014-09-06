@@ -1,5 +1,6 @@
 package com.epam.ad.dao.h2;
 
+import com.epam.ad.action.ActionException;
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
@@ -24,24 +25,24 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID FROM CUSTDETAIL";
+        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID, ISDELETED FROM CUSTDETAIL";
     }
 
     @Override
     public String getSelectQueryForRange() {
-        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID FROM CUSTDETAIL ORDER BY ID LIMIT ? OFFSET ?;";
+        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID, ISDELETED FROM CUSTDETAIL ORDER BY ID LIMIT ? OFFSET ?;";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO  CUSTDETAIL(NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID) \n" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        return "INSERT INTO  CUSTDETAIL(NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID, ISDELETED) \n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
         return "UPDATE  CUSTDETAIL \n" +
-                "SET NAME = ?, LAST_NAME = ?, CITY = ?, REGION = ?, COUNTRY= ?, PASSPORT= ?, PHONE= ?, EMAIL= ?,  PREPAYMENT= ?, BOOK_ID= ?, USER_ID= ? \n" +
+                "SET NAME = ?, LAST_NAME = ?, CITY = ?, REGION = ?, COUNTRY= ?, PASSPORT= ?, PHONE= ?, EMAIL= ?,  PREPAYMENT= ?, BOOK_ID= ?, USER_ID= ?, ISDELETED=? \n" +
                 "WHERE ID = ?;";
     }
 
@@ -69,6 +70,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
                 customer.setPrepayment(rs.getInt("PREPAYMENT"));
                 customer.setBookId(rs.getInt("BOOK_ID"));
                 customer.setUserId(rs.getInt("USER_ID"));
+                customer.setIsDeleted(rs.getBoolean("ISDELETED"));
                 result.add(customer);
             }
         } catch (SQLException e) {
@@ -98,7 +100,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
             statement.setInt(9, object.getPrepayment());
             statement.setInt(10, bookId);
             statement.setInt(11, userId);
-
+            statement.setBoolean(12, object.isDeleted());
         } catch (SQLException e) {
             throw new DaoException("Исключение при вводе данных в таблицу Customer",e.getCause());
         }
@@ -118,7 +120,8 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
                 statement.setInt(9, object.getPrepayment());
                 statement.setInt(10, object.getBookId());
                 statement.setInt(11, object.getUserId());
-                statement.setInt(12, object.getId());
+                statement.setBoolean(12,object.isDeleted());
+                statement.setInt(13, object.getId());
             } catch (SQLException e) {
                 throw new DaoException("Исключение при обновлении данных таблицы Customer",e.getCause());
             }
@@ -215,6 +218,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
         persistenceAction.setUserId(userId);
         persistenceAction.setBookId(bookId);
         persistenceAction.setId(id);
+
         try {
             persistenceAction.doUpdateAction();
 
@@ -222,7 +226,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
             throw new DaoException("Исключение при обновлении записи таблицы Customer",e.getCause());
         }
     }
-    public void createCustomerWithDaoManager(DaoManager daoManager,String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment) {
+    public void createCustomerWithDaoManager(DaoManager daoManager,String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment) throws ActionException {
         CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
         persistenceAction.setInputFirstName(inputFirstName);
         persistenceAction.setInputLastName(inputLastName);

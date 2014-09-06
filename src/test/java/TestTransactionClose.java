@@ -1,3 +1,4 @@
+import com.epam.ad.action.ActionException;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
  * Created by Askar on 30.08.2014.
  */
 public class TestTransactionClose {
-    public static void main(String[] args) throws SQLException, DaoException {
+    public static void main(String[] args) throws SQLException, DaoException, ActionException {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
         daoManager.transactionAndClose(new DaoManager.DaoCommand() {

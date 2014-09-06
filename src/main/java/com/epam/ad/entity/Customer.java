@@ -23,6 +23,8 @@ public class Customer implements Identified{
     private Integer userId;
     private List<Customer>customers=new ArrayList<Customer>();
 
+    private boolean isDeleted;
+
     public Integer getUserId() {
         return userId;
     }
@@ -125,5 +127,13 @@ public class Customer implements Identified{
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
     }
 }

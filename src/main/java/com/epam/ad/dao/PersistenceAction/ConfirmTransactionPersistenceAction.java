@@ -26,7 +26,6 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
         this.dateTo = dateTo;
     }
 
-
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -71,8 +70,6 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
         this.prepayment = prepayment;
     }
 
-
-
     private int bookId;
     private String roomNo;
     private String dateFrom;
@@ -110,7 +107,6 @@ public class ConfirmTransactionPersistenceAction extends PersistenceActionBase {
         bookingTable.setRoomNo(Integer.valueOf(roomNo));
         bookingTable.setUserId(Integer.valueOf(userId));
         bookingTable.setConfirm(BookingTable.Confirm.CONFIRM.valueOf(confirm));
-        //  bookingTable.setDelete(false);
         bookingTable.setId(bookingTable.getId());
         this.bookId=bookingTable.getId();
         daoManager.getBookingTableDao().update(bookingTable);

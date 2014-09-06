@@ -33,12 +33,12 @@ public class BookingTableAction implements Action {
         String bookingtableUpdateDataString = request.getParameter("update");
         String bookingtableCreate = request.getParameter("create");
         DaoManager daoManager=daoFactory.createDaoManager();
-        BookingTableDao bookingTableDao= null;
-        try {
-            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-        } catch (DaoException e) {
-            throw new ActionException(e.getCause());
-        }
+        BookingTableDao bookingTableDao= daoManager.getBookingTableDao();
+//        try {
+//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
+//        } catch (DaoException e) {
+//            throw new ActionException(e.getCause());
+//        }
         if (bookingtableCreate != null) {
             daoFactory.releaseContext();
             return bookingtablecreate;

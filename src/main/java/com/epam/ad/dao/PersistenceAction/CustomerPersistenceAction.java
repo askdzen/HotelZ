@@ -111,7 +111,15 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
         this.id = id;
     }
 
-   private String inputFirstName;
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    private String inputFirstName;
    private String inputLastName;
    private String inputCity;
    private String inputRegion;
@@ -123,7 +131,7 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
    private int userId;
    private int prepayment;
    private int id;
-
+   private boolean isDeleted;
     protected void doUpdatePersistenceAction(DaoManager daoManager) throws DaoException {
         Customer customer=daoManager.getCustomerDao().getByPK(id);
         if (getInputFirstName()!=null)customer.setFirstName(inputFirstName);
@@ -137,6 +145,7 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
         if (getPrepayment()!=null)customer.setPrepayment(prepayment);
         if (getBookId()!=null)customer.setBookId(bookId);
         if (getUserId()!=null)customer.setUserId(userId);
+        if (!isDeleted())customer.setIsDeleted(isDeleted);
         if (getId()!=null)customer.setId(id);
         daoManager.getCustomerDao().update(customer);
     }
@@ -156,6 +165,7 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
         customer.setPrepayment(prepayment);
         customer.setUserId(userId);
         customer.setBookId(bookId);
+        customer.setIsDeleted(isDeleted);
         customer.setId(customer.getId());
         daoManager.getCustomerDao().update(customer);
     }

@@ -19,12 +19,6 @@ public class BookingTableEditAction implements Action {
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult bookingtable=new ActionResult("bookingtable",true);
         DaoFactory daoFactory=new DaoFactory();
-//        BookingTableDao bookingTableDao= null;
-//        try {
-//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при поиске таблицы BookingTable",e.getCause());
-//        }
         String bookingtableUnprocessedString = request.getParameter("unprocessed");
         String bookingtableConfirmedIdString=request.getParameter("confirm");
         String bookingtableUnConfirmedIdString=request.getParameter("unconfirm");
@@ -50,14 +44,11 @@ public class BookingTableEditAction implements Action {
         if (bookingtableDelete !=null){
             bookDelete(daoManager, bookingtableDelete);
             daoFactory.releaseContext();
-//            daoFactory.releaseContext();
             return bookingtable;
        }
 
         getParametersAndUpdate(request, daoManager);
         return bookingtable;
-
-
 
     }
 
@@ -82,28 +73,23 @@ public class BookingTableEditAction implements Action {
         } catch (DaoException e) {
             throw new ActionException("Исключение при обновлении записи таблицы BookingTable",e.getCause());
         }
-//        try {
-//            bookingTableDao.updateRecord(dateFrom, dateTo, dayCount, roomNo, userId, confirm, btId);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при обновлении записи таблицы BookingTable",e.getCause());
-//        }
+
     }
 
     private void bookDelete(DaoManager daoManager, String bookingtableDelete) throws ActionException {
         int bookingRecordDeleteId=Integer.parseInt(bookingtableDelete);
-//        BookingTable tableRecord = null;
-//        try {
-//            tableRecord = bookingTableDao.getByPK(bookingRecordDeleteId);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при поиске записи по ключу в таблице BookingTable",e.getCause());
-//        }
-        //  tableRecord.setDelete(true);
-        // bookingTableDao.update(tableRecord);
+
         try {
-            BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingRecordDeleteId);
-           // daoManager.getBookingTableDao().delete(booking);
-            booking.setDelete(true);
-          daoManager.getBookingTableDao().update(booking);
+            daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
+                    BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingRecordDeleteId);
+                    booking.setDelete(true);
+                    daoManager.getBookingTableDao().update(booking);
+                    return null;
+                }
+            });
+
         } catch (DaoException e) {
             throw new ActionException("Исключение при удалении записи таблицы BookingTable",e.getCause());
         }
@@ -111,23 +97,7 @@ public class BookingTableEditAction implements Action {
 
     private void bookConfirm(DaoManager daoManager, String bookingtableConfirmVar, BookingTable.Confirm confirm) throws ActionException {
         int bookingtableConfirmId=Integer.parseInt(bookingtableConfirmVar);
-//        BookingTable tableRecord= null;
-//        try {
-//            tableRecord = bookingTableDao.getByPK(bookingtableConfirmId);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при поиске записи по ключу в таблице BookingTable",e.getCause());
-//        }
 
-//        try {
-////            BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingtableConfirmId);
-////            booking.setConfirmed(true);
-////            booking.setConfirm(BookingTable.Confirm.CONFIRM);
-////            bookingTableDao.update(booking);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при обновлении таблицы BookingTable",e.getCause());
-//        }finally {
-//            daoFactory.releaseContext();
-//        }
         try {
         BookingPersistenceAction persistenceAction=new BookingPersistenceAction(daoManager);
         BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingtableConfirmId);

@@ -1,6 +1,8 @@
 package com.epam.ad.dao;
 
 
+import com.epam.ad.action.ActionException;
+
 import java.sql.SQLException;
 
 public abstract class PersistenceActionBase {
@@ -9,7 +11,7 @@ public abstract class PersistenceActionBase {
     public PersistenceActionBase(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
-    public void doUpdateAction() throws  DaoException {
+    public void doUpdateAction() throws DaoException, ActionException {
         this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException, SQLException {
@@ -19,7 +21,7 @@ public abstract class PersistenceActionBase {
         });
     }
 
-    public void doCreateAction() throws DaoException {
+    public void doCreateAction() throws DaoException, ActionException {
         this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException, SQLException {
@@ -31,7 +33,7 @@ public abstract class PersistenceActionBase {
 
 
 
-    public void doDeleteAction() throws DaoException {
+    public void doDeleteAction() throws DaoException, ActionException {
         this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException {
@@ -40,7 +42,7 @@ public abstract class PersistenceActionBase {
             }
         });
     }
-    public void doAction() throws DaoException {
+    public void doAction() throws DaoException, ActionException {
         this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
             @Override
             public Object execute(DaoManager daoManager) throws DaoException {

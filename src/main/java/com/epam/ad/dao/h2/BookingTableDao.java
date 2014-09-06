@@ -28,7 +28,7 @@ public class BookingTableDao extends AbstractJDBCDao<BookingTable>{
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO BOOKINGTABLE(DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED /) \n" +
+        return "INSERT INTO BOOKINGTABLE(DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED ) \n" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
@@ -217,7 +217,7 @@ try {
 //        bookingTableDao.update(bookingTable);
 //     return bookingTable;
 //    }
-    public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId) throws DaoException {
+    public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId, String isDeleted) throws DaoException {
         BookingTableDao bookingTableDao = new BookingTableDao(connection);
         Date datefromDate=Date.valueOf(dateFrom);
         Date dateToDate = Date.valueOf(dateTo);
@@ -226,7 +226,7 @@ try {
         int userIdInt = Integer.parseInt(userId);
         BookingTable.Confirm confirmEnum= BookingTable.Confirm.valueOf(confirm);
         int id=Integer.parseInt(btId);
-
+        boolean isDeletedBool=Boolean.parseBoolean(isDeleted);
         BookingTable tableRecord =new BookingTable();
         tableRecord.setDateFrom(datefromDate);
         tableRecord.setDateTo(dateToDate);
@@ -234,6 +234,7 @@ try {
         tableRecord.setRoomNo(roomNoInt);
         tableRecord.setUserId(userIdInt);
         tableRecord.setConfirm(confirmEnum);
+        tableRecord.setDelete(isDeletedBool);
         tableRecord.setId(id);
         bookingTableDao.update(tableRecord);
 
@@ -244,6 +245,7 @@ try {
         persistenceAction.setDateTo(dateTo);
         persistenceAction.setRoomNo(roomNo);
         persistenceAction.setUserId(userId);
+
 
         try {
             persistenceAction.doCreateAction();

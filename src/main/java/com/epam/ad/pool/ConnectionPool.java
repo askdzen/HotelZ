@@ -84,27 +84,34 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
+        ResourceBundle rb = ResourceBundle.getBundle(PROPERTIES_FILE);
         try {
             if (!connection.isClosed()) {
                 if (!connectionQueue.offer(connection)) {
                     //"Connection not added. Possible `leakage` of
                     // connections"
-//                    connection.close();
-//                    connectionQueue.put(connection);
 
-                    System.out.println("нет больше конекшенов" + connectionQueue.size());
+
+
+ //                   System.out.println("нет больше конекшенов" + connectionQueue.size());
                 }
-                System.out.println("пришел не закрытый конекшн" + connectionQueue.size());
-            } else if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
-                //"Trying to release closed connection. Possible
-                // `leakage` of connections"
-                ResourceBundle rb = ResourceBundle.getBundle(PROPERTIES_FILE);
-              //  String driver = rb.getString("db.driver");
+                if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
+              //  connection.close();
                 String url = rb.getString("db.url");
                 String user = rb.getString("db.user");
                 String password = rb.getString("db.password");
                 connection = DriverManager.getConnection(url, user, password);
-               connectionQueue.put(connection);
+                connectionQueue.put(connection);
+                System.out.println("пришел не закрытый конекшн" + connectionQueue.size());}
+            } else if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
+                //"Trying to release closed connection. Possible
+                // `leakage` of connections"
+                //  String driver = rb.getString("db.driver");
+                String url = rb.getString("db.url");
+                String user = rb.getString("db.user");
+                String password = rb.getString("db.password");
+                connection = DriverManager.getConnection(url, user, password);
+                connectionQueue.put(connection);
 
                 System.out.println("пришел закрытый конекшн" + connectionQueue.size());
             }

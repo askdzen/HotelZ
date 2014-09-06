@@ -1,6 +1,7 @@
 package com.epam.ad.action;
 
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.dao.h2.RoomDao;
@@ -41,29 +42,39 @@ public class GetAvailableRoomAction implements Action {
         request.setAttribute("registrationGood", "");
      //   LOGGER.info(date1 + " " + date2 + " " + roomType + " " + bedNo);
             DaoFactory daoFactory=new DaoFactory();
-            List<Room> roomList = getRooms(daoFactory);
-            List<Room> selectedRooms = getUserSelectedRooms(roomType, bedNo, roomList);
-            List<BookingTable> bookingRecords = selectRoomsByDate(date1, date2,daoFactory);
-        RoomDao roomDao = null;
+        DaoManager daoManager=daoFactory.createDaoManager();
         try {
-            roomDao = (RoomDao) daoFactory.getDao(Room.class);
+            daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
+
+                    List<Room> roomList = getRooms(daoFactory);
+                    List<Room> selectedRooms = getUserSelectedRooms(roomType, bedNo, roomList);
+                    List<BookingTable> bookingRecords  = selectRoomsByDate(date1, date2,daoFactory);
+                    RoomDao roomDao = daoManager.getRoomDao();
+                    Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords);
+                    for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
+                        System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
+                        if ((entry.getKey()==0)){
+                            request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
+                            daoFactory.releaseContext();
+                            return welcome;
+                        }
+                        try {
+                            session.setAttribute("randomRoom", roomDao.getByPK(entry.getKey()));
+                        } catch (DaoException e) {
+                            throw new ActionException("Исключение при поиске записи по ключу в таблице Room",e.getCause());
+                        }
+                        session.setAttribute("prepayment", resultRooms.get(entry.getKey()));
+                    }
+
+                    return null;
+                }
+            });
         } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы Room",e.getCause());
+            throw new ActionException("Исключение при выполнении поиска комнаты по заданным параметрам",e.getCause());
         }
-        Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords);
-            for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
-                System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
-                if ((entry.getKey()==0)){
-                    request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
-                    return welcome;
-                }
-                try {
-                    session.setAttribute("randomRoom", roomDao.getByPK(entry.getKey()));
-                } catch (DaoException e) {
-                    throw new ActionException("Исключение при поиске записи по ключу в таблице Room",e.getCause());
-                }
-                session.setAttribute("prepayment", resultRooms.get(entry.getKey()));
-            }
+
             daoFactory.releaseContext();
         return customerform;
 
@@ -84,7 +95,7 @@ public class GetAvailableRoomAction implements Action {
         if (rooms.size()>0) {
             for (Room room1 : rooms) {
                 resultRooms.put(room1.getId(), room1.getRoomRate());
-                System.out.println(room1.getId());
+ //               System.out.println(room1.getId());
             }
             return resultRooms;
         }else {resultRooms.put(0,0);
@@ -101,9 +112,7 @@ public class GetAvailableRoomAction implements Action {
         } catch (DaoException e) {
             throw new ActionException("Исключение при поиске указанного интервала дат таблицы BookingTable",e.getCause());
         }
-        for (BookingTable bookingTable1 : bookingTables) {
-           // System.out.println(bookingTable1.getDateFrom()+" "+bookingTable1.getDateTo());
-        }
+
         return bookingTables;
     }
 

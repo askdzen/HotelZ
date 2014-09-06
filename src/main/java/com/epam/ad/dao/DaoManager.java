@@ -1,5 +1,6 @@
 package com.epam.ad.dao;
 
+import com.epam.ad.action.ActionException;
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.CustomerDao;
 import com.epam.ad.dao.h2.RoomDao;
@@ -51,7 +52,7 @@ public class DaoManager {
         return userDao;
     }
 
-    public Object executeAndClose(DaoCommand command) throws DaoException {
+    public Object executeAndClose(DaoCommand command) throws DaoException, ActionException {
         try {
             return command.execute(this);
         } catch (SQLException e) {
@@ -68,11 +69,11 @@ public class DaoManager {
     }
 
     public interface DaoCommand {
-        public Object execute(DaoManager daoManager) throws DaoException, SQLException;
+        public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException;
     }
 
 
-    public Object transaction(DaoCommand command) throws SQLException, DaoException {
+    public Object transaction(DaoCommand command) throws SQLException, DaoException, ActionException {
         try {
             this.connection.setAutoCommit(false);
             Object returnValue = command.execute(this);
@@ -86,10 +87,10 @@ public class DaoManager {
         }
     }
 
-    public void transactionAndClose(DaoCommand command) throws DaoException {
+    public void transactionAndClose(DaoCommand command) throws DaoException, ActionException {
         executeAndClose(new DaoCommand() {
 
-            public Object execute(DaoManager daoManager) throws DaoException, SQLException {
+            public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
                 return daoManager.transaction(command);
 
             }
