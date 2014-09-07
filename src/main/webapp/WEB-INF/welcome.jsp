@@ -83,10 +83,6 @@
             <label for="changeBtn">${nullrooms}</label>
             <button id="changeBtn" type="submit" class="btn">Check Room</button>
 
-
-
-
-                <%--  <button type="submit" class="btn">Book Room</button>--%>
         </form>
 
     </jsp:body>

@@ -84,6 +84,8 @@ public class BookingTableEditAction implements Action {
                 @Override
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
                     BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingRecordDeleteId);
+                    booking.setDateFrom(Date.valueOf("1900-01-01"));
+                    booking.setDateTo(Date.valueOf("1900-01-01"));
                     booking.setDelete(true);
                     daoManager.getBookingTableDao().update(booking);
                     return null;

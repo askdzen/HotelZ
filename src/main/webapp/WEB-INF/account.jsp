@@ -136,6 +136,39 @@
 
                         </div>
                     </div>
+                    <div id="collapseTwo" class="accordion-body ">
+                        <div class="accordion-inner">
+                            <table class="table table-bordered table-hover table-condensed">
+                                <caption>Данные пользователя: ${notuserlist}</caption>
+                                <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Update Button</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <c:forEach items="${userlist}" var="user">
+                                    <tr>
+                                        <form method="post">
+                                        <td><input type="text" value="${user.username}" name="username"> </td>
+                                        <td><input type="text" value="${user.password}" name="password"> </td>
+                                        <td>
+
+                                            <button type="submit" name="updateid" value="${user.id}">Modify</button>
+
+                                        </td>
+                                        </form>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -8,7 +8,7 @@
 
 <head>
 
-     ${script}
+
     <title>Login page</title>
 </head>
 <t:statusbar>

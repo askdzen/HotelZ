@@ -23,6 +23,7 @@ public class ActionFactory {
         actions.put("GET/userdetail", new UserAction());
         actions.put("POST/userdetail",new UserEditAction());
         actions.put("GET/account", new AccountAction()); // ищет в таблице заказов все заказы, залогинившегося пользователя; по полям заказа "ID комнаты" и "ID данных о клиенте" выводит подробности заказа в виде двух табличных строк
+        actions.put("POST/account",new AccountEditAction());
         actions.put("GET/welcome", new ShowPageAction("welcome"));//*
         actions.put("POST/welcome", new GetAvailableRoomAction());// выбирает свободный номер для бронирования в соответствии с выбранными пользователем параметрами и перенаправляет на страницу подтверждения и заполнения данных гостя/клиента (если все номера с данными параметрами заняты - выводит соотв. сообщение)
         actions.put("GET/reservation", new ShowPageAction("reservation"));//*

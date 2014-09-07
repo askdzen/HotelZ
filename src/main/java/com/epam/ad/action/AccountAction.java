@@ -2,10 +2,7 @@ package com.epam.ad.action;
 
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.h2.BookingTableDao;
-import com.epam.ad.dao.h2.CustomerDao;
-import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.dao.h2.RoomDao;
+import com.epam.ad.dao.h2.*;
 import com.epam.ad.entity.BookingTable;
 import com.epam.ad.entity.Customer;
 import com.epam.ad.entity.Room;
@@ -30,12 +27,12 @@ public class AccountAction implements Action {
         ActionResult accountPage = new ActionResult("account");
         HttpSession session = request.getSession();
         session.setAttribute("hidden","hidden=\"hidden\"");
-        session.setAttribute("yes","");
         User user = (User) session.getAttribute("user");
         try {
             BookingTableDao bookingTableDao = daoManager.getBookingTableDao();
             CustomerDao customerDao = daoManager.getCustomerDao();
             RoomDao roomDao = daoManager.getRoomDao();
+           // UserDao userDao=daoManager.getUserDao();
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException {
@@ -60,7 +57,9 @@ public class AccountAction implements Action {
                     Room room = roomDao.getByPK(roomIdNumber);
                     roomList.add(room);
                     request.setAttribute("roomlist", roomList);
-
+                     List<User> userList=new ArrayList<User>();
+                    userList.add(user);
+                    request.setAttribute("userlist",userList);
                     return null;
                 }
             });
