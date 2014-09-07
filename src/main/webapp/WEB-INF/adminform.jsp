@@ -25,7 +25,8 @@
     <hr>
     <button  onClick='location.href="/roomdetail"' type="submit" class="btn">Редактирование параметров комнат</button>
     <hr>
-
+    <button  onClick='location.href="/userdetail"' type="submit" class="btn">Редактирование учетных записей пользователей</button>
+    <hr>
 </jsp:body>
 </t:genericpage>
 </html>

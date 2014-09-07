@@ -129,20 +129,21 @@ div#logo {
     margin: auto;
     padding-top: 35px;
     width: 800px;
+
 }
 
 div#logo1 {
-    margin: auto;
+   margin: auto;
     padding: 75px;
     width: 500px;
 }
 
 ul#change {
     float: left;
-    width: 70%;
+    width: 60%;
 }
 button#changeBtn{
-    float: right;
+    float: left;
 }
 
 div#footerimage {
@@ -217,7 +218,8 @@ form#unproc{
 form#unconf{
     float: left;
 }
-/*label#forError{*/
-    /*float: right;*/
-/*}*/
+div#Demo-BS{
+
+    width: 500px;
+}
 

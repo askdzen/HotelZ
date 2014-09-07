@@ -14,6 +14,7 @@ public class Room implements Identified {
     private  String roomType;
     private  int roomRate;
     private String roomBed;
+    private boolean isDeleted;
     private List<Room> rooms=new ArrayList<Room>();
 
 
@@ -65,5 +66,13 @@ public class Room implements Identified {
     @Override
       public Integer getId() {
         return id;
+    }
+
+    public void setIsDeleted(boolean isdeleted) {
+        this.isDeleted=isdeleted;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
     }
 }

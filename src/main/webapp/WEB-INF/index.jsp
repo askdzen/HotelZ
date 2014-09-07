@@ -8,6 +8,7 @@
 <body>
  <%
 
+     session.setAttribute("registrationGood","");
      response.sendRedirect(request.getContextPath()+"/login");
 
  %>

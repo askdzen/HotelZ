@@ -19,7 +19,7 @@ public class TestBookingDAO {
         Class bookingTableClass=BookingTable.class;
         DaoFactory daoFactory=new DaoFactory();
        BookingTableDao bookingTableDao=new BookingTableDao(daoFactory.getContext());
-       GenericDao genericDao= daoFactory.getDao(bookingTableClass);
+       GenericDao genericDao= daoFactory.createDaoManager().getBookingTableDao();
 
  //getALL
 //        try {

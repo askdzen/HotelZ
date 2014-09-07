@@ -1,5 +1,6 @@
 <%@tag description="Accordion template" pageEncoding="UTF-8"%>
 <%@attribute name="accordion" fragment="true" %>
+<br><br>
 <div class="accordion" id="accordion2" align="center">
     <div class="accordion-group">
         <div class="accordion-heading">

@@ -15,6 +15,22 @@
     <jsp:attribute name="carousel"/>
     <jsp:attribute name="footer"/>
     <jsp:body>
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $("#demo-alert").alert();
+                });
+            });
+        </script>
+        <div id="logo1">
+        <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
+            <div class="alert alert-success" id="demo-alert">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <p>${registrationGood}</p>
+                <strong>для оформления заказа перейдите по <a href="/welcome" data-toggle="modal"> ссылке</a>  </strong>
+            </div>
+        </div>
+        </div>
         <div align="center">
         <form id="registration" class="form-horizontal" role="form" method="post">
 

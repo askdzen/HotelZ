@@ -20,6 +20,8 @@ public class ActionFactory {
         actions.put("POST/customerdetail", new CustomerEditAction());//изменяет данные таблицы CustDetail(операции CRUD)
         actions.put("GET/roomdetail", new RoomTableAction());//**
         actions.put("POST/roomdetail",new RoomEditAction());
+        actions.put("GET/userdetail", new UserAction());
+        actions.put("POST/userdetail",new UserEditAction());
         actions.put("GET/account", new AccountAction()); // ищет в таблице заказов все заказы, залогинившегося пользователя; по полям заказа "ID комнаты" и "ID данных о клиенте" выводит подробности заказа в виде двух табличных строк
         actions.put("GET/welcome", new ShowPageAction("welcome"));//*
         actions.put("POST/welcome", new GetAvailableRoomAction());// выбирает свободный номер для бронирования в соответствии с выбранными пользователем параметрами и перенаправляет на страницу подтверждения и заполнения данных гостя/клиента (если все номера с данными параметрами заняты - выводит соотв. сообщение)
@@ -31,6 +33,8 @@ public class ActionFactory {
         actions.put("POST/customercreate",new CustomerCreateAction());
         actions.put("GET/roomcreate",new ShowPageAction("roomcreate"));
         actions.put("POST/roomcreate",new RoomCreateAction());
+        actions.put("GET/usercreate",new ShowPageAction("usercreate"));
+        actions.put("POST/usercreate",new UserCreateAction());
 
     }
 

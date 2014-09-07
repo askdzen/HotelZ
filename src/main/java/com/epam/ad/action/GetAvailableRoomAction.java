@@ -21,6 +21,7 @@ import java.util.Map;
 
 public class GetAvailableRoomAction implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetAvailableRoomAction.class);
+    private ActionResult result;
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
@@ -58,7 +59,8 @@ public class GetAvailableRoomAction implements Action {
                         if ((entry.getKey()==0)){
                             request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
                             daoFactory.releaseContext();
-                            return welcome;
+                            result=welcome;
+                            return result;
                         }
                         try {
                             session.setAttribute("randomRoom", roomDao.getByPK(entry.getKey()));
@@ -66,17 +68,18 @@ public class GetAvailableRoomAction implements Action {
                             throw new ActionException("Исключение при поиске записи по ключу в таблице Room",e.getCause());
                         }
                         session.setAttribute("prepayment", resultRooms.get(entry.getKey()));
-                    }
 
-                    return null;
+                    }
+                    result=customerform;
+                    return result;
                 }
             });
         } catch (DaoException e) {
             throw new ActionException("Исключение при выполнении поиска комнаты по заданным параметрам",e.getCause());
         }
 
-            daoFactory.releaseContext();
-        return customerform;
+        daoFactory.releaseContext();
+        return result;
 
     }
 

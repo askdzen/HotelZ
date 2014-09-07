@@ -29,6 +29,8 @@ public class AccountAction implements Action {
 
         ActionResult accountPage = new ActionResult("account");
         HttpSession session = request.getSession();
+        session.setAttribute("hidden","hidden=\"hidden\"");
+        session.setAttribute("yes","");
         User user = (User) session.getAttribute("user");
         try {
             BookingTableDao bookingTableDao = daoManager.getBookingTableDao();

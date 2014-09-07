@@ -25,13 +25,14 @@ public class ConfirmAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult reservation = new ActionResult("welcome", true);
+        ActionResult reservation = new ActionResult("reservation");
         String dateFrom = request.getParameter("inDateFrom");
         String dateTo = request.getParameter("inDateTo");
         String roomId = request.getParameter("inRoomId");
 
         HttpSession session = request.getSession();
-        session.setAttribute("yes", "Вы успешно забронировали номер!");
+        session.setAttribute("hidden","");
+        //  session.setAttribute("yes", "Вы успешно забронировали номер!");
         User user = (User) session.getAttribute("user");
         String inputFirstName = request.getParameter("inputFirstName");
         String inputLastName = request.getParameter("inputLastName");

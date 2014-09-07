@@ -25,7 +25,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID, ISDELETED FROM CUSTDETAIL";
+        return "SELECT ID, NAME, LAST_NAME, CITY, REGION, COUNTRY, PASSPORT, PHONE, EMAIL,  PREPAYMENT, BOOK_ID, USER_ID, ISDELETED FROM CUSTDETAIL WHERE ISDELETED=FALSE";
     }
 
     @Override
@@ -138,7 +138,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
     public Customer getByBookId(int bookId) throws DaoException {
         List<Customer> list;
         String sql = getSelectQuery();
-        sql += " WHERE BOOK_ID = ?";
+        sql += " AND BOOK_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, String.valueOf(bookId));
             ResultSet rs = statement.executeQuery();

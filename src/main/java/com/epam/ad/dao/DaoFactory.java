@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public interface DaoFactory<Context>{
 
-    public interface DaoCreator<Context> {
-        public GenericDao create(Context context);
-    }
+//    public interface DaoCreator<Context> {
+//        public GenericDao create(Context context);
+//    }
     /** Возвращает подключение к базе данных */
     public Context getContext() throws DaoException, ClassNotFoundException, InterruptedException;
 
     /** Возвращает объект для управления персистентным состоянием объекта */
-    public GenericDao getDao( Class dtoClass) throws DaoException;
+//    public GenericDao getDao( Class dtoClass) throws DaoException;
 
     public void releaseContext() throws SQLException;
 }

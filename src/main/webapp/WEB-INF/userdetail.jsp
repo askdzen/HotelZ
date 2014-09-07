@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Room Edit</title>
+    <title>User Edit</title>
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
 
@@ -16,36 +16,36 @@
 
 
     <table class="table table-bordered table-hover table-condensed">
-        <caption>List of rooms available</caption>
+        <caption>List of users</caption>
         <thead>
         <tr>
             <th>ID</th>
-            <th>Room No</th>
-            <th>Room Type</th>
-            <th>Bed Type</th>
-            <th>Tarif</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
             <th>Update Button</th>
             <th>Delete Button</th>
         </tr>
         </thead>
         <tbody>
 
-        <c:forEach items="${list}" var="roomI">
+        <c:forEach items="${list}" var="user">
 
             <tr>
-                <td>${roomI.id}</td>
-                <td>${roomI.roomNo}</td>
-                <td>${roomI.roomType}</td>
-                <td>${roomI.roomBed}</td>
-                <td>${roomI.roomRate}</td>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.password}</td>
+                <td>${user.role}</td>
+
+
                 <td>
                     <form method="get">
-                        <button type="submit" name="update" value="${roomI.id}">Edit</button>
+                        <button type="submit" name="update" value="${user.id}">Edit</button>
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <button type="submit" name="delete" value="${roomI.id}">Delete</button>
+                        <button type="submit" name="delete" value="${user.id}">Delete</button>
                     </form>
                 </td>
             </tr>

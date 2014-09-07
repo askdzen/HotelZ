@@ -23,7 +23,48 @@
     <jsp:attribute name="carousel"/>
     <jsp:attribute name="footer"/>
     <jsp:body>
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $("#demo-alert").alert();
+                });
+            });
+        </script>
 
+        <div id="logo">
+        <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
+            <div class="alert alert-success" id="demo-alert">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <p> Вы успешно забронировали номер!</p>
+                <strong>для перехода на главную страницу нажмите на <a href="#DemoModal2" data-toggle="modal">ссылку</a>  </strong>
+            </div>
+        </div>
+        </div>
+
+        <!-- Modal Contents -->
+        <div id="DemoModal2" class="modal fade ">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">×</button>
+
+                        <h4 class="modal-title">Browser Update</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Для просмотра своих заказов, подтверждения брони и для изменения личных данных перейдите по ссылке \"Вход в личный кабинет\" </p>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick='location.href="/welcome"'>ОК</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 <form  method="post" class="form-horizontal" role="form">
     <div class="form-group" hidden="true">

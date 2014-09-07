@@ -1,3 +1,4 @@
+import com.epam.ad.action.ActionException;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.h2.BookingTableDao;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by Askar on 12.08.2014.
  */
 public class TestViewTable {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, InterruptedException, DaoException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, InterruptedException, DaoException, ActionException {
         ConnectionPool pool = null;
         Connection con = null;
         PreparedStatement pst = null;

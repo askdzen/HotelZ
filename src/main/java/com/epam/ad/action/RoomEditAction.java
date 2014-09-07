@@ -1,15 +1,15 @@
 package com.epam.ad.action;
 
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.dao.h2.RoomDao;
 import com.epam.ad.entity.Room;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 
-/**
- * Created by Askar on 01.09.2014.
- */
+
 public class RoomEditAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
@@ -17,19 +17,37 @@ public class RoomEditAction implements Action {
         ActionResult roomdetail = new ActionResult("roomdetail", true);
         String roomDeleteString = request.getParameter("delete");
         DaoFactory daoFactory = new DaoFactory();
-        RoomDao roomDao= null;
-        try {
-            roomDao = (RoomDao) daoFactory.getDao(Room.class);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при получении таблицы BookingTable",e.getCause());
-        }
+        RoomDao roomDao= daoFactory.createDaoManager().getRoomDao();
+
         if (roomDeleteString !=null){
-            roomDelete(roomDeleteString, roomDao);
+            try {
+                daoFactory.createDaoManager().transactionAndClose(new DaoManager.DaoCommand() {
+                    @Override
+                    public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
+                        roomDelete(roomDeleteString, roomDao);
+                        return null;
+                    }
+                });
+            } catch (DaoException e) {
+                throw new ActionException("Исключение при удалении записи таблицы Room",e.getCause());
+            }
+            daoFactory.releaseContext();
             return roomdetail;
         }
-        getParametersAndUpdate(request, roomDao);
-        daoFactory.releaseContext();
-        return roomdetail;
+        try {
+            daoFactory.createDaoManager().transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
+                    getParametersAndUpdate(request, roomDao);
+                    daoFactory.releaseContext();
+                    return null;
+                }
+            });
+            return roomdetail;
+        } catch (DaoException e) {
+            throw new ActionException("Исключение при обновлении таблицы Room",e.getCause());
+        }
+
     }
 
     private void getParametersAndUpdate(HttpServletRequest request, RoomDao roomDao) throws ActionException {
@@ -41,7 +59,7 @@ public class RoomEditAction implements Action {
             String roomId = request.getParameter("roomid");
             roomDao.updateRecord(roomNo,roomType,bedType,tarif,roomId);
         } catch (DaoException e) {
-            throw new ActionException("Исключение при обновлении записи таблицы Customer",e.getCause());
+            throw new ActionException("Исключение при обновлении записи таблицы Room",e.getCause());
         }
     }
 
@@ -50,9 +68,10 @@ public class RoomEditAction implements Action {
 
             int roomRecordDeleteId=Integer.parseInt(roomDelete);
             Room tableRecord = roomDao.getByPK(roomRecordDeleteId);
-            roomDao.delete(tableRecord);
+            tableRecord.setIsDeleted(true);
+            roomDao.update(tableRecord);
         } catch (DaoException e) {
-            throw new ActionException("Исключение при удалении записи таблицы Customer",e.getCause());
+            throw new ActionException("Исключение при удалении записи таблицы Room",e.getCause());
         }
     }
 }

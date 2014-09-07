@@ -23,7 +23,7 @@ public class BookingTableDao extends AbstractJDBCDao<BookingTable>{
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED FROM BOOKINGTABLE";
+        return "SELECT ID, DATE_FRO, DATE_TO, NO_OF_DAY, ROOM_NO, USER_ID, CONFIRMED, CONFIRM, ISDELETED FROM BOOKINGTABLE WHERE ISDELETED=FALSE";
     }
 
     @Override
@@ -144,7 +144,7 @@ try {
     public List<BookingTable> getByUserId(int key) throws DaoException {
             List<BookingTable> list;
             String sql = getSelectQuery();
-            sql += " WHERE USER_ID = ?";
+            sql += " AND USER_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, key);
             ResultSet rs = statement.executeQuery();
@@ -161,7 +161,7 @@ try {
     public BookingTable getRecordByUserId(int key) throws DaoException {
         List<BookingTable> list;
         String sql = getSelectQuery();
-        sql += " WHERE USER_ID = ?";
+        sql += " AND USER_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, key);
             ResultSet rs = statement.executeQuery();
@@ -182,7 +182,7 @@ try {
     public List<BookingTable> getByDateIntervalId(String dateFrom, String dateTo) throws DaoException {
         List<BookingTable> list;
         String sql = getSelectQuery();
-        sql += " WHERE DATE_FRO >= ? AND DATE_TO <= ? OR DATE_FRO <= ? AND DATE_TO >= ? OR DATE_FRO >= ? AND DATE_FRO <= ? OR DATE_TO >=? AND DATE_TO <=? ";
+        sql += " AND DATE_FRO >= ? AND DATE_TO <= ? OR DATE_FRO <= ? AND DATE_TO >= ? OR DATE_FRO >= ? AND DATE_FRO <= ? OR DATE_TO >=? AND DATE_TO <=? ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, dateFrom);
             statement.setString(2, dateTo);

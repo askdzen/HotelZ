@@ -1,5 +1,6 @@
 package com.epam.ad.dao.h2;
 
+import com.epam.ad.action.ActionException;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.GenericDao;
@@ -16,15 +17,23 @@ import java.util.Map;
 
 
 public class DaoFactory implements com.epam.ad.dao.DaoFactory<Connection> {
-    private Map<Class, DaoCreator> creators;
+//    private Map<Class, DaoCreator> creators;
     //ConnectionPool pool = getPool();
 
      private Connection connection=getContext();
 
     @Override
     public Connection getContext() {
-     //   ConnectionPool.init();
-        ConnectionPool pool = getPool();
+         ConnectionPool pool = getPool();
+
+        if (connection==null){
+            try {
+                throw new ActionException();
+            } catch (ActionException e) {
+                e.getMessage();
+            }
+        }
+
         Connection connection = pool.takeConnection();
         this.connection=connection;
         return connection;
@@ -35,17 +44,17 @@ public class DaoFactory implements com.epam.ad.dao.DaoFactory<Connection> {
         return ConnectionPool.getInstance();
     }
 
-    @Override
-    public GenericDao getDao(Class dtoClass) throws DaoException {
-        DaoCreator creator = creators.get(dtoClass);
-        if (creator == null) {
-
-                throw new DaoException("Dao object for " + dtoClass + " not found.");
-
-
-        }
-        return creator.create(connection);
-    }
+//    @Override
+//    public GenericDao getDao(Class dtoClass) throws DaoException {
+//        DaoCreator creator = creators.get(dtoClass);
+//        if (creator == null) {
+//
+//                throw new DaoException("Dao object for " + dtoClass + " not found.");
+//
+//
+//        }
+//        return creator.create(connection);
+//    }
 
     @Override
     public void releaseContext()  {

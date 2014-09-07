@@ -16,7 +16,10 @@
    <p id="welcome"> Welcome, ${user.username} !</p>
        <a id="account" href="/account">Вход в личный кабинет</a>
     <br/>
-        ${registrationGood}
+
+
+
+
 </div>
     </jsp:attribute>
 
@@ -37,15 +40,16 @@
 
     </jsp:attribute>
     <jsp:body>
+
         <form class="form-inline" method="post">
-            <input name="action" type="hidden" value="changeRoom"/>
+
             <ul id="change" class="nav nav-tabs">
 
-                <li class="active">Выберите дату заезда:
+                <li class="active">  Выберите дату заезда:
                     <input type="date" name="calendar" value="2014-08-11"
                            max="2014-10-09" min="2014-08-11">
                 </li>
-                <li class="active">Выберите дату выезда:
+                <li class="active">  Выберите дату выезда:
                     <input type="date" name="calendar2" value="2014-08-15"
                            max="2014-10-09" min="2012-08-11">
                 </li>
@@ -79,14 +83,12 @@
             <label for="changeBtn">${nullrooms}</label>
             <button id="changeBtn" type="submit" class="btn">Check Room</button>
 
-            <div>
-                <input type="text" name="countStr" placeholder="10" value="10" hidden="hidden">
-                <input type="text" name="steps" placeholder="10" value="10" hidden="hidden">
-            </div>
+
 
 
                 <%--  <button type="submit" class="btn">Book Room</button>--%>
         </form>
+
     </jsp:body>
 </t:genericpage>
 

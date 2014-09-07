@@ -11,7 +11,7 @@ import java.util.List;
 public class TestFindByUserId {
     public static void main(String[] args) throws DaoException, InterruptedException, ClassNotFoundException {
         DaoFactory daoFactory=new DaoFactory();
-        BookingTableDao bookingTableDao= (BookingTableDao) daoFactory.getDao(BookingTable.class);
+        BookingTableDao bookingTableDao= (BookingTableDao) daoFactory.createDaoManager().getBookingTableDao();
         List<BookingTable> bookingList=bookingTableDao.getByUserId(1);
         for (BookingTable bookingTable : bookingList) {
             System.out.println(bookingTable.getUserId()+""+bookingTable.isConfirmed());

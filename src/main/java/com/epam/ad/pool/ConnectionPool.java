@@ -1,5 +1,7 @@
 package com.epam.ad.pool;
 
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ShowPageAction;
 import com.epam.ad.dao.h2.DaoFactory;
 
 import java.sql.Connection;
@@ -25,7 +27,7 @@ public class ConnectionPool {
      */
     private BlockingQueue<Connection> connectionQueue;
 
-    private ConnectionPool(String driver, String url, String user, String password, int poolSize) {
+    private ConnectionPool(String driver, String url, String user, String password, int poolSize) throws ActionException {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -37,13 +39,15 @@ public class ConnectionPool {
             try {
                 connection = DriverManager.getConnection(url, user, password);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+
+//               throw new RuntimeException();
+                throw  new ActionException("Нет подключения к Базе данных",e.getCause());
             }
             connectionQueue.offer(connection);
         }
     }
 
-    public static void init() {
+    public static void init() throws ActionException {
         if (instance == null) {
             ResourceBundle rb = ResourceBundle.getBundle(PROPERTIES_FILE);
             String driver = rb.getString("db.driver");
@@ -54,6 +58,7 @@ public class ConnectionPool {
             int poolSize = (poolSizeStr != null) ?
                     Integer.parseInt(poolSizeStr) : DEFAULT_POOL_SIZE;
             //"Trying to create pool of connections..."/
+
             instance = new ConnectionPool(driver, url, user, password, poolSize);
         }
     }
@@ -77,6 +82,7 @@ public class ConnectionPool {
             connection = connectionQueue.take();
         } catch (InterruptedException e) {
 //"Free connection waiting interrupted.  Returned 'null' connection" , e
+
             throw new RuntimeException(e);
 
         }

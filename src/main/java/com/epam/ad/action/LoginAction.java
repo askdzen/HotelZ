@@ -27,7 +27,7 @@ public class LoginAction implements Action {
     public ActionResult execute(HttpServletRequest req) throws ActionException {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
-        req.setAttribute("hidden","hidden=\"hidden\"");
+       // req.setAttribute("hidden","hidden=\"hidden\"");
         try {
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override

@@ -28,24 +28,24 @@ Connection connection;
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID, ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO FROM ROOMDETAIL";
+        return "SELECT ID, ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO, ISDELETED FROM ROOMDETAIL WHERE ISDELETED=FALSE";
     }
 
     @Override
     public String getSelectQueryForRange() {
-        return  "SELECT ID, ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO FROM ROOMDETAIL ORDER BY ID LIMIT ? OFFSET ?;";
+        return  "SELECT ID, ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO, ISDELETED FROM ROOMDETAIL WHERE ISDELETED=FALSE ORDER BY ID LIMIT ? OFFSET ?;";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO ROOMDETAIL(ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO) \n" +
-                "VALUES (?, ?, ?, ?);";
+        return "INSERT INTO ROOMDETAIL(ROOM_TYPE, ROOM_RATE, ROOM_BED, ROOM_NO, ISDELETED) \n" +
+                "VALUES (?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
         return "UPDATE ROOMDETAIL \n" +
-                "SET ROOM_TYPE = ?, ROOM_RATE = ?, ROOM_BED = ?, ROOM_NO = ? \n" +
+                "SET ROOM_TYPE = ?, ROOM_RATE = ?, ROOM_BED = ?, ROOM_NO = ?, ISDELETED=? \n" +
                 "WHERE ID = ?;";
     }
 
@@ -55,7 +55,7 @@ Connection connection;
     }
 
     @Override
-    public List<Room> parseResultSet(ResultSet rs)  {
+    public List<Room> parseResultSet(ResultSet rs) throws DaoException {
         LinkedList<Room> result = new LinkedList<Room>();
         try {
             while (rs.next()) {
@@ -65,52 +65,48 @@ Connection connection;
                 persistRoom.setRoomRate(rs.getInt("ROOM_RATE"));
                 persistRoom.setRoomBed(rs.getString("ROOM_BED"));
                 persistRoom.setRoomNo(rs.getInt("ROOM_NO"));
+                persistRoom.setIsDeleted(rs.getBoolean("ISDELETED"));
                 result.add(persistRoom);
             }
         } catch (Exception e) {
-            try {
-                throw new DaoException(e);
-            } catch (DaoException e1) {
-                throw new RuntimeException(e);
-            }
+
+                throw new DaoException("Исключение при получении данных из таблицы Room",e);
+
         }
         return result;
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, Room object) {
+    protected void prepareStatementForInsert(PreparedStatement statement, Room object) throws DaoException {
 try {
     statement.setString(1,object.getRoomType());
     statement.setInt(2,object.getRoomRate());
     statement.setString(3, object.getRoomBed());
     statement.setInt(4,object.getRoomNo());
-
+    statement.setBoolean(5,object.isDeleted());
 
 }catch (Exception e){
-    try {
-        throw new DaoException(e);
-    } catch (DaoException e1) {
-        throw new RuntimeException(e);
-    }
+
+        throw new DaoException("Исключение при вводе данных в таблицу Room",e.getCause());
+
 }
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, Room object) {
+    protected void prepareStatementForUpdate(PreparedStatement statement, Room object) throws DaoException {
         try {
 
             statement.setString(1,object.getRoomType());
-            statement.setInt(2,object.getRoomRate());
-            statement.setString(3,object.getRoomBed());
-            statement.setInt(4,object.getRoomNo());
-            statement.setInt(5,object.getId());
+            statement.setInt(2, object.getRoomRate());
+            statement.setString(3, object.getRoomBed());
+            statement.setInt(4, object.getRoomNo());
+            statement.setBoolean(5,object.isDeleted());
+            statement.setInt(6,object.getId());
 
         }catch (Exception e){
-            try {
-                throw new DaoException(e);
-            } catch (DaoException e1) {
-                throw new RuntimeException(e);
-            }
+
+                throw new DaoException("Исключение при обновлении данных таблицы Room",e.getCause());
+
         }
 
     }
@@ -138,6 +134,7 @@ RoomDao roomDao=new RoomDao(connection);
         room.setRoomBed(bedtype);
         room.setRoomRate(Integer.parseInt(tarif));
         room.setId(roomDao.create().getId());
+        room.setIsDeleted(false);
         roomDao.update(room);
     }
     public void updateRecord(String roomNo, String roomType, String bedType, String tarif, String roomId) throws DaoException {
@@ -151,6 +148,7 @@ RoomDao roomDao=new RoomDao(connection);
         room.setRoomBed(bedType);
         room.setRoomRate(tarifInt);
         room.setId(id);
+        room.setIsDeleted(false);
         roomDao.update(room);
     }
 

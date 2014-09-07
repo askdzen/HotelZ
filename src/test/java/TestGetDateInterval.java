@@ -13,7 +13,7 @@ public class TestGetDateInterval {
     public static void main(String[] args) throws InterruptedException, DaoException, ClassNotFoundException {
         DaoFactory daoFactory=new DaoFactory();
         Connection connection=daoFactory.getContext();
-        BookingTableDao bookingTableDao= (BookingTableDao) daoFactory.getDao(BookingTable.class);
+        BookingTableDao bookingTableDao= (BookingTableDao) daoFactory.createDaoManager().getBookingTableDao();
 //
         List<BookingTable>bookingTableList=bookingTableDao.getByDateIntervalId("2012-01-11","2014-08-12");
         for (BookingTable bookingTable : bookingTableList) {

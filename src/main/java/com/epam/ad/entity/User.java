@@ -10,6 +10,7 @@ public class User implements Identified{
     private String username;
     private String password;
     private String role;
+    private boolean isDeleted;
 
     public User() {
 
@@ -46,5 +47,11 @@ public class User implements Identified{
         return this.id;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

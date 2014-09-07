@@ -11,7 +11,7 @@ public class TestRoomCreate {
         DaoFactory daoFactory=new DaoFactory();
         RoomDao roomDao = null;
         try {
-            roomDao = (RoomDao) daoFactory.getDao(Room.class);
+            roomDao =  daoFactory.createDaoManager().getRoomDao();
             roomDao.createRecord("140","Non Ac","Double","1500");
         } catch (DaoException e) {
             e.printStackTrace();

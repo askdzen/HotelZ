@@ -3,16 +3,15 @@ package com.epam.ad.action;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.dao.h2.RoomDao;
-import com.epam.ad.entity.Room;
+import com.epam.ad.dao.h2.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
-public class RoomCreateAction implements Action {
+public class UserCreateAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult roomdetail=new ActionResult("roomdetail",true);
+        ActionResult userdetail=new ActionResult("userdetail",true);
         DaoFactory daoFactory=new DaoFactory();
         try {
             daoFactory.createDaoManager().transactionAndClose(new DaoManager.DaoCommand() {
@@ -24,25 +23,21 @@ public class RoomCreateAction implements Action {
                 }
             });
         } catch (DaoException e) {
-            throw new ActionException("Исключение при создании таблицы Room",e.getCause());
+            throw new ActionException("Исключение при создании таблицы User",e.getCause());
         }
         daoFactory.releaseContext();
-        return roomdetail;
+        return userdetail;
     }
 
     private void getParametersAndCreate(HttpServletRequest request, DaoFactory daoFactory) throws ActionException {
-
-
         try {
-            String roomNo = request.getParameter("roomnum");
-            String roomtype = request.getParameter("type");
-            String bedtype=request.getParameter("bed");
-            String tarif=request.getParameter("rate");
-            System.out.println(roomNo + " "+roomtype+" "+bedtype+" "+tarif);
-            RoomDao  roomDao = daoFactory.createDaoManager().getRoomDao();
-            roomDao.createRecord(roomNo,roomtype,bedtype,tarif);
+            String username = request.getParameter("login");
+            String password =request.getParameter("pass");
+            String role = request.getParameter("roles");
+            UserDao userDao = daoFactory.createDaoManager().getUserDao();
+            userDao.createRecord(username,password,role);
         } catch (DaoException e) {
-          throw new ActionException("Исключение при создании записи в таблице Room",e.getCause());
+            throw new ActionException("Исключение при создании записи в таблице User",e.getCause());
         }
     }
 }

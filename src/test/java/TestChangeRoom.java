@@ -13,7 +13,7 @@ import java.util.List;
 public class TestChangeRoom {
     public static void main(String[] args) throws DaoException, SQLException, InterruptedException, ClassNotFoundException {
         DaoFactory daoFactory=new DaoFactory();
-        GenericDao roomDao=daoFactory.getDao(Room.class);
+        GenericDao roomDao=daoFactory.createDaoManager().getRoomDao();
         List<Room>roomList=roomDao.getAll();
         List<Room>changeRoom=new ArrayList<>();
         for (Room room : roomList) {

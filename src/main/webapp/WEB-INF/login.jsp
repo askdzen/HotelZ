@@ -16,6 +16,7 @@
 <div id="statusbarcontent">
     <a href="/registration"  >registration</a>
 </div>
+
     </jsp:attribute>
 
 </t:statusbar>
@@ -23,34 +24,6 @@
 
     <jsp:attribute name="header">
 
-<%--<h3 align="center"></h3>--%>
-        <div ${hidden} align="center">
-        <a href="#DemoModal2" class="btn btn-lg btn-primary" data-toggle="modal">${badusername}</a>
-        </div>
-    <!-- Modal Contents -->
-    <div id="DemoModal2" class="modal fade ">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close"
-                            data-dismiss="modal" aria-hidden="true">×</button>
-
-                    <h4 class="modal-title">Browser Update</h4>
-                </div>
-
-                <div class="modal-body">
-                    <p>${context}</p>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     </jsp:attribute>
 
@@ -71,7 +44,48 @@
 
     </jsp:attribute>
     <jsp:body>
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $("#demo-alert").alert();
+                });
+            });
+        </script>
 
+        <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
+            <div class="alert alert-success" id="demo-alert">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <strong>
+                    <p>${badusername} </p>
+                    <a href="#DemoModal2" data-toggle="modal">для получения совета нажмите на ссылку</a>  </strong>
+            </div>
+                </div>
+
+
+        <!-- Modal Contents -->
+        <div id="DemoModal2" class="modal fade ">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">×</button>
+
+                        <h4 class="modal-title">Browser Update</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>${context}</p>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </jsp:body>
 </t:genericpage>
 

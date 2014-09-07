@@ -20,63 +20,59 @@ Connection connection;
         this.connection=connection;
     }
 
-    public User findByCredentials(String username, String password){
+    public User findByCredentials(String username, String password) throws DaoException {
         User user = getUserByUsername(username);
         if (!user.getUsername().equals(username) || !user.getPassword().equals(password)) return null;
 
         return user;
     }
 
-public User getUserByUsername(String username)  {
+public User getUserByUsername(String username) throws DaoException {
     List<User> list;
     String sql = getSelectQuery();
-    sql += " WHERE LOGIN = ?";
+    sql += " AND LOGIN = ?";
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
         statement.setString(1, username);
         ResultSet rs = statement.executeQuery();
         list = parseResultSet(rs);
 
         if (list == null || list.size() == 0) {
-            try {
+
                 throw new DaoException("Record with PK = " + username + " not found.");
-            } catch (DaoException e) {
-                throw new RuntimeException(e);
-            }
+
         }
         if (list.size() > 1) {
-            try {
+
                 throw new DaoException("Received more than one record.");
-            } catch (DaoException e) {
-                throw new RuntimeException(e);
-            }
+
         }
         return list.iterator().next();
     } catch (SQLException e) {
-        throw new RuntimeException(e);
+        throw new DaoException("Исключение при поиске пользователя по логину");
     }
 
 
 }
     @Override
     public String getSelectQuery() {
-        return "SELECT ID,LOGIN,PASSWORD,ROLE FROM USER";
+        return "SELECT ID,LOGIN,PASSWORD,ROLE, ISDELETED FROM USER WHERE ISDELETED=FALSE";
     }
 
     @Override
     public String getSelectQueryForRange() {
-        return "SELECT ID,LOGIN,PASSWORD,ROLE FROM USER ORDER BY ID LIMIT ? OFFSET ?;";
+        return "SELECT ID,LOGIN,PASSWORD,ROLE, ISDELETED FROM USER WHERE ISDELETED=FALSE ORDER BY ID LIMIT ? OFFSET ?;";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO USER(LOGIN,PASSWORD,ROLE) \n" +
-                "VALUES (?, ?, ?);";
+        return "INSERT INTO USER(LOGIN,PASSWORD,ROLE, ISDELETED) \n" +
+                "VALUES (?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
         return "UPDATE USER \n" +
-                "SET LOGIN = ?, PASSWORD = ?, ROLE = ? \n" +
+                "SET LOGIN = ?, PASSWORD = ?, ROLE = ? , ISDELETED = ? \n" +
                 "WHERE ID = ?;";
     }
 
@@ -86,7 +82,7 @@ public User getUserByUsername(String username)  {
     }
 
     @Override
-    public List<User> parseResultSet(ResultSet rs) {
+    public List<User> parseResultSet(ResultSet rs) throws DaoException {
         LinkedList<User> result = new LinkedList<User>();
         try {
             while (rs.next()) {
@@ -95,51 +91,46 @@ public User getUserByUsername(String username)  {
                 persistUser.setUsername(rs.getString("LOGIN"));
                 persistUser.setPassword(rs.getString("PASSWORD"));
                 persistUser.setRole(rs.getString("ROLE"));
-
+                persistUser.setDeleted(rs.getBoolean("ISDELETED"));
                 result.add(persistUser);
             }
         } catch (Exception e) {
-            try {
-                throw new DaoException(e);
-            } catch (DaoException e1) {
-                throw new RuntimeException(e);
-            }
+
+                throw new DaoException("Исключение при чтении данных с таблицы User",e.getCause());
+
         }
         return result;
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, User object)  {
+    protected void prepareStatementForInsert(PreparedStatement statement, User object) throws DaoException {
         try {
             statement.setString(1,object.getUsername());
             statement.setString(2, object.getPassword());
             statement.setString(3, object.getRole());
-
+            statement.setBoolean(4,object.isDeleted());
 
 
         }catch (Exception e){
-            try {
-                throw new DaoException(e);
-            } catch (DaoException e1) {
-                e1.printStackTrace();
-            }
+
+            throw new DaoException("Исключение при вводе данных в таблицу User",e.getCause());
+
         }
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, User object){
+    protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws DaoException {
         try {
             statement.setString(1,object.getUsername());
             statement.setString(2,object.getPassword());
             statement.setString(3, object.getRole());
-            statement.setInt(4, object.getId());
+            statement.setBoolean(4,object.isDeleted());
+            statement.setInt(5, object.getId());
 
         }catch (SQLException e){
-            try {
-                throw new DaoException(e);
-            } catch (DaoException e1) {
-                throw new RuntimeException(e);
-            }
+
+                throw new DaoException("Исключение при обновлении данных таблицы User",e.getCause());
+
 
         }
     }
@@ -150,8 +141,30 @@ public User getUserByUsername(String username)  {
         user.setUsername("неопред");
         user.setPassword("неопр");
         user.setRole("неопред");
-
+        user.setDeleted(false);
         return persist(user);
+    }
+
+    public void updateRecord(String username, String password, String role, String userId) throws DaoException {
+        UserDao userDao=new UserDao(connection);
+        User user=new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+        user.setId(Integer.parseInt(userId));
+        user.setDeleted(false);
+        userDao.update(user);
+    }
+
+    public void createRecord(String username, String password, String role) throws DaoException {
+        UserDao userDao=new UserDao(connection);
+        User user=new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+        user.setDeleted(false);
+        user.setId(userDao.create().getId());
+        userDao.update(user);
     }
 
     private class PersistUser extends User {

@@ -1,5 +1,6 @@
 package com.epam.ad.listener;
 
+import com.epam.ad.action.ActionException;
 import com.epam.ad.pool.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
@@ -24,8 +25,15 @@ public class ContextListener implements ServletContextListener
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        ConnectionPool.init();
-       ConnectionPool connectionPool=ConnectionPool.getInstance();
+
+        try {
+            ConnectionPool.init();
+        } catch (ActionException e) {
+
+            e.getMessage();
+        }
+
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

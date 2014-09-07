@@ -76,7 +76,7 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
 
         }
         // Получаем только что вставленную запись
-        sql = getSelectQuery() + " WHERE id = last_insert_id();";
+        sql = getSelectQuery() + " AND id = last_insert_id();";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             List<T> list = parseResultSet(rs);
@@ -95,7 +95,7 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
     public T getByPK(Integer key) throws DaoException {
         List<T> list;
         String sql = getSelectQuery();
-        sql += " WHERE id = ?";
+        sql += " AND id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, key);
             ResultSet rs = statement.executeQuery();

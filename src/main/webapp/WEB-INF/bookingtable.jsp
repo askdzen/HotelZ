@@ -47,10 +47,10 @@
                         <button type="submit" name="unprocessed" value="${bt.id}">Unprocessed</button>
                     </form>
                     <form method="post" id="conf">
-                        <button type="submit" name="confirm" value="${bt.id}">Confirm</button>
+                        <button type="submit" name="confirm" value="${bt.id}">Approved</button>
                     </form>
                     <form method="post" id="unconf">
-                        <button type="submit" name="unconfirm" value="${bt.id}">Un Confirm</button>
+                        <button type="submit" name="unconfirm" value="${bt.id}">Not Approved</button>
                     </form>
                 </td>
                 <td>

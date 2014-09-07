@@ -17,7 +17,7 @@ public class TestCustomer {
         Class customerClass=Customer.class;
         DaoFactory daoFactory=new DaoFactory();
         CustomerDao customerDao=new CustomerDao(daoFactory.getContext());
-        GenericDao genericDao= daoFactory.getDao(customerClass);
+        GenericDao genericDao= daoFactory.createDaoManager().getCustomerDao();
 
         //getALL
 //        try {
