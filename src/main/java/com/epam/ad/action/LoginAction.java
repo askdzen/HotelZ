@@ -27,7 +27,7 @@ public class LoginAction implements Action {
     public ActionResult execute(HttpServletRequest req) throws ActionException {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
-
+        req.setAttribute("hidden","hidden=\"hidden\"");
         try {
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override
@@ -35,7 +35,9 @@ public class LoginAction implements Action {
                     String username = req.getParameter(USERNAME);
                     String password = req.getParameter(PASSWORD);
                     if (username.isEmpty()||password.isEmpty()){
+                        req.setAttribute("hidden","");
                         req.setAttribute("badusername","Введите логин и пароль!");
+                        req.setAttribute("context","Если вы уже зарегистрированы, то ведите логин и пароль!"+"<p>"+"Если вы еще не зарегистрированы, пожалуйста зарегистрируйтесь" +"</p>");
                         result=login;
                         return result;
                     }
@@ -49,7 +51,9 @@ public class LoginAction implements Action {
                         }
                     }
                     if (!validation){
+                        req.setAttribute("hidden","");
                         req.setAttribute("badusername","Вы ввели не правильный логин или пароль!");
+                        req.setAttribute("context","Вы ввели не правильный логин или пароль!"+"<p>"+"Возможные причины: выбран не верный язык ввода, нажата клавиша CapsLock" +"</p>");
                         result=login;
                         return result;
                     }

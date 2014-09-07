@@ -16,6 +16,7 @@ public class ShowLoginPageAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req) {
+        req.setAttribute("hidden","hidden=\"hidden\"");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(USER);
         if (user != null) return welcome;

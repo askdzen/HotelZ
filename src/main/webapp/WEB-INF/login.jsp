@@ -5,7 +5,10 @@
 
 <html>
 
+
 <head>
+
+     ${script}
     <title>Login page</title>
 </head>
 <t:statusbar>
@@ -19,7 +22,36 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-<h3 align="center">${badusername}</h3>
+
+<%--<h3 align="center"></h3>--%>
+        <div ${hidden} align="center">
+        <a href="#DemoModal2" class="btn btn-lg btn-primary" data-toggle="modal">${badusername}</a>
+        </div>
+    <!-- Modal Contents -->
+    <div id="DemoModal2" class="modal fade ">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">×</button>
+
+                    <h4 class="modal-title">Browser Update</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>${context}</p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="accordion">
