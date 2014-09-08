@@ -7,7 +7,9 @@ import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.Customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class CustomerTableAction implements Action {
@@ -39,6 +41,25 @@ public class CustomerTableAction implements Action {
                 request.setAttribute("value",0);
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
+                Map<String,String> selectedColumn=new HashMap<>();
+                selectedColumn.put("ID","selected");
+                selectedColumn.put("NAME","selected");
+                selectedColumn.put("LAST_NAME", "selected");
+                selectedColumn.put("CITY", "selected");
+                selectedColumn.put("REGION","selected");
+                selectedColumn.put("COUNTRY","selected");
+                selectedColumn.put("PASSPORT", "selected");
+                selectedColumn.put("PHONE", "selected");
+                selectedColumn.put("EMAIL","selected");
+                selectedColumn.put("PREPAYMENT","selected");
+                selectedColumn.put("BOOK_ID", "selected");
+                selectedColumn.put("USER_ID", "selected");
+
+                for (String s : selectedColumn.keySet()) {
+                    if (s.equals(request.getParameter("column"))){
+                        request.setAttribute(s,selectedColumn.get(s));
+                    }
+                }
                 daoFactory.releaseContext();
                 return customeradmin;
             } catch (DaoException e) {

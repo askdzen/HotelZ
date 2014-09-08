@@ -7,6 +7,8 @@ import com.epam.ad.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class UserAction implements Action {
@@ -34,6 +36,17 @@ public class UserAction implements Action {
                 request.setAttribute("value",0);
                 Pagination<User, UserDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, userDao, "userdetail");
+                Map<String,String> selectedColumn=new HashMap<>();
+                selectedColumn.put("ID","selected");
+                selectedColumn.put("LOGIN","selected");
+                selectedColumn.put("PASSWORD", "selected");
+                selectedColumn.put("ROLE", "selected");
+
+                for (String s : selectedColumn.keySet()) {
+                    if (s.equals(request.getParameter("column"))){
+                        request.setAttribute(s,selectedColumn.get(s));
+                    }
+                }
                 daoFactory.releaseContext();
                 return userdetail;
 

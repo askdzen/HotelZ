@@ -12,7 +12,30 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+<div>
+    <form method="get">
+        <select id="search" class="form-control" name="column" >
+            <option name="column" ${ID} value="ID">ID</option>
+            <option name="column" ${NAME} value="NAME">NAME</option>
+            <option name="column" ${LAST_NAME} value="LAST_NAME">LAST NAME</option>
+            <option name="column" ${CITY} value="CITY">CITY</option>
+            <option name="column" ${REGION} value="REGION">REGION</option>
+            <option name="column" ${COUNTRY} value="COUNTRY">COUNTRY</option>
+            <option name="column" ${PASSPORT} value="PASSPORT">PASSPORT</option>
+            <option name="column" ${PHONE} value="PHONE">PHONE</option>
+            <option name="column" ${EMAIL} value="EMAIL">EMAIL</option>
+            <option name="column" ${PREPAYMENT} value="PREPAYMENT">PREPAYMENT</option>
+            <option name="column" ${BOOK_ID} value="BOOK_ID">BOOK_ID</option>
+            <option name="column" ${USER_ID} value="USER_ID">USER_ID</option>
 
+        </select>
+        <input  id="search1" type="text" name="value" value="${value}" >
+        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <input hidden="hidden" value="${column}">
+        <br><br>
+        <a href="/customerdetail" >Обновить таблицу</a>
+    </form>
+</div>
 <div id="roomAdminGeneral">
 
 <table class="table table-bordered table-hover table-condensed">

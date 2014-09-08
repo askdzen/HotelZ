@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BookingTableAction implements Action {
@@ -24,21 +26,12 @@ public class BookingTableAction implements Action {
         ActionResult bookingtableupdate = new ActionResult("bookingtableupdate");
         ActionResult bookingtablecreate = new ActionResult("bookingtablecreate", true);
         DaoFactory daoFactory = new DaoFactory();
-//        BookingTableDao bookingTableDao = null;
-//        try {
-//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-//        } catch (DaoException e) {
-//            throw new ActionException("Исключение при запросе к таблице BookingTable", e.getCause());
-//        }
+
         String bookingtableUpdateDataString = request.getParameter("update");
         String bookingtableCreate = request.getParameter("create");
         DaoManager daoManager=daoFactory.createDaoManager();
         BookingTableDao bookingTableDao= daoManager.getBookingTableDao();
-//        try {
-//            bookingTableDao = (BookingTableDao) daoFactory.getDao(BookingTable.class);
-//        } catch (DaoException e) {
-//            throw new ActionException(e.getCause());
-//        }
+
         if (bookingtableCreate != null) {
             daoFactory.releaseContext();
             return bookingtablecreate;
@@ -53,6 +46,20 @@ public class BookingTableAction implements Action {
                 request.setAttribute("value",0);
                 Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, bookingTableDao, "bookingtable");
+                Map<String,String> selectedColumn=new HashMap<>();
+                selectedColumn.put("ID","selected");
+                selectedColumn.put("DATE_FRO","selected");
+                selectedColumn.put("DATE_TO", "selected");
+                selectedColumn.put("NO_OF_DAY", "selected");
+                selectedColumn.put("ROOM_NO","selected");
+                selectedColumn.put("USER_ID","selected");
+                selectedColumn.put("CONFIRM","selected");
+
+                for (String s : selectedColumn.keySet()) {
+                    if (s.equals(request.getParameter("column"))){
+                        request.setAttribute(s,selectedColumn.get(s));
+                    }
+                }
                 daoFactory.releaseContext();
                 return bookingtableadmin;
 

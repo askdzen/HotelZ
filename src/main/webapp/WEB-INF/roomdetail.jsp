@@ -23,6 +23,8 @@
         <input  id="search1" type="text" name="value" value="${value}" >
         <button id="changeBtn3" type="submit" class="btn" >Найти</button>
         <input hidden="hidden" value="${column}">
+        <br><br>
+        <a href="/roomdetail" >Обновить таблицу</a>
     </form>
 </div>
 <div id="roomAdminGeneral">

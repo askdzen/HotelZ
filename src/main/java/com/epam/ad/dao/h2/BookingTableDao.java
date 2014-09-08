@@ -200,23 +200,7 @@ try {
             throw new DaoException("Исключение при создании списка дат в указанном интервале",e.getCause());
         }
     }
-//    public BookingTable createBookingTableRecord(String dateFrom, String dateTo, String roomId, int userId, boolean confirmed, BookingTable.Confirm confirm) throws DaoException {
-//        BookingTableDao bookingTableDao = new BookingTableDao(connection);
-//        BookingTable bookingTable=new BookingTable();
-//        Date dateFromSql = Date.valueOf(dateFrom);
-//        Date dateToSql = Date.valueOf(dateTo);
-//        bookingTable.setDateFrom(dateFromSql);
-//        bookingTable.setDateTo(dateToSql);
-//        bookingTable.setDayCount((int) (dateToSql.getTime() - dateFromSql.getTime()) / (24 * 60 * 60 * 1000));
-//        bookingTable.setRoomNo(Integer.valueOf(roomId));
-//        bookingTable.setUserId(userId);
-//        bookingTable.setConfirmed(confirmed);
-//        bookingTable.setConfirm(confirm);
-//      //  bookingTable.setDelete(false);
-//        bookingTable.setId(bookingTableDao.create().getId());
-//        bookingTableDao.update(bookingTable);
-//     return bookingTable;
-//    }
+
     public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId, String isDeleted) throws DaoException {
         BookingTableDao bookingTableDao = new BookingTableDao(connection);
         Date datefromDate=Date.valueOf(dateFrom);
@@ -245,7 +229,6 @@ try {
         persistenceAction.setDateTo(dateTo);
         persistenceAction.setRoomNo(roomNo);
         persistenceAction.setUserId(userId);
-
 
         try {
             persistenceAction.doCreateAction();

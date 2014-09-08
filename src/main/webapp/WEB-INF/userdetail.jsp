@@ -11,7 +11,23 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+<div>
+    <form method="get">
+        <select id="search" class="form-control" name="column" >
+            <option name="column" ${ID} value="ID">ID</option>
+            <option name="column" ${LOGIN} value="LOGIN">LOGIN</option>
+            <option name="column" ${PASSWORD} value="PASSWORD">PASSWORD</option>
+            <option name="column" ${ROLE} value="ROLE">ROLE</option>
 
+
+        </select>
+        <input  id="search1" type="text" name="value" value="${value}" >
+        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <input hidden="hidden" value="${column}">
+        <br><br>
+        <a href="/userdetail" >Обновить таблицу</a>
+    </form>
+</div>
 <div id="roomAdminGeneral">
 
 

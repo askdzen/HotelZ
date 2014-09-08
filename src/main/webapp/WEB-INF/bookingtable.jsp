@@ -13,7 +13,25 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+<div>
+    <form method="get">
+        <select id="search" class="form-control" name="column" >
+            <option name="column" ${ID} value="ID">ID</option>
+            <option name="column" ${DATE_FRO} value="DATE_FRO">DATE FROM</option>
+            <option name="column" ${DATE_TO} value="DATE_TO">DATE TO</option>
+            <option name="column" ${NO_OF_DAY} value="NO_OF_DAY">DAYS COUNT</option>
+            <option name="column" ${ROOM_NO} value="ROOM_NO">ROOM NO</option>
+            <option name="column" ${USER_ID} value="USER_ID">USER_ID</option>
+            <option name="column" ${CONFIRM} value="CONFIRM">CONFIRM</option>
 
+        </select>
+        <input  id="search1" type="text" name="value" value="${value}" >
+        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <input hidden="hidden" value="${column}">
+        <br><br>
+        <a href="/bookingtable" >Обновить таблицу</a>
+    </form>
+</div>
 <div id="roomAdminGeneral">
 
     <table class="table table-bordered table-hover table-condensed">

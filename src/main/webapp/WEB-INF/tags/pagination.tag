@@ -5,7 +5,7 @@
 <div id="paginationtag">
     <jsp:invoke fragment="paginationtag"/>
 
-<br><br>
+
     <form class="form-inline">
         <label for="rows1"> Введите количество строк на странице:</label>
         <input type="text" name="rows" value="${rowsCount}" id="rows1"/>
