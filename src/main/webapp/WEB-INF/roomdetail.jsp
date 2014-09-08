@@ -11,7 +11,20 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
-
+<div>
+    <form method="get">
+    <select id="search" class="form-control" name="column" >
+        <option name="column" ${ID} value="ID">ID</option>
+        <option name="column" ${ROOM_NO} value="ROOM_NO">Room No</option>
+        <option name="column" ${ROOM_TYPE} value="ROOM_TYPE">Room Type</option>
+        <option name="column" ${ROOM_BED} value="ROOM_BED">Room Bed</option>
+        <option name="column" ${ROOM_RATE} value="ROOM_RATE">Room Rate</option>
+    </select>
+        <input  id="search1" type="text" name="value" value="${value}" >
+        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <input hidden="hidden" value="${column}">
+    </form>
+</div>
 <div id="roomAdminGeneral">
 
 

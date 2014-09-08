@@ -30,6 +30,8 @@ public class UserAction implements Action {
             return userupdate;
         }else {
             try {
+                request.setAttribute("column",0);
+                request.setAttribute("value",0);
                 Pagination<User, UserDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, userDao, "userdetail");
                 daoFactory.releaseContext();

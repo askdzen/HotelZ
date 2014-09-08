@@ -43,6 +43,7 @@ public class LoginAction implements Action {
                     }
                     UserDao userDao = null;
                     userDao = daoManager.getUserDao();
+                    HttpSession session = req.getSession();
                     boolean validation=false;
                     List<User>users=userDao.getAll();
                     for (User user : users) {
@@ -64,10 +65,10 @@ public class LoginAction implements Action {
                     return result;
                 }
                 if (user.getRole().equals("ADMIN")) {
+                    session.setAttribute("user", user);
                     result= adminForm;
                     return result;
                 }
-                    HttpSession session = req.getSession();
                     session.setAttribute("user", user);
                     result= welcome;
                     return result;

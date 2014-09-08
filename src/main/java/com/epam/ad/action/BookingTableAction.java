@@ -49,6 +49,8 @@ public class BookingTableAction implements Action {
             return bookingtableupdate;
         } else {
             try {
+                request.setAttribute("column",0);
+                request.setAttribute("value",0);
                 Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, bookingTableDao, "bookingtable");
                 daoFactory.releaseContext();

@@ -35,6 +35,8 @@ public class CustomerTableAction implements Action {
             return customerupdate;
         } else {
             try {
+                request.setAttribute("column",0);
+                request.setAttribute("value",0);
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
                 daoFactory.releaseContext();

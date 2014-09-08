@@ -144,8 +144,16 @@ ul#change {
 }
 button#changeBtn{
     float: left;
+    /*margin-top: 20px;*/
 }
+button#changeBtn2{
+    float: right;
+    /*margin-top: 20px;*/
+}
+button#changeBtn3{
+    float: left;
 
+}
 div#footerimage {
     background: url("footerimage.jpg") no-repeat #000000 center;
     border-top: 2px groove #ffffff;
@@ -196,6 +204,7 @@ form#back{
     /*float: left;*/
     margin-top: 20px;
 }
+
 select#roles{
     float: right;
     width: 20%;
@@ -222,4 +231,11 @@ div#Demo-BS{
 
     width: 500px;
 }
-
+select#search{
+    float: left;
+    width: 200px;
+}
+input#search1{
+    float: left;
+    height: 33px;
+}

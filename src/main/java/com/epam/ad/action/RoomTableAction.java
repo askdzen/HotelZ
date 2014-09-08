@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class RoomTableAction implements Action {
@@ -36,8 +38,22 @@ public class RoomTableAction implements Action {
             return roomupdate;
         }else {
             try {
+                request.setAttribute("column",0);
+                request.setAttribute("value",0);
                 Pagination<Room, RoomDao> pagination = new Pagination<>();
+
                 pagination.executePaginationAction(request, roomDao, "roomdetail");
+                Map<String,String>selectedColumn=new HashMap<>();
+                selectedColumn.put("ID","selected");
+                selectedColumn.put("ROOM_NO","selected");
+                selectedColumn.put("ROOM_TYPE", "selected");
+                selectedColumn.put("ROOM_BED", "selected");
+                selectedColumn.put("ROOM_RATE","selected");
+                for (String s : selectedColumn.keySet()) {
+                    if (s.equals(request.getParameter("column"))){
+                        request.setAttribute(s,selectedColumn.get(s));
+                    }
+                }
                 daoFactory.releaseContext();
                 return roomdetail;
 

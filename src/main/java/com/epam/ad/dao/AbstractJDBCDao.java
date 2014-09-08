@@ -169,6 +169,20 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
 
         }
     }
+    public List<T> getAll(String column,String value) throws DaoException {
+        List<T> list;
+        String sql = getSelectQuery()+" AND "+column+"="+"'"+value+"'";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            return list;
+
+        } catch (Exception e) {
+
+            throw new DaoException(e);
+
+        }
+    }
     public List<T> getRange(int pageNumber, int pageSize) throws DaoException {
         List<T> list;
         String sql = getSelectQueryForRange();
@@ -186,7 +200,28 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
 
         }
     }
+    public List<T> getRange(int pageNumber, int pageSize,String column,String param) throws DaoException {
+        List<T> list;
+        String sql;
+        if (column.isEmpty()||param.isEmpty()){
+           sql= getSelectQueryForRange();
+        }else
+        sql = getSelectQuery()+" AND "+column+" = "+"'"+param+"'" +" ORDER BY ID LIMIT ? OFFSET ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
+            statement.setString(1,String.valueOf(pageSize));
+            statement.setString(2,String.valueOf((pageNumber-1)*pageSize));
+
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            return list;
+
+        } catch (Exception e) {
+
+            throw new DaoException(e);
+
+        }
+    }
     public AbstractJDBCDao(Connection connection) {
         this.connection = connection;
     }
