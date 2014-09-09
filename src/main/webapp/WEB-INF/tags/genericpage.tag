@@ -7,9 +7,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<fmt:bundle basename="i18n.message" />
+<fmt:bundle basename="i18n.message">
 <body>
-
+<fmt:message key="hello"/>
 <div id="header">
     <jsp:invoke fragment="header"/>
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
@@ -45,4 +45,5 @@
     </p>
 </div>
 </body>
+</fmt:bundle>
 </html>
