@@ -171,7 +171,7 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
     }
     public List<T> getAll(String column,String value) throws DaoException {
         List<T> list;
-        String sql = getSelectQuery()+" AND "+column+"="+"'"+value+"'";
+        String sql = getSelectQuery()+" AND "+column+" LIKE "+"'%"+value+"%'";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);
@@ -206,7 +206,7 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
         if (column.isEmpty()||param.isEmpty()){
            sql= getSelectQueryForRange();
         }else
-        sql = getSelectQuery()+" AND "+column+" = "+"'"+param+"'" +" ORDER BY ID LIMIT ? OFFSET ?;";
+        sql = getSelectQuery()+" AND "+column+" LIKE "+"'%"+param+"%'" +" ORDER BY ID LIMIT ? OFFSET ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1,String.valueOf(pageSize));

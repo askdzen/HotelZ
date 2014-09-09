@@ -4,7 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html>
-
+<fmt:bundle basename="i18n.message" />
 
 <head>
 
@@ -16,7 +16,6 @@
 <div id="statusbarcontent">
     <a href="/registration"  >registration</a>
 </div>
-
     </jsp:attribute>
 
 </t:statusbar>

@@ -1,5 +1,6 @@
 <%@tag description="Accordion template" pageEncoding="UTF-8"%>
 <%@attribute name="accordion" fragment="true" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <br><br>
 <div class="accordion" id="accordion2" align="center">
     <div class="accordion-group">

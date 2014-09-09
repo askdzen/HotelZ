@@ -1,6 +1,8 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="paginationtag" fragment="true" %>
+
 
 <div id="paginationtag">
     <jsp:invoke fragment="paginationtag"/>

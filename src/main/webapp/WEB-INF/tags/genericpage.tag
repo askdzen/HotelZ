@@ -4,8 +4,10 @@
 <%@attribute name="accordion" fragment="true" %>
 <%@attribute name="carousel" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
+<fmt:bundle basename="i18n.message" />
 <body>
 
 <div id="header">
@@ -16,12 +18,12 @@
     <link href="../../static/bootstrap.min.css" rel="stylesheet" media="screen">
 
         <div id="logo">
-            <h1><a href="/" title="Home Page">Сказочный отель на берегу моря <p id="yes"></p></a></h1>
+            <h1><a href="/" title="Home Page"><fmt:message key="hotelNamePreffix"/> <p id="yes"></p></a></h1>
 
         </div>
         <div id="logo1">
 
-            <h2>Солнечный Зурбаган</h2>
+            <h2><fmt:message key="hotelName"/> </h2>
         </div>
 
 </div>
@@ -39,7 +41,7 @@
     <div id="contentbottomshadow"></div>
     <div id="footerimage"></div>
     <p id="footertext" align="center">
-        Copyright © 2014 EPAM Studio<br /> All Rights Reserved
+        Copyright © 2014 EPAM Studio<br /> <fmt:message key="footer"/>
     </p>
 </div>
 </body>
