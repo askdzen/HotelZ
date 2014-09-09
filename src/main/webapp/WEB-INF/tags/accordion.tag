@@ -1,54 +1,51 @@
-<%@tag description="Accordion template" pageEncoding="UTF-8"%>
+<%@tag description="Accordion template" pageEncoding="UTF-8" %>
 <%@attribute name="accordion" fragment="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<br><br>
-<div class="accordion" id="accordion2" align="center">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                Типы номеров:
-            </a>
-        </div>
-        <div id="collapseOne" class="accordion-body collapse">
-            <div class="accordion-inner">
-                <p> Отель «Приморский» расположен вблизи крупнейшей транспортной развязки Сочи — Краснодарского кольца, поэтому Вам не составит сложности добраться в любой уголок не только Сочи, но и всего Черноморского побережья. В непосредственной близости от отеля находится набережная реки с одноименным названием города. В пешей доступности крупные торгово-развлекательные центры, где, помимо всего прочего, работают рестораны, в которых можно попробовать блюда кухни различных стран. Отель «Приморский» предлагает размещение в комфортабельных номерах различных категорий, каждый из которых оснащен всем необходимым, чтобы сделать Ваше пребывание в городе-курорте еще приятнее. Для владельцев автомобилей на территории гостиницы имеется охраняемая парковка. Недалеко от отеля расположен семейный гипермаркет «Магнит» и центральная химчистка.</p>
-                <h5>Номерной фонд</h5>
-                <h6>Двухместный номер (Стандарт )</h6>
-                <p> В номере: двуспальная кровать (или две односпальные кровати), прикроватные тумбочки, шкаф, диван (или кресло), трюмо, зеркало, стул, телевизор, телефон, холодильник, кондиционер (в некоторых номерах). В ванной: душ (или ванна), туалет, раковина.</p>
-                <h6>Номер Студио (Семейный)</h6>
-                <p> В номере зона спальни и зона гостиной. В зоне спальни: двуспальная кровать, прикроватные тумбочки, шкаф, трюмо, зеркало, стул. В зоне гостиной: диван, кресло, журнальный столик, телевизор, телефон, холодильник, кондиционер. В ванной: ванна, туалет, раковина, набор полотенец, средства личной гигиены.</p>
-                <h6>Номер Студио</h6>
-                <p> В номере зона спальни и зона гостиной. В зоне спальни: двуспальная кровать, прикроватные тумбочки, шкаф, трюмо, зеркало, стул. В зоне гостиной: диван, кресло, журнальный столик, телевизор, телефон, холодильник, кондиционер. В ванной: ванна, туалет, раковина, фен, набор полотенец, средства личной гигиены, тапочки.</p>
-                <h6>Номер Люкс</h6>
-                <p>В номере спальня и гостиная. В спальне: двуспальная кровать, прикроватные тумбочки, шкаф, телефон. В гостиной: диван, пуфик, журнальный столик, стол-трюмо, стул, телевизор, холодильник, кондиционер. В ванной: ванна, туалет, раковина, фен, набор полотенец, средства личной гигиены, тапочки.</p>
+<link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
 
-                <h5>Завтрак входит в стоимость номера.</h5>
-                <h5> Расчетный час 12.00.</h5>
-                <h5> Проживание детей до 12 лет  — бесплатно.</h5>
-                <h5> Стоимость дополнительного места - 500 рублей.</h5>
+
+<%--<br><br>--%>
+<fmt:bundle basename="i18n.message" prefix="accordion.">
+ <style scoped="scoped">
+     a#accordion{
+         font-family: 'Mistral', arial,sans-serif;
+         font-size: 38px;
+         color:  #328FF4;
+         text-shadow: 4px 4px 4px #aaa;
+     }
+     a#accordion1{
+         font-family: 'Mistral', arial,sans-serif;
+         font-size: 38px;
+         color:  #328FF4;
+         text-shadow: 4px 4px 4px #aaa;
+     }
+ </style>
+
+    <div class="accordion" id="accordion2" align="center">
+
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a id="accordion" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    <fmt:message key="roomTypes"/>
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse">
+                <div class="accordion-inner">
+                   <fmt:message key="roomDescription"/>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a id="accordion1" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                    <fmt:message key="hotelServices"/>
+                </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                   <fmt:message key="hotelServicesList"/>
+                </div>
             </div>
         </div>
     </div>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                Услуги в гостинице
-            </a>
-        </div>
-        <div id="collapseTwo" class="accordion-body collapse">
-            <div class="accordion-inner">
-                <i class="icon-pencil">Доступ в интернет </i>
-                <p> Трансфер</p>
-                <p> Кондиционер</p>
-                <p> Фен</p>
-                <p> Автостоянка / Парковка</p>
-                <p> Room-service</p>
-                <p> Глажка белья</p>
-                <p> Кафе-бар</p>
-                <p> Прокат велосипедов</p>
-                <p> Экскурсии</p>
-                <p> Wi-Fi</p>
-            </div>
-        </div>
-    </div>
-</div>
+</fmt:bundle>

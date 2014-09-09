@@ -7,16 +7,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<fmt:bundle basename="i18n.message">
+<fmt:bundle basename="i18n.message" prefix="genericpage.">
 <body>
-<fmt:message key="hello"/>
+
 <div id="header">
     <jsp:invoke fragment="header"/>
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
 
     <link href="../../static/bootstrap.min.css" rel="stylesheet" media="screen">
-
+    <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
+       <style scoped="scoped">
+        h2 {
+            font-family: 'Mistral', arial,sans-serif;
+            font-size: 48px;
+            color: #fcf945;
+            text-shadow: 4px 4px 4px #aaa;
+        }
+        h1{
+            font-family: 'Mistral', arial,sans-serif;
+            font-size: 58px;
+            text-shadow: 4px 4px 4px #aaa;
+        }
+    </style>
         <div id="logo">
             <h1><a href="/" title="Home Page"><fmt:message key="hotelNamePreffix"/> <p id="yes"></p></a></h1>
 

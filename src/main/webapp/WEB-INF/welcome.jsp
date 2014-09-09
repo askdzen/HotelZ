@@ -13,11 +13,9 @@
 
     <jsp:attribute name="header">
 <div id="statusbarcontent">
-   <p id="welcome"> Welcome, ${user.username} !</p>
-       <a id="account" href="/account">Вход в личный кабинет</a>
+    <p id="welcome"> Welcome, ${user.username} !</p>
+    <a id="account" href="/account">Вход в личный кабинет</a>
     <br/>
-
-
 
 
 </div>
@@ -45,44 +43,37 @@
 
             <ul id="change" class="nav nav-tabs">
 
-                <li class="active">  Выберите дату заезда:
-                    <input type="date" name="calendar" value="2014-08-11"
+                <li  class="active"> Выберите дату заезда:
+                    <input id="calendar" type="date" name="calendar" value="2014-08-11"
                            max="2014-10-09" min="2014-08-11">
                 </li>
-                <li class="active">  Выберите дату выезда:
-                    <input type="date" name="calendar2" value="2014-08-15"
+                <li  class="active"> Выберите дату выезда:
+                    <input id="calendar2" type="date" name="calendar2" value="2014-08-15"
                            max="2014-10-09" min="2012-08-11">
                 </li>
+                <li>
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Выберите тип номера <span class="caret"></span>
-                    </a>
+                    <select class="form-control" name="roomtype">
+                        <option name="roomtype" value="Standart">Standart</option>
+                        <option name="roomtype" value="Econom">Econom</option>
+                        <option name="roomtype" value="Deluxe">Deluxe</option>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><label class="checkbox"><input type="checkbox" name="roomtype" value="AC"> AC</label></li>
-
-                        <li><label class="checkbox"><input type="checkbox" name="roomtype" value="Non AC">NonAc</label></li>
-
-                    </ul>
+                    </select>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Выберите кол-во мест <span class="caret"></span>
-                    </a>
+                <li>
 
-                    <ul class="dropdown-menu" role="menu">
+                    <select class="form-control" name="bedNo">
+                        <option name="bedNo" value="Single">Single</option>
+                        <option name="bedNo" value="Double">Double</option>
+                        <option name="bedNo" value="Studio">Studio</option>
 
-                        <li><label class="checkbox"><input type="checkbox" name="bedNo" value="Single">Single</label></li>
+                    </select>
 
-                        <li><label class="checkbox"><input type="checkbox" name="bedNo" value="Double">Double</label></li>
-
-                    </ul>
                 </li>
             </ul>
-            <label for="changeBtn">${nullrooms}</label>
-            <button id="changeBtn" type="submit" class="btn">Check Room</button>
 
+            <button id="changeBtn" type="submit" class="b1" >Check Room</button>
+            <label id="message">${nullrooms}</label>
         </form>
 
     </jsp:body>

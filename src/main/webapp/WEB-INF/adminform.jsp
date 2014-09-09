@@ -19,13 +19,13 @@
 <jsp:attribute name="footer"/>
 <jsp:body>
 
-    <button  onClick='location.href="/bookingtable"'   type="submit" class="btn">Редактирование Журнала бронирования</button>
+    <button  onClick='location.href="/bookingtable"'   type="submit" class="adminbtn">Редактирование Журнала бронирования</button>
     <hr>
-    <button  onClick='location.href="/customerdetail"'  type="submit" class="btn">Редактирование данных клиентов</button>
+    <button  onClick='location.href="/customerdetail"'  type="submit" class="adminbtn">Редактирование данных клиентов</button>
     <hr>
-    <button  onClick='location.href="/roomdetail"' type="submit" class="btn">Редактирование параметров комнат</button>
+    <button  onClick='location.href="/roomdetail"' type="submit" class="adminbtn">Редактирование параметров комнат</button>
     <hr>
-    <button  onClick='location.href="/userdetail"' type="submit" class="btn">Редактирование учетных записей пользователей</button>
+    <button  onClick='location.href="/userdetail"' type="submit" class="adminbtn">Редактирование учетных записей пользователей</button>
     <hr>
 </jsp:body>
 </t:genericpage>

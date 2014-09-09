@@ -134,17 +134,25 @@ div#logo {
 
 div#logo1 {
    margin: auto;
-    padding: 75px;
-    width: 500px;
+    padding: 35px;
+    width: 600px;
 }
-
-ul#change {
+ul#paginat {
     float: left;
-    width: 60%;
+    width: 100%;
+    margin: auto;
+}
+ul#change {
+    /*float: left;*/
+    width: 800px;
+    margin: auto;
 }
 button#changeBtn{
-    float: left;
+    /*float: left;*/
     /*margin-top: 20px;*/
+    margin: auto;
+    width: 100%;
+
 }
 button#changeBtn2{
     float: right;
@@ -238,4 +246,33 @@ select#search{
 input#search1{
     float: left;
     height: 33px;
+}
+input#calendar{
+    height: 33px;
+}
+input#calendar2{
+    height: 33px;
+}
+.b1 {
+    background: #2271D8; /* ????? ???? ???? */
+    color: white; /* ????? ????? */
+    font-size: 14pt; /* ?????? ?????? ? ??????? */
+}
+.b2 {
+    background: #f0ebeb;
+    color: #2271D8;
+    font-size: 12pt; /* ?????? ?????? ? ??????? */
+    float: right;
+    height: 23px;
+    width: 100px;
+}
+.adminbtn {
+    background: #2271D8; /* ????? ???? ???? */
+    color: white; /* ????? ????? */
+    font-size: 16pt; /* ?????? ?????? ? ??????? */
+    height: 33px;
+    width: 500px;
+}
+label#message{
+font-size: 18pt;
 }

@@ -4,22 +4,22 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html>
-<fmt:bundle basename="i18n.message" />
+<fmt:bundle basename="i18n.message" prefix="login.">
 
-<head>
+    <head>
 
 
-    <title>Login page</title>
-</head>
-<t:statusbar>
+        <title>Login page</title>
+    </head>
+    <t:statusbar>
     <jsp:attribute name="statusbar">
 <div id="statusbarcontent">
-    <a href="/registration"  >registration</a>
+    <a href="/registration"><fmt:message key="registrationHref"/> </a>
 </div>
     </jsp:attribute>
 
-</t:statusbar>
-<t:genericpage>
+    </t:statusbar>
+    <t:genericpage>
 
     <jsp:attribute name="header">
 
@@ -42,52 +42,53 @@
     <jsp:attribute name="footer">
 
     </jsp:attribute>
-    <jsp:body>
-        <script>
-            $(document).ready(function(){
-                $(".close").click(function(){
-                    $("#demo-alert").alert();
+        <jsp:body>
+            <script>
+                $(document).ready(function () {
+                    $(".close").click(function () {
+                        $("#demo-alert").alert();
+                    });
                 });
-            });
-        </script>
-
-        <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
-            <div class="alert alert-success" id="demo-alert">
-                <a href="#" class="close" data-dismiss="alert">×</a>
-                <strong>
-                    <p>${badusername} </p>
-                    <a href="#DemoModal2" data-toggle="modal">для получения совета нажмите на ссылку</a>  </strong>
-            </div>
-                </div>
-
-
-        <!-- Modal Contents -->
-        <div id="DemoModal2" class="modal fade ">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close"
-                                data-dismiss="modal" aria-hidden="true">×</button>
-
-                        <h4 class="modal-title">Browser Update</h4>
+            </script>
+            <div id="logo">
+                <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
+                    <div class="alert alert-success" id="demo-alert">
+                        <a href="#" class="close" data-dismiss="alert">×</a>
+                        <strong>
+                            <p><fmt:message key="${badoremptyusername}"/></p>
+                            <a href="#DemoModal2" data-toggle="modal"><fmt:message key="help"/> </a> </strong>
                     </div>
-
-                    <div class="modal-body">
-                        <p>${context}</p>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
-
-                    </div>
-
                 </div>
             </div>
-        </div>
-    </jsp:body>
-</t:genericpage>
 
-</html>
+            <!-- Modal Contents -->
+            <div id="DemoModal2" class="modal fade ">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal" aria-hidden="true">×
+                            </button>
 
+                            <h4 class="modal-title"><fmt:message key="pageUpdate"/></h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><fmt:message key="${badoremptycontext}"/> </p>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </jsp:body>
+    </t:genericpage>
+
+    </html>
+</fmt:bundle>
 
