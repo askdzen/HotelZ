@@ -10,7 +10,6 @@
 </head>
 
 <t:genericpage>
-
     <jsp:attribute name="header">
 <div id="statusbarcontent">
     <p id="welcome"> Welcome, ${user.username} !</p>

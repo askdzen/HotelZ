@@ -23,7 +23,7 @@ public class RegistrationAction implements Action {
     public ActionResult execute(HttpServletRequest request) throws ActionException {
 
         ActionResult registration = new ActionResult("registration");
-        ActionResult welcome = new ActionResult("welcome", true);
+//        ActionResult welcome = new ActionResult("welcome", true);
         String username = request.getParameter("inputUsername");
         String password = request.getParameter("inputPassword");
         String confirmpass = request.getParameter("inputConfirmPassword");
@@ -35,8 +35,9 @@ public class RegistrationAction implements Action {
 
 
         else if (!password.equals(confirmpass)) {
-            request.setAttribute("hidden","hidden=\"hidden\"");
-            request.setAttribute("badparol", "Не правильно подтвержден пароль!");
+            request.setAttribute("registrationmessage", "badparol");
+            request.setAttribute("hidden","");
+
             return registration;
         }
             DaoFactory daoFactory=new DaoFactory();
@@ -48,17 +49,17 @@ public class RegistrationAction implements Action {
                 List<User> users = new ArrayList<>(userDao.getAll());
                 for (User user : users) {
                     if (user.getUsername().equals(username)) {
-                        request.setAttribute("badusername", "Пользователь с таким именем уже существует!");
-                        request.setAttribute("hidden","hidden=\"hidden\"");
+                        request.setAttribute("registrationmessage", "badusername");
+                        request.setAttribute("hidden","");
                         result=registration;
+
                         return result;
                     }
                 }
                 User newUser = createUser(username, password, userDao);
                 HttpSession session = request.getSession();
                 session.setAttribute("user", newUser);
-
-                request.setAttribute("registrationGood", "Поздравляем, вы успешно прошли регистрацию!");
+                request.setAttribute("registrationmessage", "registration.congratulations");
                 request.setAttribute("hidden","");
                 result = registration;
                 return result;
@@ -68,8 +69,10 @@ public class RegistrationAction implements Action {
         } catch (DaoException e) {
             throw new ActionException("Исключение при получении данных из таблицы User",e.getCause());
         }
+
         daoFactory.releaseContext();
-        return result;
+
+         return result;
       }
 
     private User createUser(String username, String password, UserDao userDao) throws ActionException {

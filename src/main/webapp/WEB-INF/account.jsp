@@ -7,14 +7,17 @@
 <head>
        <title>Account page</title>
 </head>
+<t:welcomelayout>
+    <jsp:attribute name="welcomelayout"/>
+</t:welcomelayout>
 <t:genericpage>
 
     <jsp:attribute name="header">
-<div id="statusbarcontent">
-    <p id="welcome"> Welcome, ${user.username} ! </p>
-            <a id="account" href="/welcome">Выйти</a>
+<%--<div id="statusbarcontent">--%>
+    <%--<p id="welcome"> Welcome, ${user.username} ! </p>--%>
+            <%--<a id="account" href="/welcome">Выйти</a>--%>
 
-</div>
+<%--</div>--%>
     </jsp:attribute>
     <jsp:attribute name="accordion"/>
     <jsp:attribute name="carousel"/>

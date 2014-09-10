@@ -8,14 +8,12 @@
 
     <title>Customer page</title>
 </head>
+<t:welcomelayout>
+    <jsp:attribute name="welcomelayout"/>
+</t:welcomelayout>
 <t:genericpage>
 
     <jsp:attribute name="header">
-<div id="statusbarcontent">
-    <p id="welcome"> Welcome, ${user.username} ! </p>
-    <a id="account" href="/welcome">Вернуться на главную</a>
-
-</div>
     </jsp:attribute>
     <jsp:attribute name="accordion"/>
     <jsp:attribute name="carousel"/>

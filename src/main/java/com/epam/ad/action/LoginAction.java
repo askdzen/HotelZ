@@ -27,6 +27,8 @@ public class LoginAction implements Action {
     public ActionResult execute(HttpServletRequest req) throws ActionException {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
+        HttpSession session=req.getSession();
+
        // req.setAttribute("hidden","hidden=\"hidden\"");
         try {
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
@@ -77,6 +79,7 @@ public class LoginAction implements Action {
         } catch (DaoException e) {
             throw  new ActionException("Исключении при выполнении транзакции при авторизации",e.getCause());
     }
+
         daoFactory.releaseContext();
         return result;
 

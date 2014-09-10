@@ -2,11 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
 
-    <title>Registration page</title>
+    <title><fmt:message key="registration.title"/> </title>
 </head>
 <t:genericpage>
 
@@ -26,8 +26,8 @@
         <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
             <div class="alert alert-success" id="demo-alert">
                 <a href="#" class="close" data-dismiss="alert">×</a>
-                <p>${registrationGood}</p>
-                <strong>для оформления заказа перейдите по <a href="/welcome" data-toggle="modal"> ссылке</a>  </strong>
+                <p><fmt:message key="${registrationmessage}"/> </p>
+
             </div>
         </div>
         </div>
@@ -36,16 +36,16 @@
 
 
         <div class="form-group">
-        <label for="inputUsername" class="col-sm-2 control-label">Введите логин:</label>
+        <label for="inputUsername" class="col-sm-2 control-label"><fmt:message key="statusbar.login"/> </label>
 
         <div class="col-sm-10">
         <input type="text" class="form-control" id="inputUsername" name="inputUsername"
-        placeholder="Login "> <label for="inputUsername"> ${badusername}</label>
+        placeholder="Login "> <label for="inputUsername" ></label>${badusername}
 
         </div>
         </div>
         <div class="form-group">
-        <label for="inputPassword" class="col-sm-2 control-label">Введите пароль:</label>
+        <label for="inputPassword" class="col-sm-2 control-label"><fmt:message key="statusbar.password"/> </label>
 
         <div class="col-sm-10">
         <input type="password" class="form-control" id="inputPassword" name="inputPassword"
@@ -53,18 +53,18 @@
         </div>
         </div>
         <div class="form-group">
-        <label for="inputConfirmPassword" class="col-sm-2 control-label">Подтвердите пароль:</label>
+        <label for="inputConfirmPassword" class="col-sm-2 control-label"><fmt:message key="registration.confirmPassword"/> </label>
 
         <div class="col-sm-10">
         <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword"
-        placeholder="Password "> <label for="inputPassword">  ${badparol} </label>
+        placeholder="Password "> <label for="inputPassword"></label> ${badparol}
         </div>
         </div>
 
         <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
 
-        <button type="submit" class="btn"> Sign Up </button>
+        <button type="submit" class="btn"> <fmt:message key="registration.signUp"/> </button>
         </div>
         </div>
         </form>
@@ -73,5 +73,5 @@
 </t:genericpage>
 
 </html>
-
+</fmt:bundle>
 

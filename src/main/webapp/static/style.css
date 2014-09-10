@@ -51,7 +51,7 @@ div#statusbar {
 div#statusbarcontent {
     margin: 1px auto 0px auto;
     height: 14px;
-    width: 800px;
+    width: 1500px;
 }
 
 div#statusbarcommands {
@@ -92,7 +92,8 @@ form#searchform input[type="password"] {
 a#account{
     float: right;
     padding-top: 7px;
-    width: 250px;
+    width: 350px;
+    font-size: 15pt;
 }
 
 p#welcome {
@@ -127,14 +128,14 @@ div#header {
 
 div#logo {
     margin: auto;
-    padding-top: 35px;
+    padding-top: 25px;
     width: 800px;
 
 }
 
 div#logo1 {
    margin: auto;
-    padding: 35px;
+    padding: 25px;
     width: 600px;
 }
 ul#paginat {
@@ -144,7 +145,7 @@ ul#paginat {
 }
 ul#change {
     /*float: left;*/
-    width: 800px;
+    width: 1000px;
     margin: auto;
 }
 button#changeBtn{
@@ -254,25 +255,29 @@ input#calendar2{
     height: 33px;
 }
 .b1 {
-    background: #2271D8; /* ????? ???? ???? */
-    color: white; /* ????? ????? */
-    font-size: 14pt; /* ?????? ?????? ? ??????? */
+    background: #2271D8;
+    color: white;
+    font-size: 14pt;
 }
 .b2 {
     background: #f0ebeb;
     color: #2271D8;
-    font-size: 12pt; /* ?????? ?????? ? ??????? */
+    font-size: 12pt;
     float: right;
     height: 23px;
     width: 100px;
 }
 .adminbtn {
-    background: #2271D8; /* ????? ???? ???? */
-    color: white; /* ????? ????? */
-    font-size: 16pt; /* ?????? ?????? ? ??????? */
+    background: #2271D8;
+    color: white;
+    font-size: 16pt;
     height: 33px;
     width: 500px;
 }
 label#message{
 font-size: 18pt;
+}
+div#welcomelayout{
+    margin: 1px auto 0px auto;
+    width: 1500px;
 }

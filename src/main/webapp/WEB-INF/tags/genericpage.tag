@@ -20,7 +20,7 @@
        <style scoped="scoped">
         h2 {
             font-family: 'Mistral', arial,sans-serif;
-            font-size: 48px;
+            font-size: 68px;
             color: #fcf945;
             text-shadow: 4px 4px 4px #aaa;
         }
