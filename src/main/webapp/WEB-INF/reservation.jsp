@@ -2,11 +2,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<fmt:bundle basename="i18n.message" >
 <html>
 <head>
-
-    <title>Customer page</title>
+    <title><fmt:message key="reservation.title"/> </title>
 </head>
 <t:welcomelayout>
     <jsp:attribute name="welcomelayout"/>
@@ -31,8 +30,8 @@
         <div id="Demo-BS" ${hidden} style="padding:30px;" align="center">
             <div class="alert alert-success" id="demo-alert">
                 <a href="#" class="close" data-dismiss="alert">×</a>
-                <p> Вы успешно забронировали номер!</p>
-                <strong>для перехода на главную страницу нажмите на <a href="#DemoModal2" data-toggle="modal">ссылку</a>  </strong>
+                <p> <fmt:message key="reservation.congratulate"/> </p>
+                <strong><fmt:message key="reservation.gotomain"/> </strong>
             </div>
         </div>
         </div>
@@ -49,7 +48,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p>Для просмотра своих заказов, подтверждения брони и для изменения личных данных перейдите по ссылке \"Вход в личный кабинет\" </p>
+                        <p><fmt:message key="reservation.gotoaccount"/> </p>
 
                     </div>
 
@@ -81,7 +80,7 @@
         </div>
     </div>
     <div align="center" class="form-group">
-        <h3 align="center">Мы подобрали для Вас номер!</h3>
+        <h3 align="center"><fmt:message key="reservation.picked"/> </h3>
 
                 <p>Date From "${dateFrom}"</p>
 
@@ -100,9 +99,9 @@
     <div class="accordion" id="accordion2" align="center">
         <div class="accordion-group">
             <div class="accordion-heading">
-                <h3 align="center">Для перехода к процедуре бронирования, нажмите на ссылку</h3>
+                <h3 align="center"><fmt:message key="reservation.bookingprocedure"/> </h3>
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                   Ввести данные для регистрации:
+                   <fmt:message key="reservation.guestinformation"/>
                 </a>
             </div>
             <div id="collapseOne" class="accordion-body collapse">
@@ -168,7 +167,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
 
-                            <button type="submit" class="btn" name="action" value="customerForm" > Confirm </button>
+                            <button type="submit" class="btn" name="action" value="customerForm" > <fmt:message key="reservation.booking"/> </button>
                         </div>
                     </div>
                 </div>
@@ -181,3 +180,4 @@
 </t:genericpage>
 
 </html>
+</fmt:bundle>
