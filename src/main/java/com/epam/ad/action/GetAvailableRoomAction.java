@@ -49,13 +49,13 @@ public class GetAvailableRoomAction implements Action {
                 @Override
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
 
-                    List<Room> roomList = getRooms(daoFactory);
+                    List<Room> roomList = daoFactory.createDaoManager().getRoomDao().getAll();
                     List<Room> selectedRooms = getUserSelectedRooms(roomType, bedNo, roomList);
-                    List<BookingTable> bookingRecords  = selectRoomsByDate(date1, date2,daoFactory);
+                    List<BookingTable> bookingRecords  = daoFactory.createDaoManager().getBookingTableDao().getByDateIntervalId(date1,date2);
                     RoomDao roomDao = daoManager.getRoomDao();
                     Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords);
                     for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
-                        System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
+//                        System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
                         if ((entry.getKey()==0)){
                             request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
                             daoFactory.releaseContext();
@@ -106,19 +106,6 @@ public class GetAvailableRoomAction implements Action {
         }
    }
 
-    private List<BookingTable> selectRoomsByDate(String date1, String date2,DaoFactory daoFactory) throws ActionException {
-
-        BookingTableDao bookingTableDao=daoFactory.createDaoManager().getBookingTableDao();
-        List<BookingTable> bookingTables = null;
-        try {
-            bookingTables = bookingTableDao.getByDateIntervalId(date1,date2);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске указанного интервала дат таблицы BookingTable",e.getCause());
-        }
-
-        return bookingTables;
-    }
-
     private List<Room> getUserSelectedRooms(String roomType, String bedNo, List<Room> roomList) {
         List<Room>selectedRooms = new ArrayList<Room>();
         for (Room room : roomList) {
@@ -129,14 +116,6 @@ public class GetAvailableRoomAction implements Action {
         return selectedRooms;
     }
 
-    private List<Room> getRooms(DaoFactory daoFactory) throws ActionException {
 
-       RoomDao roomDao = daoFactory.createDaoManager().getRoomDao();
-        try {
-            return roomDao.getAll();
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске таблицы Room",e.getCause());
-        }
-    }
 
 }
