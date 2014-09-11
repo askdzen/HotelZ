@@ -3,6 +3,8 @@ package com.epam.ad.pool;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ShowPageAction;
 import com.epam.ad.dao.h2.DaoFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +14,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 
-/**
- * Created by Askar on 04.08.2014.
- */
 public class ConnectionPool {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionPool.class);
     public static final String PROPERTIES_FILE = "properties.database";
     public static final int DEFAULT_POOL_SIZE = 10;
     /**
@@ -108,7 +108,7 @@ public class ConnectionPool {
                 String password = rb.getString("db.password");
                 connection = DriverManager.getConnection(url, user, password);
                 connectionQueue.put(connection);
-                System.out.println("пришел не закрытый конекшн" + connectionQueue.size());}
+                LOGGER.info("пришел не закрытый конекшн {}", connectionQueue.size());}
             } else if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
                 //"Trying to release closed connection. Possible
                 // `leakage` of connections"
@@ -119,7 +119,7 @@ public class ConnectionPool {
                 connection = DriverManager.getConnection(url, user, password);
                 connectionQueue.put(connection);
 
-                System.out.println("пришел закрытый конекшн" + connectionQueue.size());
+                LOGGER.info("пришел закрытый конекшн {}",connectionQueue.size());
             }
         } catch (SQLException e) {
             //"SQLException at conection isClosed () checking.

@@ -34,8 +34,6 @@ public class AccountEditAction implements Action {
                     HttpSession session=request.getSession();
                     session.removeAttribute("user");
                     session.setAttribute("user",user);
-                 //   request.setAttribute("userlist",userList);
-
                     return null;
                 }
             });

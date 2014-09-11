@@ -7,8 +7,8 @@
     <div id="welcomelayout">
         <jsp:invoke fragment="welcomelayout"/>
         <%--<div id="statusbarcontent">--%>
-            <p id="welcome"> Welcome, ${user.username} ! </p>
-            <a id="account" href="/welcome">Вернуться на главную страницу</a>
+            <p id="welcome"> <fmt:message key="welcomelayout.welcome"/> , ${user.username} ! </p>
+            <a id="account" href="/welcome"><fmt:message key="welcomelayout.gotomain"/> </a>
         </div>
     <%--</div>--%>
 </fmt:bundle>

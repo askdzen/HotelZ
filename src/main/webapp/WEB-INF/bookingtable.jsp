@@ -2,10 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<fmt:bundle basename="i18n.message">
 
 <html>
 <head>
-    <title>Booking Edit</title>
+    <title><fmt:message key="booking.title"/> </title>
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
@@ -17,36 +18,36 @@
     <form method="get">
         <select id="search" class="form-control" name="column" >
             <option name="column" ${ID} value="ID">ID</option>
-            <option name="column" ${DATE_FRO} value="DATE_FRO">DATE FROM</option>
-            <option name="column" ${DATE_TO} value="DATE_TO">DATE TO</option>
-            <option name="column" ${NO_OF_DAY} value="NO_OF_DAY">DAYS COUNT</option>
-            <option name="column" ${ROOM_NO} value="ROOM_NO">ROOM NO</option>
-            <option name="column" ${USER_ID} value="USER_ID">USER_ID</option>
-            <option name="column" ${CONFIRM} value="CONFIRM">CONFIRM</option>
+            <option name="column" ${DATE_FRO} value="DATE_FRO"><fmt:message key="booking.datefrom"/> </option>
+            <option name="column" ${DATE_TO} value="DATE_TO"><fmt:message key="booking.dateto"/> </option>
+            <option name="column" ${NO_OF_DAY} value="NO_OF_DAY"><fmt:message key="booking.numberofdays"/> </option>
+            <option name="column" ${ROOM_NO} value="ROOM_NO"><fmt:message key="booking.roomno"/> </option>
+            <option name="column" ${USER_ID} value="USER_ID"><fmt:message key="booking.userId"/> </option>
+            <option name="column" ${CONFIRM} value="CONFIRM">C<fmt:message key="booking.confirmation"/> </option>
 
         </select>
         <input  id="search1" type="text" name="value" value="${value}" >
-        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <button id="changeBtn3" type="submit" class="btn" ><fmt:message key="find"/> </button>
         <input hidden="hidden" value="${column}">
         <br><br>
-        <a href="/bookingtable" >Обновить таблицу</a>
+        <a href="/bookingtable" ><fmt:message key="tableupdate"/> </a>
     </form>
 </div>
 <div id="roomAdminGeneral">
 
     <table class="table table-bordered table-hover table-condensed">
-        <caption>BookingTable</caption>
+        <caption><fmt:message key="booking.tablename"/> </caption>
         <thead>
         <tr>
-            <th>Date from</th>
-            <th>Date To</th>
-            <th>Day count</th>
-            <th>Room ID</th>
-            <th>User_ID</th>
-            <th>Confirm Status</th>
-            <th>Confirm Buttons</th>
-            <th>Update Button</th>
-            <th>Delete Button</th>
+            <th><fmt:message key="booking.datefrom"/></th>
+            <th><fmt:message key="booking.dateto"/> </th>
+            <th><fmt:message key="booking.numberofdays"/></th>
+            <th><fmt:message key="booking.roomno"/></th>
+            <th><fmt:message key="booking.userId"/> </th>
+            <th><fmt:message key="booking.confirmation"/> </th>
+            <th><fmt:message key="booking.confirmationbutton"/> </th>
+            <th><fmt:message key="editbutton"/> </th>
+            <th><fmt:message key="deletebutton"/> </th>
         </tr>
         </thead>
         <tbody>
@@ -62,23 +63,23 @@
 
                 <td>
                     <form id="unproc" method="post">
-                        <button type="submit" name="unprocessed" value="${bt.id}">Unprocessed</button>
+                        <button type="submit" name="unprocessed" value="${bt.id}"><fmt:message key="booking.unproccessed"/> </button>
                     </form>
                     <form method="post" id="conf">
-                        <button type="submit" name="confirm" value="${bt.id}">Approved</button>
+                        <button type="submit" name="confirm" value="${bt.id}"><fmt:message key="booking.aprroved"/> </button>
                     </form>
                     <form method="post" id="unconf">
-                        <button type="submit" name="unconfirm" value="${bt.id}">Not Approved</button>
+                        <button type="submit" name="unconfirm" value="${bt.id}"><fmt:message key="booking.notapproved"/> </button>
                     </form>
                 </td>
                 <td>
                     <form method="get">
-                        <button type="submit" name="update" value="${bt.id}">Edit</button>
+                        <button type="submit" name="update" value="${bt.id}"><fmt:message key="edit"/> </button>
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <button type="submit" name="delete" value="${bt.id}">Delete</button>
+                        <button type="submit" name="delete" value="${bt.id}"><fmt:message key="isdelete"/> </button>
                     </form>
                 </td>
             </tr>
@@ -97,3 +98,4 @@
 
 </body>
 </html>
+</fmt:bundle>
