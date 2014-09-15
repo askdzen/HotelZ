@@ -4,14 +4,16 @@ font-family: 'Mistral', arial, sans-serif;
 font-size: 58px;
 font-weight: normal;
 }
-h1 a { color: #f0ebeb; text-decoration: none; }
 h2 {
-color: #fcf945;
-font-family: 'Mistral', arial, sans-serif;
-font-size: 68px;
-text-shadow: 4px 4px 4px #aaa;
-letter-spacing: 2px;
-
+    font-family: 'Mistral', arial,sans-serif;
+    font-size: 68px;
+    color: #fcf945;
+    text-shadow: 4px 4px 4px #aaa;
+}
+h1{
+    font-family: 'Mistral', arial,sans-serif;
+    font-size: 58px;
+    text-shadow: 4px 4px 4px #aaa;
 }
 h3 {
 color: #6ec9cc;

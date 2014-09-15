@@ -7,8 +7,8 @@
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
-
-    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../static/style.css" rel="stylesheet" media="screen">
 </head>
 <body>
 <h1>Редактирование записи</h1>

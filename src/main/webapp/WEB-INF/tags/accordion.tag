@@ -2,24 +2,25 @@
 <%@attribute name="accordion" fragment="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
-
+<link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="../static/style.css" rel="stylesheet" media="screen">
 
 <%--<br><br>--%>
 <fmt:bundle basename="i18n.message" prefix="accordion.">
- <style scoped="scoped">
-     a#accordion{
-         font-family: 'Mistral', arial,sans-serif;
-         font-size: 38px;
-         color:  #328FF4;
-         text-shadow: 4px 4px 4px #aaa;
-     }
-     a#accordion1{
-         font-family: 'Mistral', arial,sans-serif;
-         font-size: 38px;
-         color:  #328FF4;
-         text-shadow: 4px 4px 4px #aaa;
-     }
- </style>
+ <%--<style scoped="scoped">--%>
+     <%--a#accordion{--%>
+         <%--font-family: 'Mistral', arial,sans-serif;--%>
+         <%--font-size: 38px;--%>
+         <%--color:  #328FF4;--%>
+         <%--text-shadow: 4px 4px 4px #aaa;--%>
+     <%--}--%>
+     <%--a#accordion1{--%>
+         <%--font-family: 'Mistral', arial,sans-serif;--%>
+         <%--font-size: 38px;--%>
+         <%--color:  #328FF4;--%>
+         <%--text-shadow: 4px 4px 4px #aaa;--%>
+     <%--}--%>
+ <%--</style>--%>
 
     <div class="accordion" id="accordion2" align="center">
 
