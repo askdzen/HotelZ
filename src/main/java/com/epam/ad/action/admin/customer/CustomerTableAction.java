@@ -1,5 +1,9 @@
-package com.epam.ad.action;
+package com.epam.ad.action.admin.customer;
 
+import com.epam.ad.action.Action;
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ActionResult;
+import com.epam.ad.action.Pagination;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.CustomerDao;
@@ -8,7 +12,6 @@ import com.epam.ad.entity.Customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

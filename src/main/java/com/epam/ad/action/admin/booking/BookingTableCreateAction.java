@@ -1,11 +1,11 @@
-package com.epam.ad.action;
+package com.epam.ad.action.admin.booking;
 
+import com.epam.ad.action.Action;
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ActionResult;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.PersistenceAction.BookingPersistenceAction;
-import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.entity.BookingTable;
 
 import javax.servlet.http.HttpServletRequest;
 

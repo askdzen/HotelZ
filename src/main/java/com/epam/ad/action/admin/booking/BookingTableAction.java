@@ -1,5 +1,9 @@
-package com.epam.ad.action;
+package com.epam.ad.action.admin.booking;
 
+import com.epam.ad.action.Action;
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ActionResult;
+import com.epam.ad.action.Pagination;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.BookingTableDao;

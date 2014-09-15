@@ -2,7 +2,6 @@ package com.epam.ad.dao.PersistenceAction;
 
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.PersistenceActionBase;
 import com.epam.ad.entity.BookingTable;
 import com.epam.ad.entity.Customer;
 

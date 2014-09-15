@@ -1,6 +1,19 @@
 package com.epam.ad.action;
 
 
+import com.epam.ad.action.admin.booking.BookingTableAction;
+import com.epam.ad.action.admin.booking.BookingTableCreateAction;
+import com.epam.ad.action.admin.booking.BookingTableEditAction;
+import com.epam.ad.action.admin.customer.CustomerCreateAction;
+import com.epam.ad.action.admin.customer.CustomerEditAction;
+import com.epam.ad.action.admin.customer.CustomerTableAction;
+import com.epam.ad.action.admin.room.RoomCreateAction;
+import com.epam.ad.action.admin.room.RoomEditAction;
+import com.epam.ad.action.admin.room.RoomTableAction;
+import com.epam.ad.action.admin.user.UserAction;
+import com.epam.ad.action.admin.user.UserCreateAction;
+import com.epam.ad.action.admin.user.UserEditAction;
+
 import java.util.HashMap;
 import java.util.Map;
 

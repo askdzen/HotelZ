@@ -1,10 +1,12 @@
-package com.epam.ad.action;
+package com.epam.ad.action.admin.room;
 
+import com.epam.ad.action.Action;
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ActionResult;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.dao.h2.RoomDao;
-import com.epam.ad.entity.Room;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;

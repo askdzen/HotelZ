@@ -2,12 +2,7 @@ package com.epam.ad.dao.PersistenceAction;
 
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.PersistenceActionBase;
-import com.epam.ad.dao.h2.CustomerDao;
 import com.epam.ad.entity.Customer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class CustomerPersistenceAction extends PersistenceActionBase {

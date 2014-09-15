@@ -1,16 +1,15 @@
-package com.epam.ad.action;
+package com.epam.ad.action.admin.customer;
 
 
-import com.epam.ad.dao.DaoException;
+import com.epam.ad.action.Action;
+import com.epam.ad.action.ActionException;
+import com.epam.ad.action.ActionResult;
 import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.PersistenceAction.CustomerPersistenceAction;
-import com.epam.ad.dao.h2.CustomerDao;
 import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.entity.Customer;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CustomerCreateAction implements Action{
+public class CustomerCreateAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
