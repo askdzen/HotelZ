@@ -2,10 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
-    <title>Room Edit</title>
+    <title><fmt:message key="room.title"/> </title>
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
     <link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -16,32 +16,32 @@
     <form method="get">
     <select id="search" class="form-control" name="column" >
         <option name="column" ${ID} value="ID">ID</option>
-        <option name="column" ${ROOM_NO} value="ROOM_NO">Room No</option>
-        <option name="column" ${ROOM_TYPE} value="ROOM_TYPE">Room Type</option>
-        <option name="column" ${ROOM_BED} value="ROOM_BED">Room Bed</option>
-        <option name="column" ${ROOM_RATE} value="ROOM_RATE">Room Rate</option>
+        <option name="column" ${ROOM_NO} value="ROOM_NO"><fmt:message key="room.no"/> </option>
+        <option name="column" ${ROOM_TYPE} value="ROOM_TYPE"><fmt:message key="room.type"/> </option>
+        <option name="column" ${ROOM_BED} value="ROOM_BED"><fmt:message key="room.bed"/> </option>
+        <option name="column" ${ROOM_RATE} value="ROOM_RATE"><fmt:message key="room.rate"/> </option>
     </select>
         <input  id="search1" type="text" name="value" value="${value}" >
-        <button id="changeBtn3" type="submit" class="btn" >Найти</button>
+        <button id="changeBtn3" type="submit" class="btn" ><fmt:message key="find"/> </button>
         <input hidden="hidden" value="${column}">
         <br><br>
-        <a href="/roomdetail" >Обновить таблицу</a>
+        <a href="/roomdetail" ><fmt:message key="tableupdate"/> </a>
     </form>
 </div>
 <div id="roomAdminGeneral">
 
 
     <table class="table table-bordered table-hover table-condensed">
-        <caption>List of rooms available</caption>
+        <caption><fmt:message key="room.list"/> </caption>
         <thead>
         <tr>
             <th>ID</th>
-            <th>Room No</th>
-            <th>Room Type</th>
-            <th>Bed Type</th>
-            <th>Tarif</th>
-            <th>Update Button</th>
-            <th>Delete Button</th>
+            <th><fmt:message key="room.no"/> </th>
+            <th><fmt:message key="room.type"/> </th>
+            <th><fmt:message key="room.bed"/> </th>
+            <th><fmt:message key="room.rate"/> </th>
+            <th><fmt:message key="editbutton"/> </th>
+            <th><fmt:message key="deletebutton"/> </th>
         </tr>
         </thead>
         <tbody>
@@ -56,12 +56,12 @@
                 <td>${roomI.roomRate}</td>
                 <td>
                     <form method="get">
-                        <button type="submit" name="update" value="${roomI.id}">Edit</button>
+                        <button type="submit" name="update" value="${roomI.id}"><fmt:message key="edit"/> </button>
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <button type="submit" name="delete" value="${roomI.id}">Delete</button>
+                        <button type="submit" name="delete" value="${roomI.id}"><fmt:message key="isdelete"/> </button>
                     </form>
                 </td>
             </tr>
@@ -78,3 +78,4 @@
 
 </body>
 </html>
+</fmt:bundle>

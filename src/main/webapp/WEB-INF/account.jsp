@@ -2,10 +2,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
-       <title>Account page</title>
+       <title><fmt:message key="account.title"/> </title>
 </head>
 <t:welcomelayout>
     <jsp:attribute name="welcomelayout"/>
@@ -21,20 +21,20 @@
     <jsp:body>
 
         <div>
-            <h3>Добро пожаловать, ${user.username} в Ваш личный кабинет!</h3>
+            <h3><fmt:message key="welcomelayout.welcome"/> , ${user.username} <fmt:message key="account.welcome"/> </h3>
             <div id="accountbooking">
             <table class="table table-bordered table-hover table-condensed">
-                <caption>Ваши заказы ${notbookinglist}</caption>
+                <caption><fmt:message key="account.orders"/> ${notbookinglist}</caption>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>DATE_FROM</th>
-                    <th>DATE_TO</th>
-                    <th>All days</th>
-                    <th>Room ID</th>
-                    <th>User_ID</th>
-                    <th>Confirm</th>
-                    <th>Побробности</th>
+                    <th><fmt:message key="booking.datefrom"/> </th>
+                    <th><fmt:message key="booking.dateto"/> </th>
+                    <th><fmt:message key="booking.numberofdays"/> </th>
+                    <th><fmt:message key="booking.roomno"/> </th>
+                    <th><fmt:message key="booking.userId"/> </th>
+                    <th><fmt:message key="booking.confirmation"/> </th>
+                    <th><fmt:message key="account.details"/> </th>
 
                 </tr>
                 </thead>
@@ -50,7 +50,7 @@
                         <td>${bl.userId}</td>
                         <td>${bl.confirm}</td>
                         <td><a href="/account?bookid=${bl.id}&roomid=${bl.roomNo}&hidden=${hidden}" class="btn btn-lg btn-primary"
-                               data-toggle="modal">Подробности</a></td>
+                               data-toggle="modal"><fmt:message key="account.details"/> </a></td>
 
                     </tr>
                 </c:forEach>
@@ -61,7 +61,7 @@
                     <div>
                         <!-- Launch Modal -->
                         <a href="#DemoModal2" class="btn btn-lg btn-primary"
-                           data-toggle="modal">Изменить логин или пароль</a>
+                           data-toggle="modal"><fmt:message key="account.editusername"/> </a>
 
                         <!-- Modal Contents -->
                         <div id="DemoModal2" class="modal fade ">
@@ -72,14 +72,14 @@
                                         <button type="button" class="close"
                                                 data-dismiss="modal" aria-hidden="true">×</button>
 
-                                        <h3 class="modal-title">Данные пользователя: ${notuserlist}</h3>
+                                        <h3 class="modal-title"><fmt:message key="account.userdata"/> : ${notuserlist}</h3>
                                     </div>
 
                                     <div class="modal-body">
                                         <form method="post" class="form-horizontal" role="form">
                                         <c:forEach items="${userlist}" var="user">
                                             <div class="form-group">
-                                            <label  for="username" class="col-sm-2 control-label">Измените логин</label>
+                                            <label  for="username" class="col-sm-2 control-label"><fmt:message key="user.username"/> </label>
                                                 <div class="col-sm-10">
                                             <input type="text" class="form-control" id="username" name="username" value="${user.username}"
                                                    placeholder="username" >
@@ -87,7 +87,7 @@
                                                 <br><br>
                                     </div>
                                             <div class="form-group">
-                                            <label  for="password" class="col-sm-2 control-label">Измените пароль</label>
+                                            <label  for="password" class="col-sm-2 control-label"><fmt:message key="user.password"/> </label>
                                                 <div class="col-sm-10">
                                             <input type="text" class="form-control"  id="password" name="password" value="${user.password}"
                                                    placeholder="password">
@@ -96,14 +96,14 @@
                                             <br><br><br><br>
                                             <div class="form-group">
 
-                                                <p> <button type="submit" name="updateid" value="${user.id}">Save</button></p>
+                                                <p> <button type="submit" name="updateid" value="${user.id}"><fmt:message key="save"/> </button></p>
                                             </div>
 
 
                                     </div>
 
                                         <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Not Now!</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="account.notnow"/> </button>
 
                                         </div>
     </c:forEach>
@@ -123,7 +123,7 @@
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                            Подробности заказа ${bookid}:
+                            <fmt:message key="account.details"/> ${bookid}:
                         </a>
                     </div>
                     <div id="collapseOne" class="accordion-body ">
@@ -132,7 +132,7 @@
                             <hr>
                             <c:forEach items="${customerlist}" var="cd">
                                 <div class="form-group">
-                                    <label  for="inputFirstName" class="col-sm-2 control-label">First name</label>
+                                    <label  for="inputFirstName" class="col-sm-2 control-label"><fmt:message key="customer.name"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" value="${cd.firstName}"
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputLastName" class="col-sm-2 control-label">Last name</label>
+                                    <label for="inputLastName" class="col-sm-2 control-label"><fmt:message key="customer.lastname"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputLastName" name="inputLastName" value="${cd.lastName}"
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputCity" class="col-sm-2 control-label">City</label>
+                                    <label for="inputCity" class="col-sm-2 control-label"><fmt:message key="customer.city"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputCity" name="inputCity" value="${cd.city}"
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputRegion" class="col-sm-2 control-label">Region</label>
+                                    <label for="inputRegion" class="col-sm-2 control-label"><fmt:message key="customer.region"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputRegion" name="inputRegion" value="${cd.region}"
@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+                                    <label for="inputCountry" class="col-sm-2 control-label"><fmt:message key="customer.country"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="${cd.country}"
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassport" class="col-sm-2 control-label">Passport No</label>
+                                    <label for="inputPassport" class="col-sm-2 control-label"><fmt:message key="customer.passport"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputPassport" name="inputPassport" value="${cd.passport}"
@@ -180,7 +180,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPhone" class="col-sm-2 control-label">Phone No</label>
+                                    <label for="inputPhone" class="col-sm-2 control-label"><fmt:message key="customer.phone"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="${cd.phone}"
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                    <label for="inputEmail" class="col-sm-2 control-label"><fmt:message key="customer.email"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="${cd.email}"
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPrepayment" class="col-sm-2 control-label">Prepayment</label>
+                                    <label for="inputPrepayment" class="col-sm-2 control-label"><fmt:message key="customer.prepayment"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="inputPrepayment" name="inputPrepayment" value="${cd.prepayment}"
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputBookId" class="col-sm-2 control-label">Book Id</label>
+                                    <label for="inputBookId" class="col-sm-2 control-label"><fmt:message key="customer.bookid"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="inputBookId" name="inputBookId" value="${cd.bookId}"
@@ -213,7 +213,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="userId" class="col-sm-2 control-label">User Id</label>
+                                    <label for="userId" class="col-sm-2 control-label"><fmt:message key="customer.userid"/> </label>
 
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="userId" name="userId" value="${cd.userId}"
@@ -221,7 +221,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group" hidden="hidden">
-                                    <label for="customerId" class="col-sm-2 control-label">Customer Id</label>
+                                    <label for="customerId" class="col-sm-2 control-label">ID</label>
 
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="customerId" name="customerId" value="${cd.id}"
@@ -231,13 +231,13 @@
 
                             </c:forEach>
 
-                                <h3>Данные забронированного номера/комнаты: ${notroomlist}</h3>
+                                <h3><fmt:message key="account.roomsdata"/> : ${notroomlist}</h3>
 
                                 <c:forEach items="${roomlist}" var="rd">
 
                         </div>
                         <div class="form-group">
-                            <label for="roomno" class="col-sm-2 control-label">Room No</label>
+                            <label for="roomno" class="col-sm-2 control-label"><fmt:message key="room.no"/> </label>
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="roomno" name="roomno" value="${rd.roomNo}"
@@ -245,7 +245,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="roomtype" class="col-sm-2 control-label">Room Type</label>
+                            <label for="roomtype" class="col-sm-2 control-label"><fmt:message key="room.type"/> </label>
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="roomtype" name="roomtype" value="${rd.roomType}"
@@ -253,7 +253,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="bedtype" class="col-sm-2 control-label">Bed Type</label>
+                            <label for="bedtype" class="col-sm-2 control-label"><fmt:message key="room.bed"/> </label>
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="bedtype" name="bedtype" value="${rd.roomBed}"
@@ -261,7 +261,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tarif" class="col-sm-2 control-label">Tarif</label>
+                            <label for="tarif" class="col-sm-2 control-label"><fmt:message key="room.rate"/> </label>
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="tarif" name="tarif" value="${rd.roomRate}"
@@ -269,7 +269,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" hidden="hidden">
                             <label for="roomid" class="col-sm-2 control-label">Id</label>
 
                             <div class="col-sm-10">
@@ -289,3 +289,4 @@
 </t:genericpage>
 
 </html>
+</fmt:bundle>

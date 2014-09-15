@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
-    <title>Customer Edit</title>
+    <title><fmt:message key="customer.title"/> </title>
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
     <link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -13,12 +14,12 @@
 <div >
 
 
-    <h3>Пожалуйста введите данные: </h3>
+    <h3><fmt:message key="customer.changemessage"/></h3>
 
     <form id="registration" method="post" class="form-horizontal" role="form">
 
         <div class="form-group">
-            <label  for="inputFirstName" class="col-sm-2 control-label">First name</label>
+            <label  for="inputFirstName" class="col-sm-2 control-label"><fmt:message key="customer.name"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" value="${firstname}"
@@ -26,7 +27,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputLastName" class="col-sm-2 control-label">Last name</label>
+            <label for="inputLastName" class="col-sm-2 control-label"><fmt:message key="customer.lastname"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputLastName" name="inputLastName" value="${lastname}"
@@ -34,7 +35,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputCity" class="col-sm-2 control-label">City</label>
+            <label for="inputCity" class="col-sm-2 control-label"><fmt:message key="customer.city"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputCity" name="inputCity" value="${city}"
@@ -42,7 +43,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputRegion" class="col-sm-2 control-label">Region</label>
+            <label for="inputRegion" class="col-sm-2 control-label"><fmt:message key="customer.region"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputRegion" name="inputRegion" value="${region}"
@@ -50,7 +51,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+            <label for="inputCountry" class="col-sm-2 control-label"><fmt:message key="customer.country"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="${country}"
@@ -58,7 +59,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPassport" class="col-sm-2 control-label">Passport No</label>
+            <label for="inputPassport" class="col-sm-2 control-label"><fmt:message key="customer.passport"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputPassport" name="inputPassport" value="${passport}"
@@ -66,7 +67,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPhone" class="col-sm-2 control-label">Phone No</label>
+            <label for="inputPhone" class="col-sm-2 control-label"><fmt:message key="customer.phone"/> </label>
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="${phone}"
@@ -74,7 +75,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+            <label for="inputEmail" class="col-sm-2 control-label"><fmt:message key="customer.email"/> </label>
 
             <div class="col-sm-10">
                 <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="${email}"
@@ -82,7 +83,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPrepayment" class="col-sm-2 control-label">Prepayment</label>
+            <label for="inputPrepayment" class="col-sm-2 control-label"><fmt:message key="customer.prepayment"/> </label>
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="inputPrepayment" name="inputPrepayment" value="${prepayment}"
@@ -91,7 +92,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputBookId" class="col-sm-2 control-label">Book Id</label>
+            <label for="inputBookId" class="col-sm-2 control-label"><fmt:message key="customer.bookid"/> </label>
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="inputBookId" name="inputBookId" value="${bookid}"
@@ -99,7 +100,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="userId" class="col-sm-2 control-label">User Id</label>
+            <label for="userId" class="col-sm-2 control-label"><fmt:message key="customer.userid"/> </label>
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="userId" name="userId" value="${userid}"
@@ -107,7 +108,7 @@
             </div>
         </div>
         <div class="form-group" hidden="hidden">
-            <label for="customerId" class="col-sm-2 control-label">Customer Id</label>
+            <label for="customerId" class="col-sm-2 control-label">ID</label>
 
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="customerId" name="customerId" value="${customerid}"
@@ -119,7 +120,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
 
-                <button type="submit" class="btn" > Update </button>
+                <button type="submit" class="btn" > <fmt:message key="save"/> </button>
             </div>
         </div>
     </form>
@@ -128,3 +129,4 @@
 </div>
 </body>
 </html>
+</fmt:bundle>

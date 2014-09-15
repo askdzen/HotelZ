@@ -1,5 +1,5 @@
-h1 {
-color: #f0ebeb;
+h1 a{
+color: #E8D5FB;
 font-family: 'Mistral', arial, sans-serif;
 font-size: 58px;
 font-weight: normal;
@@ -10,11 +10,11 @@ h2 {
     color: #fcf945;
     text-shadow: 4px 4px 4px #aaa;
 }
-h1{
-    font-family: 'Mistral', arial,sans-serif;
-    font-size: 58px;
-    text-shadow: 4px 4px 4px #aaa;
-}
+/*h1{*/
+    /*font-family: 'Mistral', arial,sans-serif;*/
+    /*font-size: 58px;*/
+    /*text-shadow: 4px 4px 4px #aaa;*/
+/*}*/
 h3 {
 color: #6ec9cc;
 font-family: "Myriad Pro", Helvetica, Arial, sans-serif;

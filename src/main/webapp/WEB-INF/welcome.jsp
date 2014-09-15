@@ -2,17 +2,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
 
-    <title>Welcome page</title>
+    <title><fmt:message key="welcome.title"/> </title>
 </head>
 
 <t:genericpage>
     <jsp:attribute name="header">
 <div id="statusbarcontent">
-    <p id="welcome"> Welcome, ${user.username} !</p>
+    <p id="welcome"> <fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>
     <a id="account" href="/account">Вход в личный кабинет</a>
     <br/>
 
@@ -42,36 +42,36 @@
 
             <ul id="change" class="nav nav-tabs">
 
-                <li  class="active"> Выберите дату заезда:
+                <li  class="active"> <fmt:message key="welcome.datefrom"/> :
                     <input id="calendar" type="date" name="calendar" value="2014-08-11"
                            max="2014-10-09" min="2014-08-11">
                 </li>
-                <li  class="active"> Выберите дату выезда:
+                <li  class="active"> <fmt:message key="welcome.dateto"/> :
                     <input id="calendar2" type="date" name="calendar2" value="2014-08-15"
                            max="2014-10-09" min="2012-08-11">
                 </li>
                 <li>
 
                     <select class="form-control" name="roomtype">
-                        <option name="roomtype" value="Standart">Standart</option>
-                        <option name="roomtype" value="Econom">Econom</option>
-                        <option name="roomtype" value="Deluxe">Deluxe</option>
+                        <option name="roomtype" value="Standart"><fmt:message key="welcome.standard"/> </option>
+                        <option name="roomtype" value="Econom"><fmt:message key="welcome.econome"/> </option>
+                        <option name="roomtype" value="Deluxe"><fmt:message key="welcome.deluxe"/> </option>
 
                     </select>
                 </li>
                 <li>
 
                     <select class="form-control" name="bedNo">
-                        <option name="bedNo" value="Single">Single</option>
-                        <option name="bedNo" value="Double">Double</option>
-                        <option name="bedNo" value="Studio">Studio</option>
+                        <option name="bedNo" value="Single"><fmt:message key="welcome.single"/> </option>
+                        <option name="bedNo" value="Double"><fmt:message key="welcome.double"/> </option>
+                        <option name="bedNo" value="Studio"><fmt:message key="welcome.studio"/> </option>
 
                     </select>
 
                 </li>
             </ul>
 
-            <button id="changeBtn" type="submit" class="b1" >Check Room</button>
+            <button id="changeBtn" type="submit" class="b1" ><fmt:message key="welcome.findroom"/> </button>
             <label id="message">${nullrooms}</label>
         </form>
 
@@ -79,3 +79,4 @@
 </t:genericpage>
 
 </html>
+</fmt:bundle>

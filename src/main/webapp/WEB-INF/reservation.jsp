@@ -82,17 +82,17 @@
     <div align="center" class="form-group">
         <h3 align="center"><fmt:message key="reservation.picked"/> </h3>
 
-                <p>Date From "${dateFrom}"</p>
+                <p><fmt:message key="booking.datefrom"/> "${dateFrom}"</p>
 
-                <p>Date To "${dateTo}""</p>
+                <p><fmt:message key="booking.dateto"/> "${dateTo}""</p>
 
-                <p>Room Type "${type}"</p>
+                <p> <fmt:message key="room.type"/> "${type}"</p>
 
-                <p>Bed Count "${singledouble}"</p>
+                <p><fmt:message key="room.bed"/> "${singledouble}"</p>
 
-                <p>Prepayment "${((prepayment*50)/100)}"</p>
+                <p><fmt:message key="customer.prepayment"/> "${((prepayment*50)/100)}"</p>
 
-                <p>RoomId "${randomRoom.id}"</p>
+                <p><fmt:message key="room.id"/> "${randomRoom.id}"</p>
 
 
     </div>
@@ -107,56 +107,56 @@
             <div id="collapseOne" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="form-group">
-                        <label for="inputFirstName" class="col-sm-2 control-label">First name</label>
+                        <label for="inputFirstName" class="col-sm-2 control-label"><fmt:message key="customer.name"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputFirstName" name="inputFirstName"
                                    placeholder="First name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputLastName" class="col-sm-2 control-label">Last name</label>
+                        <label for="inputLastName" class="col-sm-2 control-label"><fmt:message key="customer.lastname"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputLastName" name="inputLastName"
                                    placeholder="Last name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputCity" class="col-sm-2 control-label">City</label>
+                        <label for="inputCity" class="col-sm-2 control-label"><fmt:message key="customer.city"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputCity" name="inputCity"
                                    placeholder="City">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputRegion" class="col-sm-2 control-label">Region</label>
+                        <label for="inputRegion" class="col-sm-2 control-label"><fmt:message key="customer.region"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputRegion" name="inputRegion"
                                    placeholder="Region">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+                        <label for="inputCountry" class="col-sm-2 control-label"><fmt:message key="customer.country"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputCountry" name="inputCountry"
                                    placeholder="Country">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassport" class="col-sm-2 control-label">Passport No</label>
+                        <label for="inputPassport" class="col-sm-2 control-label"><fmt:message key="customer.passport"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputPassport" name="inputPassport"
                                    placeholder="Passport No">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPhone" class="col-sm-2 control-label">Phone No</label>
+                        <label for="inputPhone" class="col-sm-2 control-label"><fmt:message key="customer.phone"/> </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputPhone" name="inputPhone"
                                    placeholder="Phone No">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 control-label"><fmt:message key="customer.email"/> </label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" id="inputEmail" name="inputEmail"
                                    placeholder="Email">

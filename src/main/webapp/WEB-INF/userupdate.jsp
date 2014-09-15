@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:bundle basename="i18n.message">
 <html>
 <head>
-    <title>Room Edit</title>
+    <title><fmt:message key="user.title"/> </title>
 
     <script type='text/javascript' src='<c:url value="webjars/jquery/2.0.3/jquery.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
@@ -11,11 +12,11 @@
     <link href="../static/style.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<h1>Редактирование записи</h1>
+<h1><fmt:message key="user.changemessage"/> </h1>
 <form method="post" class="form-horizontal" role="form">
 
     <div class="form-group">
-        <label for="username" class="col-sm-2 control-label">Username</label>
+        <label for="username" class="col-sm-2 control-label"><fmt:message key="user.username"/> </label>
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="username" name="username" value="${username}"
@@ -23,7 +24,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
+        <label for="password" class="col-sm-2 control-label"><fmt:message key="user.password"/> </label>
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="password" name="password" value="${password}"
@@ -31,7 +32,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="role" class="col-sm-2 control-label">Role</label>
+        <label for="role" class="col-sm-2 control-label"><fmt:message key="user.role"/> </label>
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="role" name="role" value="${role}"
@@ -50,9 +51,10 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
 
-            <button type="submit" class="btn"> Update </button>
+            <button type="submit" class="btn"> <fmt:message key="save"/> </button>
         </div>
     </div>
 </form>
 </body>
 </html>
+</fmt:bundle>

@@ -286,11 +286,11 @@ div#welcomelayout{
 }
 div#accountbooking{
     float: left;
-    width: 50%;
+    width: 48%;
 }
 div#accountdetail{
-    float: right;
-    width: 50%;
+    float: left;
+    width: 52%;
 }
 input#username{
     width: 200px;
