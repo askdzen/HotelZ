@@ -27,25 +27,34 @@ public class AccountAction implements Action {
         DaoManager daoManager = daoFactory.createDaoManager();
         ActionResult accountPage = new ActionResult("account");    //переменная с именем возвращаемой страницы
         HttpSession session = request.getSession();
-//        session.setAttribute("hidden","hidden=\"hidden\"");
+
         User user = (User) session.getAttribute("user");
         try {
             BookingTableDao bookingTableDao = daoManager.getBookingTableDao(); //получение ДАО трех таблиц для отображения выбранных записей по ID пользователя
             CustomerDao customerDao = daoManager.getCustomerDao();
             RoomDao roomDao = daoManager.getRoomDao();
+
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override                                                //открытие и закрытие транзакции
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException {
                     List<BookingTable> bookingList = bookingTableDao.getByUserId(user.getId());
+                    request.setAttribute("disabled","disabled");
+                    Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
+                    pagination.executePaginationAction(request, bookingTableDao, "account",user.getId());
                     int bookIdNumber;
                     int roomIdNumber;
+                    request.setAttribute("hidden","hidden");
                     bookIdNumber = bookingList.get(0).getId(); //первое значение ID записи брони (при открытии страницы)
                     roomIdNumber = bookingList.get(0).getRoomNo();//первое значение ID комнаты (при открытии страницы)
                     String bookIdString = request.getParameter("bookid"); // получение параметра запроса ID записи брони
                     String roomIdString = request.getParameter("roomid");
-                    if (!(bookIdString == null)) bookIdNumber = Integer.parseInt(bookIdString);
+
+                    if (!(bookIdString == null)) {
+                        bookIdNumber = Integer.parseInt(bookIdString);
+                        request.setAttribute("hidden","");
+                    }
                     if (!(roomIdString == null)) roomIdNumber = Integer.parseInt(roomIdString);
-                    request.setAttribute("bookinglist", bookingList);
+//                    request.setAttribute("bookinglist", bookingList);
 
                     List<Customer> customerList = new ArrayList<Customer>();
 

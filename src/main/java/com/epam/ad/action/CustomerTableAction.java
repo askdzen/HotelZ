@@ -39,6 +39,8 @@ public class CustomerTableAction implements Action {
             try {
                 request.setAttribute("column",0);
                 request.setAttribute("value",0);
+                request.setAttribute("hiddenButton","");
+                request.setAttribute("disabled","");
                 Pagination<Customer, CustomerDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, customerDao, "customerdetail");
                 Map<String,String> selectedColumn=new HashMap<>();

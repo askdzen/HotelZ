@@ -22,7 +22,7 @@ public class SecurityFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
         pageRoles.put("admin", "ADMIN");
-        pageRoles.put("user", "ADMIN");
+        pageRoles.put("user", "CLIENT");
 
 
     }

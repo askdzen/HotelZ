@@ -13,11 +13,7 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-<%--<div id="statusbarcontent">--%>
-    <%--<p id="welcome"> Welcome, ${user.username} ! </p>--%>
-            <%--<a id="account" href="/welcome">Выйти</a>--%>
 
-<%--</div>--%>
     </jsp:attribute>
     <jsp:attribute name="accordion"/>
     <jsp:attribute name="carousel"/>
@@ -26,6 +22,7 @@
 
         <div>
             <h3>Добро пожаловать, ${user.username} в Ваш личный кабинет!</h3>
+            <div id="accountbooking">
             <table class="table table-bordered table-hover table-condensed">
                 <caption>Ваши заказы ${notbookinglist}</caption>
                 <thead>
@@ -43,7 +40,7 @@
                 </thead>
                 <tbody>
 
-                <c:forEach items="${bookinglist}" var="bl">
+                <c:forEach items="${list}" var="bl">
                     <tr>
                         <td>${bl.id}</td>
                         <td>${bl.dateFrom}</td>
@@ -52,14 +49,77 @@
                         <td>${bl.roomNo}</td>
                         <td>${bl.userId}</td>
                         <td>${bl.confirm}</td>
-                        <td><a href="/account?bookid=${bl.id}&roomid=${bl.roomNo}">Подробности</a></td>
+                        <td><a href="/account?bookid=${bl.id}&roomid=${bl.roomNo}&hidden=${hidden}" class="btn btn-lg btn-primary"
+                               data-toggle="modal">Подробности</a></td>
 
                     </tr>
                 </c:forEach>
+                <tr>
+                    <t:pagination>
+                        <jsp:attribute name="paginationtag"/>
+                    </t:pagination>
+                    <div>
+                        <!-- Launch Modal -->
+                        <a href="#DemoModal2" class="btn btn-lg btn-primary"
+                           data-toggle="modal">Изменить логин или пароль</a>
+
+                        <!-- Modal Contents -->
+                        <div id="DemoModal2" class="modal fade ">
+
+                            <div  class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal" aria-hidden="true">×</button>
+
+                                        <h3 class="modal-title">Данные пользователя: ${notuserlist}</h3>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form method="post" class="form-horizontal" role="form">
+                                        <c:forEach items="${userlist}" var="user">
+                                            <div class="form-group">
+                                            <label  for="username" class="col-sm-2 control-label">Измените логин</label>
+                                                <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="username" name="username" value="${user.username}"
+                                                   placeholder="username" >
+                                                </div>
+                                                <br><br>
+                                    </div>
+                                            <div class="form-group">
+                                            <label  for="password" class="col-sm-2 control-label">Измените пароль</label>
+                                                <div class="col-sm-10">
+                                            <input type="text" class="form-control"  id="password" name="password" value="${user.password}"
+                                                   placeholder="password">
+                                            </div>
+                                    </div>
+                                            <br><br><br><br>
+                                            <div class="form-group">
+
+                                                <p> <button type="submit" name="updateid" value="${user.id}">Save</button></p>
+                                            </div>
+
+
+                                    </div>
+
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Not Now!</button>
+
+                                        </div>
+    </c:forEach>
+    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
                 </tbody>
 
             </table>
-            <div class="accordion" id="accordion2" align="center">
+        </div>
+
+
+            <div class="accordion" id="accountdetail" ${hidden} align="center">
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
@@ -68,110 +128,158 @@
                     </div>
                     <div id="collapseOne" class="accordion-body ">
                         <div class="accordion-inner">
-                            <table class="table table-bordered table-hover table-condensed">
-                                <caption>Данные клиента: ${notcustomerlist}</caption>
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NAME</th>
-                                    <th>LAST_NAME</th>
-                                    <th>CITY</th>
-                                    <th>REGION</th>
-                                    <th>COUNTRY</th>
-                                    <th>PASSPORT</th>
-                                    <th>PHONE</th>
-                                    <th>EMAIL</th>
-                                    <th>PREPAYMENT</th>
-                                    <th>BOOK_ID</th>
-                                    <th>USER_ID</th>
-                                </tr>
 
-                                </thead>
-                                <tbody>
-
-                                <c:forEach items="${customerlist}" var="cd">
-                                    <tr>
-                                        <td>${cd.id}</td>
-                                        <td>${cd.firstName}</td>
-                                        <td>${cd.lastName}</td>
-                                        <td>${cd.city}</td>
-                                        <td>${cd.region}</td>
-                                        <td>${cd.country}</td>
-                                        <td>${cd.passport}</td>
-                                        <td>${cd.phone}</td>
-                                        <td>${cd.email}</td>
-                                        <td>${cd.prepayment}</td>
-                                        <td>${cd.bookId}</td>
-                                        <td>${cd.userId}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
                             <hr>
-                            <table class="table table-bordered table-hover table-condensed">
-                                <caption>Данные забронированного номера/комнаты: ${notroomlist}</caption>
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Тип</th>
-                                    <th>Стоимость</th>
-                                    <th>Количество спальных мест</th>
-                                    <th>Номер</th>
+                            <c:forEach items="${customerlist}" var="cd">
+                                <div class="form-group">
+                                    <label  for="inputFirstName" class="col-sm-2 control-label">First name</label>
 
-                                </tr>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" value="${cd.firstName}"
+                                               placeholder="First name" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLastName" class="col-sm-2 control-label">Last name</label>
 
-                                </thead>
-                                <tbody>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputLastName" name="inputLastName" value="${cd.lastName}"
+                                               placeholder="Last name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCity" class="col-sm-2 control-label">City</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputCity" name="inputCity" value="${cd.city}"
+                                               placeholder="City">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputRegion" class="col-sm-2 control-label">Region</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputRegion" name="inputRegion" value="${cd.region}"
+                                               placeholder="Region">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="${cd.country}"
+                                               placeholder="Country">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassport" class="col-sm-2 control-label">Passport No</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassport" name="inputPassport" value="${cd.passport}"
+                                               placeholder="Passport No">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPhone" class="col-sm-2 control-label">Phone No</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="${cd.phone}"
+                                               placeholder="Phone No">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="${cd.email}"
+                                               placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPrepayment" class="col-sm-2 control-label">Prepayment</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputPrepayment" name="inputPrepayment" value="${cd.prepayment}"
+                                               placeholder="inputPrepayment">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBookId" class="col-sm-2 control-label">Book Id</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputBookId" name="inputBookId" value="${cd.bookId}"
+                                               placeholder="inputBookId">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userId" class="col-sm-2 control-label">User Id</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="userId" name="userId" value="${cd.userId}"
+                                               placeholder="inputBookId">
+                                    </div>
+                                </div>
+                                <div class="form-group" hidden="hidden">
+                                    <label for="customerId" class="col-sm-2 control-label">Customer Id</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="customerId" name="customerId" value="${cd.id}"
+                                               placeholder="customerId">
+                                    </div>
+                                </div>
+
+                            </c:forEach>
+
+                                <h3>Данные забронированного номера/комнаты: ${notroomlist}</h3>
 
                                 <c:forEach items="${roomlist}" var="rd">
-                                    <tr>
-                                        <td>${rd.id}</td>
-                                        <td>${rd.roomType}</td>
-                                        <td>${rd.roomRate}</td>
-                                        <td>${rd.roomBed}</td>
-                                        <td>${rd.roomNo}</td>
-
-
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
 
                         </div>
-                    </div>
-                    <div id="collapseTwo" class="accordion-body ">
-                        <div class="accordion-inner">
-                            <table class="table table-bordered table-hover table-condensed">
-                                <caption>Данные пользователя: ${notuserlist}</caption>
-                                <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Update Button</th>
-                                </tr>
+                        <div class="form-group">
+                            <label for="roomno" class="col-sm-2 control-label">Room No</label>
 
-                                </thead>
-                                <tbody>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="roomno" name="roomno" value="${rd.roomNo}"
+                                       placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomtype" class="col-sm-2 control-label">Room Type</label>
 
-                                <c:forEach items="${userlist}" var="user">
-                                    <tr>
-                                        <form method="post">
-                                        <td><input type="text" value="${user.username}" name="username"> </td>
-                                        <td><input type="text" value="${user.password}" name="password"> </td>
-                                        <td>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="roomtype" name="roomtype" value="${rd.roomType}"
+                                       placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bedtype" class="col-sm-2 control-label">Bed Type</label>
 
-                                            <button type="submit" name="updateid" value="${user.id}">Modify</button>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="bedtype" name="bedtype" value="${rd.roomBed}"
+                                       placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tarif" class="col-sm-2 control-label">Tarif</label>
 
-                                        </td>
-                                        </form>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="tarif" name="tarif" value="${rd.roomRate}"
+                                       placeholder="">
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="roomid" class="col-sm-2 control-label">Id</label>
 
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="roomid" name="roomid" value="${rd.id}"
+                                       placeholder="">
+                            </div>
                         </div>
                     </div>
+
+    </c:forEach>
                 </div>
             </div>
 

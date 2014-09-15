@@ -222,9 +222,29 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
 
         }
     }
+    public List<T> getRange(int pageNumber, int pageSize, int userid)throws  DaoException{
+        List<T> list;
+
+       String sql = getSelectQuery()+" AND USER_ID = " +String.valueOf(userid)+" ORDER BY ID LIMIT ? OFFSET ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,String.valueOf(pageSize));
+            statement.setString(2,String.valueOf((pageNumber-1)*pageSize));
+
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            return list;
+
+        } catch (Exception e) {
+
+            throw new DaoException(e);
+
+        }
+    }
+
     public AbstractJDBCDao(Connection connection) {
         this.connection = connection;
     }
+
 
 }
 

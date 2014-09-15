@@ -17,19 +17,7 @@
 
     <link href="../../static/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
-       <style scoped="scoped">
-        h2 {
-            font-family: 'Mistral', arial,sans-serif;
-            font-size: 68px;
-            color: #fcf945;
-            text-shadow: 4px 4px 4px #aaa;
-        }
-        h1{
-            font-family: 'Mistral', arial,sans-serif;
-            font-size: 58px;
-            text-shadow: 4px 4px 4px #aaa;
-        }
-    </style>
+
         <div id="logo">
             <h1><a href="/" title="Home Page"><fmt:message key="hotelNamePreffix"/> <p id="yes"></p></a></h1>
 

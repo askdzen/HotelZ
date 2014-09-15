@@ -40,8 +40,9 @@ public class RoomTableAction implements Action {
             try {
                 request.setAttribute("column",0);
                 request.setAttribute("value",0);
+                request.setAttribute("hiddenButton","");
+                request.setAttribute("disabled","");
                 Pagination<Room, RoomDao> pagination = new Pagination<>();
-
                 pagination.executePaginationAction(request, roomDao, "roomdetail");
                 Map<String,String>selectedColumn=new HashMap<>();
                 selectedColumn.put("ID","selected");

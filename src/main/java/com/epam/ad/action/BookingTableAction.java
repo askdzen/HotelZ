@@ -44,6 +44,8 @@ public class BookingTableAction implements Action {
             try {
                 request.setAttribute("column",0);
                 request.setAttribute("value",0);
+                request.setAttribute("hiddenButton","");
+                request.setAttribute("disabled","");
                 Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, bookingTableDao, "bookingtable");
                 Map<String,String> selectedColumn=new HashMap<>();

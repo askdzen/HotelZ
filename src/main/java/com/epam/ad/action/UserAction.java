@@ -34,6 +34,8 @@ public class UserAction implements Action {
             try {
                 request.setAttribute("column",0);
                 request.setAttribute("value",0);
+                request.setAttribute("hiddenButton","");
+                request.setAttribute("disabled","");
                 Pagination<User, UserDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, userDao, "userdetail");
                 Map<String,String> selectedColumn=new HashMap<>();

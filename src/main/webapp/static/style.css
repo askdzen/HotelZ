@@ -281,3 +281,25 @@ div#welcomelayout{
     margin: 1px auto 0px auto;
     width: 1500px;
 }
+div#accountbooking{
+    float: left;
+    width: 50%;
+}
+div#accountdetail{
+    float: right;
+    width: 50%;
+}
+input#username{
+    width: 200px;
+    float: left;
+}
+input#password{
+    width: 200px;
+    float: left;
+}
+label#usernamelabel{
+    float: right;
+}
+label#passwordlabel{
+    float: right;
+}

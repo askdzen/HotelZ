@@ -18,7 +18,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 
-public class ConfirmAction implements Action {
+public class ReservationAction implements Action {
 
 
 

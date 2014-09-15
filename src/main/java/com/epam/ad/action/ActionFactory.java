@@ -27,7 +27,7 @@ public class ActionFactory {
         actions.put("GET/welcome", new ShowPageAction("welcome"));//*
         actions.put("POST/welcome", new GetAvailableRoomAction());// выбирает свободный номер для бронирования в соответствии с выбранными пользователем параметрами и перенаправляет на страницу подтверждения и заполнения данных гостя/клиента (если все номера с данными параметрами заняты - выводит соотв. сообщение)
         actions.put("GET/reservation", new ShowPageAction("reservation"));//*
-        actions.put("POST/reservation", new ConfirmAction());// получает параметры заказа/бронирования и данных клиента и заносит все в соответствующие таблицы (при удачном выполнении переводит на страницу приветствия с оповещением, что номер забронирован)
+        actions.put("POST/reservation", new ReservationAction());// получает параметры заказа/бронирования и данных клиента и заносит все в соответствующие таблицы (при удачном выполнении переводит на страницу приветствия с оповещением, что номер забронирован)
         actions.put("GET/bookingtablecreate",new ShowPageAction("bookingtablecreate"));
         actions.put("POST/bookingtablecreate",new BookingTableCreateAction());
         actions.put("GET/customercreate",new ShowPageAction("customercreate"));
