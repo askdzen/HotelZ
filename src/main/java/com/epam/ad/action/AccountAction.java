@@ -35,12 +35,21 @@ public class AccountAction implements Action {
             RoomDao roomDao = daoManager.getRoomDao();
 
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
-                @Override                                                //открытие и закрытие транзакции
-                public Object execute(DaoManager daoManager) throws DaoException, SQLException {
-                    List<BookingTable> bookingList = bookingTableDao.getByUserId(user.getId());
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {//выполнение и закрытие транзакции
                     request.setAttribute("disabled","disabled");
                     Pagination<BookingTable, BookingTableDao> pagination = new Pagination<>();
                     pagination.executePaginationAction(request, bookingTableDao, "account",user.getId());
+
+                    List<BookingTable> bookingList;
+                    try {
+                        bookingList= bookingTableDao.getByUserId(user.getId());
+                    }catch (Exception e){
+                       // throw new ActionException("У вас еще нет ни одного заказа", e.getCause());
+                        return null;
+                    }
+
+
                     int bookIdNumber;
                     int roomIdNumber;
                     request.setAttribute("hidden","hidden");

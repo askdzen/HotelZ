@@ -159,27 +159,6 @@ try {
         }
     }
 
-//    public BookingTable getRecordByUserId(int key) throws DaoException {
-//        List<BookingTable> list;
-//        String sql = getSelectQuery();
-//        sql += " AND USER_ID = ?";
-//        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-//            statement.setInt(1, key);
-//            ResultSet rs = statement.executeQuery();
-//            list = parseResultSet(rs);
-//            if (list == null || list.size() == 0) {
-//                throw new DaoException("Record with PK = " + key + " not found.");
-//            }
-//           if (list.size() > 1) {
-//                throw new DaoException("Received more than one record.");
-//            }
-//            return list.iterator().next();
-//
-//        } catch (SQLException  e) {
-//
-//            throw new DaoException("Исключение при поиске записи по UserId ",e.getCause());
-//        }
-//    }
     public List<BookingTable> getByDateIntervalId(String dateFrom, String dateTo) throws DaoException {
         List<BookingTable> list;
         String sql = getSelectQuery();

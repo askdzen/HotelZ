@@ -83,7 +83,8 @@ public class Pagination<T ,E extends AbstractJDBCDao> {
         List<T> tableList = null;
 
         tableList = genericDao.getRange(pageNumber,rowsCount,userid);
-        List<T> pagLenghtList = genericDao.getAll();
+
+        List<T> pagLenghtList =genericDao.getByUserId(userid) ;
 
         int tableLenght = pagLenghtList.size();
         System.out.println(tableLenght);

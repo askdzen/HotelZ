@@ -240,7 +240,22 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
 
         }
     }
-
+    public List<T> getByUserId(int key) throws DaoException {
+        List<T> list;
+        String sql = getSelectQuery();
+        sql += " AND USER_ID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, key);
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            if (list == null || list.size() == 0) {
+                throw  new DaoException("У Вас еще не было ни одного заказа! " + key + " not found.");
+            }
+            return list;
+        } catch (Exception e) {
+            throw new DaoException("Исключение при поиске записи по ключу UserID в таблице BookingTable",e.getCause());
+        }
+    }
     public AbstractJDBCDao(Connection connection) {
         this.connection = connection;
     }
