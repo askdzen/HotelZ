@@ -2,6 +2,7 @@ package com.epam.ad.dao.h2;
 
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
+import com.epam.ad.dao.Identified;
 import com.epam.ad.entity.User;
 
 import java.sql.Connection;
@@ -14,10 +15,11 @@ import java.util.List;
 
 public class UserDao extends AbstractJDBCDao<User> {
 
-Connection connection;
+    Connection connection;
+
     public UserDao(Connection connection) {
         super(connection);
-        this.connection=connection;
+        this.connection = connection;
     }
 
     public User findByCredentials(String username, String password) throws DaoException {
@@ -27,32 +29,33 @@ Connection connection;
         return user;
     }
 
-public User getUserByUsername(String username) throws DaoException {
-    List<User> list;
-    String sql = getSelectQuery();
-    sql += " AND LOGIN = ?";
-    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setString(1, username);
-        ResultSet rs = statement.executeQuery();
-        list = parseResultSet(rs);
+    public User getUserByUsername(String username) throws DaoException {
+        List<User> list;
+        String sql = getSelectQuery();
+        sql += " AND LOGIN = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
 
-        if (list == null || list.size() == 0) {
+            if (list == null || list.size() == 0) {
 
                 throw new DaoException("Record with PK = " + username + " not found.");
 
-        }
-        if (list.size() > 1) {
+            }
+            if (list.size() > 1) {
 
                 throw new DaoException("Received more than one record.");
 
+            }
+            return list.iterator().next();
+        } catch (SQLException e) {
+            throw new DaoException("Исключение при поиске пользователя по логину");
         }
-        return list.iterator().next();
-    } catch (SQLException e) {
-        throw new DaoException("Исключение при поиске пользователя по логину");
+
+
     }
 
-
-}
     @Override
     public String getSelectQuery() {
         return "SELECT ID,LOGIN,PASSWORD,ROLE, ISDELETED FROM USER WHERE ISDELETED=FALSE";
@@ -96,7 +99,7 @@ public User getUserByUsername(String username) throws DaoException {
             }
         } catch (Exception e) {
 
-                throw new DaoException("Исключение при чтении данных с таблицы User",e.getCause());
+            throw new DaoException("Исключение при чтении данных с таблицы User", e.getCause());
 
         }
         return result;
@@ -105,15 +108,15 @@ public User getUserByUsername(String username) throws DaoException {
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws DaoException {
         try {
-            statement.setString(1,object.getUsername());
+            statement.setString(1, object.getUsername());
             statement.setString(2, object.getPassword());
             statement.setString(3, object.getRole());
-            statement.setBoolean(4,object.isDeleted());
+            statement.setBoolean(4, object.isDeleted());
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            throw new DaoException("Исключение при вводе данных в таблицу User",e.getCause());
+            throw new DaoException("Исключение при вводе данных в таблицу User", e.getCause());
 
         }
     }
@@ -121,15 +124,15 @@ public User getUserByUsername(String username) throws DaoException {
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws DaoException {
         try {
-            statement.setString(1,object.getUsername());
-            statement.setString(2,object.getPassword());
+            statement.setString(1, object.getUsername());
+            statement.setString(2, object.getPassword());
             statement.setString(3, object.getRole());
-            statement.setBoolean(4,object.isDeleted());
+            statement.setBoolean(4, object.isDeleted());
             statement.setInt(5, object.getId());
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
-                throw new DaoException("Исключение при обновлении данных таблицы User",e.getCause());
+            throw new DaoException("Исключение при обновлении данных таблицы User", e.getCause());
 
 
         }
@@ -137,7 +140,7 @@ public User getUserByUsername(String username) throws DaoException {
 
     @Override
     public User create() throws DaoException {
-        User user=new User();
+        User user = new User();
         user.setUsername("неопред");
         user.setPassword("неопр");
         user.setRole("неопред");
@@ -146,8 +149,8 @@ public User getUserByUsername(String username) throws DaoException {
     }
 
     public void updateRecord(String username, String password, String role, String userId) throws DaoException {
-        UserDao userDao=new UserDao(connection);
-        User user=new User();
+        UserDao userDao = new UserDao(connection);
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
@@ -157,14 +160,30 @@ public User getUserByUsername(String username) throws DaoException {
     }
 
     public void createRecord(String username, String password, String role) throws DaoException {
-        UserDao userDao=new UserDao(connection);
-        User user=new User();
+        UserDao userDao = new UserDao(connection);
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
         user.setDeleted(false);
         user.setId(userDao.create().getId());
         userDao.update(user);
+    }
+
+    public User createUser(String username, String password, UserDao userDao) throws DaoException {
+
+        try {
+
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setPassword(password);
+            newUser.setRole("CLIENT");
+            newUser.setId(userDao.create().getId());
+            userDao.update(newUser);
+            return newUser;
+        } catch (DaoException e) {
+            throw new DaoException("Исключение при создании записи в таблице User", e.getCause());
+        }
     }
 
     private class PersistUser extends User {

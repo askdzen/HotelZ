@@ -56,7 +56,7 @@ public class RegistrationAction implements Action {
                         return result;
                     }
                 }
-                User newUser = createUser(username, password, userDao);
+                User newUser = userDao.createUser(username, password, userDao);
                 HttpSession session = request.getSession();
                 session.setAttribute("user", newUser);
                 request.setAttribute("registrationmessage", "registration.congratulations");
@@ -75,20 +75,5 @@ public class RegistrationAction implements Action {
          return result;
       }
 
-    private User createUser(String username, String password, UserDao userDao) throws ActionException {
 
-        try {
-
-            User newUser = new User();
-            Identified pk = userDao.create();
-            newUser.setUsername(username);
-            newUser.setPassword(password);
-            newUser.setRole("CLIENT");
-            newUser.setId((Integer) pk.getId());
-            userDao.update(newUser);
-            return newUser;
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при создании записи в таблице User",e.getCause());
-        }
-    }
 }
