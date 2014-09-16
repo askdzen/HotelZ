@@ -23,14 +23,18 @@ public abstract class PersistenceActionBase {
         });
     }
 
-    public void doCreateAction() throws DaoException, ActionException {
-        this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
-            @Override
-            public Object execute(DaoManager daoManager) throws DaoException, SQLException {
-                doCreatePersistenceAction(daoManager);
-                return null;
-            }
-        });
+    public void doCreateAction() throws DaoException {
+        try {
+            this.daoManager.transactionAndClose(new DaoManager.DaoCommand() {
+                @Override
+                public Object execute(DaoManager daoManager) throws DaoException, SQLException {
+                    doCreatePersistenceAction(daoManager);
+                    return null;
+                }
+            });
+        } catch (ActionException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -4,6 +4,7 @@ package com.epam.ad.action.admin.customer;
 import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
+import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
 
@@ -47,7 +48,11 @@ public class CustomerCreateAction implements Action {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
         int prepayment = (Integer.parseInt(inputPrepayment));
-        daoManager.getCustomerDao().createCustomerWithDaoManager(daoManager,inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, bookId, userId, prepayment);
+        try {
+            daoManager.getCustomerDao().create(daoManager, inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, bookId, userId, prepayment);
+        } catch (DaoException e) {
+            throw new ActionException("Исключение при обновлении записи таблицы Customer",e.getCause());
+        }
         return customerdetail;
     }
 

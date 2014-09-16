@@ -9,160 +9,38 @@ public class CustomerPersistenceAction extends PersistenceActionBase {
     public CustomerPersistenceAction(DaoManager daoManager) {
         super(daoManager);
     }
-
-    public String getInputFirstName() {
-        return inputFirstName;
+    public CustomerPersistenceAction(DaoManager daoManager, Customer customer) {
+        super(daoManager);
+        this.customer=customer;
     }
 
-    public void setInputFirstName(String inputFirstName) {
-        this.inputFirstName = inputFirstName;
-    }
 
-    public String getInputLastName() {
-        return inputLastName;
-    }
-
-    public void setInputLastName(String inputLastName) {
-        this.inputLastName = inputLastName;
-    }
-
-    public String getInputCity() {
-        return inputCity;
-    }
-
-    public void setInputCity(String inputCity) {
-        this.inputCity = inputCity;
-    }
-
-    public String getInputRegion() {
-        return inputRegion;
-    }
-
-    public void setInputRegion(String inputRegion) {
-        this.inputRegion = inputRegion;
-    }
-
-    public String getInputCountry() {
-        return inputCountry;
-    }
-
-    public void setInputCountry(String inputCountry) {
-        this.inputCountry = inputCountry;
-    }
-
-    public String getInputPassport() {
-        return inputPassport;
-    }
-
-    public void setInputPassport(String inputPassport) {
-        this.inputPassport = inputPassport;
-    }
-
-    public String getInputPhone() {
-        return inputPhone;
-    }
-
-    public void setInputPhone(String inputPhone) {
-        this.inputPhone = inputPhone;
-    }
-
-    public String getInputEmail() {
-        return inputEmail;
-    }
-
-    public void setInputEmail(String inputEmail) {
-        this.inputEmail = inputEmail;
-    }
-
-    public Integer getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public Integer getPrepayment() {
-        return prepayment;
-    }
-
-    public void setPrepayment(int prepayment) {
-        this.prepayment = prepayment;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    private String inputFirstName;
-   private String inputLastName;
-   private String inputCity;
-   private String inputRegion;
-   private String inputCountry;
-   private String inputPassport;
-   private String inputPhone;
-   private String inputEmail;
-   private int bookId;
-   private int userId;
-   private int prepayment;
-   private int id;
-   private boolean isDeleted;
+   private Customer customer;
     protected void doUpdatePersistenceAction(DaoManager daoManager) throws DaoException {
-        Customer customer=daoManager.getCustomerDao().getByPK(id);
-        if (getInputFirstName()!=null)customer.setFirstName(inputFirstName);
-        if (getInputLastName()!=null)customer.setLastName(inputLastName);
-        if (getInputCity()!=null)customer.setCity(inputCity);
-        if (getInputRegion()!=null)customer.setRegion(inputRegion);
-        if (getInputCountry()!=null)customer.setCountry(inputCountry);
-        if (getInputPassport()!=null)customer.setPassport(inputPassport);
-        if (getInputPhone()!=null)customer.setPhone(inputPhone);
-        if (getInputEmail()!=null)customer.setEmail(inputEmail);
-        if (getPrepayment()!=null)customer.setPrepayment(prepayment);
-        if (getBookId()!=null)customer.setBookId(bookId);
-        if (getUserId()!=null)customer.setUserId(userId);
-        if (!isDeleted())customer.setIsDeleted(isDeleted);
-        if (getId()!=null)customer.setId(id);
-        daoManager.getCustomerDao().update(customer);
+        Customer customerUpdate=daoManager.getCustomerDao().getByPK(this.customer.getId());
+        if (!customerUpdate.getFirstName().equals(this.customer.getFirstName()))customerUpdate.setFirstName(this.customer.getFirstName());
+        if (!customerUpdate.getLastName().equals(this.customer.getLastName()))customerUpdate.setLastName(this.customer.getLastName());
+        if (!customerUpdate.getCity().equals(this.customer.getCity()))customerUpdate.setCity(this.customer.getCity());
+        if (!customerUpdate.getRegion().equals(this.customer.getRegion()))customerUpdate.setRegion(this.customer.getRegion());
+        if (!customerUpdate.getCountry().equals(this.customer.getCountry()))customerUpdate.setCountry(this.customer.getCountry());
+        if (!customerUpdate.getPassport().equals(this.customer.getPassport()))customerUpdate.setPassport(this.customer.getPassport());
+        if (!customerUpdate.getPhone().equals(this.customer.getPhone()))customerUpdate.setPhone(this.customer.getPhone());
+        if (!customerUpdate.getEmail().equals(this.customer.getEmail()))customerUpdate.setEmail(this.customer.getEmail());
+        if (customerUpdate.getPrepayment()!=(this.customer.getPrepayment()))customerUpdate.setPrepayment(this.customer.getPrepayment());
+        if (!customerUpdate.getBookId().equals(this.customer.getBookId()))customerUpdate.setBookId(this.customer.getBookId());
+        if (!customerUpdate.getUserId().equals(this.customer.getUserId()))customerUpdate.setUserId(this.customer.getUserId());
+        if (customerUpdate.isDeleted()!=(this.customer.isDeleted()))customerUpdate.setIsDeleted(this.customer.isDeleted());
+        if (!customerUpdate.getId().equals(this.customer.getId()))customerUpdate.setId(this.customer.getId());
+        daoManager.getCustomerDao().update(customerUpdate);
     }
 
     @Override
     protected void doCreatePersistenceAction(DaoManager daoManager) throws DaoException {
+        Customer customer=daoManager.getCustomerDao().create();
+        this.customer.setId(customer.getId());
+        daoManager.getCustomerDao().update(this.customer);
 
-        Customer customer = daoManager.getCustomerDao().create();
-        customer.setFirstName(inputFirstName);
-        customer.setLastName(inputLastName);
-        customer.setCity(inputCity);
-        customer.setRegion(inputRegion);
-        customer.setCountry(inputCountry);
-        customer.setPassport(inputPassport);
-        customer.setPhone(inputPhone);
-        customer.setEmail(inputEmail);
-        customer.setPrepayment(prepayment);
-        customer.setUserId(userId);
-        customer.setBookId(bookId);
-        customer.setIsDeleted(isDeleted);
-        customer.setId(customer.getId());
-        daoManager.getCustomerDao().update(customer);
+
     }
 
 

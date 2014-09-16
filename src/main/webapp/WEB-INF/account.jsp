@@ -31,7 +31,7 @@
                     <th><fmt:message key="booking.datefrom"/> </th>
                     <th><fmt:message key="booking.dateto"/> </th>
                     <th><fmt:message key="booking.numberofdays"/> </th>
-                    <th><fmt:message key="booking.roomno"/> </th>
+                    <th><fmt:message key="room.id"/> </th>
                     <th><fmt:message key="booking.userId"/> </th>
                     <th><fmt:message key="booking.confirmation"/> </th>
                     <th><fmt:message key="account.details"/> </th>

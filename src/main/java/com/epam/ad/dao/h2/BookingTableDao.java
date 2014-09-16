@@ -202,28 +202,6 @@ try {
         }
     }
 
-//    public void updateRecord(String dateFrom, String dateTo, String dayCount, String roomNo, String userId, String confirm, String btId, String isDeleted) throws DaoException {
-//        BookingTableDao bookingTableDao = new BookingTableDao(connection);
-//        Date datefromDate=Date.valueOf(dateFrom);
-//        Date dateToDate = Date.valueOf(dateTo);
-//        int dayCountInt=Integer.parseInt(dayCount);
-//        int roomNoInt=Integer.parseInt(roomNo);
-//        int userIdInt = Integer.parseInt(userId);
-//        BookingTable.Confirm confirmEnum= BookingTable.Confirm.valueOf(confirm);
-//        int id=Integer.parseInt(btId);
-//        boolean isDeletedBool=Boolean.parseBoolean(isDeleted);
-//        BookingTable tableRecord =new BookingTable();
-//        tableRecord.setDateFrom(datefromDate);
-//        tableRecord.setDateTo(dateToDate);
-//        tableRecord.setDayCount(dayCountInt);
-//        tableRecord.setRoomNo(roomNoInt);
-//        tableRecord.setUserId(userIdInt);
-//        tableRecord.setConfirm(confirmEnum);
-//        tableRecord.setDelete(isDeletedBool);
-//        tableRecord.setId(id);
-//        bookingTableDao.update(tableRecord);
-//
-//    }
     public void create(DaoManager daoManager, String dateFrom, String dateTo, String roomNo, String userId) throws DaoException {
         BookingTable bookingTable=new BookingTable();
         bookingTable.setDateFrom(Date.valueOf(dateFrom));
@@ -261,5 +239,16 @@ try {
         } catch (Exception e) {
             throw new DaoException("Исключение при обновлении записи таблицы BookingTable", e.getCause());
         }
+    }
+    public BookingTable createBooking(String dateFrom, String dateTo, String roomId, int userId, BookingTable.Confirm confirm) {
+        BookingTable bookingTable=new BookingTable();
+        bookingTable.setDateFrom(Date.valueOf(dateFrom));
+        bookingTable.setDateTo(Date.valueOf(dateTo));
+        bookingTable.setDayCount((int) (Date.valueOf(dateTo).getTime() - Date.valueOf(dateFrom).getTime()) / (24 * 60 * 60 * 1000));
+        bookingTable.setRoomNo(Integer.valueOf(roomId));
+        bookingTable.setUserId(userId);
+        bookingTable.setConfirm(confirm);
+        bookingTable.setDelete(false);
+        return bookingTable;
     }
 }

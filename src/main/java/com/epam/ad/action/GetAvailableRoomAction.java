@@ -25,21 +25,21 @@ public class GetAvailableRoomAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
-        ActionResult customerform = new ActionResult("reservation", true);
-        ActionResult welcome=new ActionResult("welcome");
+        ActionResult reservation = new ActionResult("reservation", true);  // страница на которую переходят, если номер найден
+        ActionResult welcome=new ActionResult("welcome"); //сстраница на которую переходят, если номер с указанными характеристиками в заданном диапазоне дат не найден
         HttpSession session = request.getSession();
-        String date1 = request.getParameter("calendar");
+        String date1 = request.getParameter("calendar"); //получение параметров заказа для выполнения логики поиска комнаты с указанными характеристиками в заданном диапазоне дат и последующей передачи их на страницу бронирования
         String date2 = request.getParameter("calendar2");
         String roomType = request.getParameter("roomtype");
-        String bedNo = request.getParameter("bedNo");
-        if (roomType==null||bedNo==null){
+        String roomBed = request.getParameter("roombed");
+        if (roomType==null||roomBed==null){
         request.setAttribute("nullrooms","Вы не выбрали тип номера или кол-во мест!");
             return welcome;
         }
-        session.setAttribute("dateFrom", date1);
+        session.setAttribute("dateFrom", date1);   // передача атрибутов на страницу бронирования
         session.setAttribute("dateTo", date2);
         session.setAttribute("type", roomType);
-        session.setAttribute("singledouble", bedNo);
+        session.setAttribute("singledouble", roomBed);
         request.setAttribute("registrationGood", "");
      //   LOGGER.info(date1 + " " + date2 + " " + roomType + " " + bedNo);
             DaoFactory daoFactory=new DaoFactory();
@@ -49,11 +49,9 @@ public class GetAvailableRoomAction implements Action {
                 @Override
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {
 
-                    List<Room> roomList = daoFactory.createDaoManager().getRoomDao().getAll();
-                    List<Room> selectedRooms = getUserSelectedRooms(roomType, bedNo, roomList);
-                    List<BookingTable> bookingRecords  = daoFactory.createDaoManager().getBookingTableDao().getByDateIntervalId(date1,date2);
-                    RoomDao roomDao = daoManager.getRoomDao();
-                    Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords);
+                    List<Room> selectedRooms=daoManager.getRoomDao().getAllbyTypeAndBed(roomType,roomBed);   // получение списка всех комнат с указанными характеристиками
+                    List<BookingTable> bookingRecords  = daoManager.getBookingTableDao().getByDateIntervalId(date1,date2); //получение списка всех броней в заданном диапазоне дат
+                    Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords); //получение из списка свободных номеров и предоплат случайную(первую в списке) комнату с соответствующей предоплатой
                     for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
 //                        System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
                         if ((entry.getKey()==0)){
@@ -63,21 +61,20 @@ public class GetAvailableRoomAction implements Action {
                             return result;
                         }
                         try {
-                            session.setAttribute("randomRoom", roomDao.getByPK(entry.getKey()));
+                            session.setAttribute("randomRoom", daoManager.getRoomDao().getByPK(entry.getKey()));
                         } catch (DaoException e) {
                             throw new ActionException("Исключение при поиске записи по ключу в таблице Room",e.getCause());
                         }
                         session.setAttribute("prepayment", resultRooms.get(entry.getKey()));
 
                     }
-                    result=customerform;
+                    result=reservation;
                     return result;
                 }
             });
         } catch (DaoException e) {
             throw new ActionException("Исключение при выполнении поиска комнаты по заданным параметрам",e.getCause());
         }
-
         daoFactory.releaseContext();
         return result;
 
@@ -86,10 +83,10 @@ public class GetAvailableRoomAction implements Action {
 
     private Map<Integer, Integer> getFreeRoomsMap(List<Room> selectedRooms, List<BookingTable> bookingTables) {
         Map<Integer, Integer> resultRooms = new HashMap<Integer, Integer>();
-        List<Room>rooms=new ArrayList<>(selectedRooms);
+        List<Room>rooms=new ArrayList<>(selectedRooms); // создание списка комнат с указанными характеристиками, для последующего удаления из него комнат в занятый диапазон дат
         for (Room room : selectedRooms){
             for (BookingTable bookingRecord : bookingTables) {
-                      if (room.getId()==(bookingRecord.getRoomNo())) {
+                      if (room.getId()==(bookingRecord.getRoomNo())) {   // если id комнаты равен значению одноименного поля брони из списка броней, то эту комнату удаляем из результирующего списка
                             System.out.println(room.getId() + "равно" + bookingRecord.getRoomNo());
                         rooms.remove(room);
                     }
@@ -97,24 +94,16 @@ public class GetAvailableRoomAction implements Action {
             }
         if (rooms.size()>0) {
             for (Room room1 : rooms) {
-                resultRooms.put(room1.getId(), room1.getRoomRate());
+                resultRooms.put(room1.getId(), room1.getRoomRate()); // если результирующий список не пуст, то создаем список со значениями id комнаты и поля prepayment
  //               System.out.println(room1.getId());
             }
             return resultRooms;
-        }else {resultRooms.put(0,0);
+        }else {resultRooms.put(0,0);  // если результирующий список пуст, то создаем список с нулевыми значениями, для последующего вывода сообщения на той же странице
         return resultRooms;
         }
    }
 
-    private List<Room> getUserSelectedRooms(String roomType, String bedNo, List<Room> roomList) {
-        List<Room>selectedRooms = new ArrayList<Room>();
-        for (Room room : roomList) {
-            if (room.getRoomBed().equals(bedNo) && room.getRoomType().equals(roomType)) {
-                selectedRooms.add(room);
-            }
-        }
-        return selectedRooms;
-    }
+
 
 
 

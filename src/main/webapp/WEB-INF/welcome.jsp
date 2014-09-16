@@ -61,10 +61,10 @@
                 </li>
                 <li>
 
-                    <select class="form-control" name="bedNo">
-                        <option name="bedNo" value="Single"><fmt:message key="welcome.single"/> </option>
-                        <option name="bedNo" value="Double"><fmt:message key="welcome.double"/> </option>
-                        <option name="bedNo" value="Studio"><fmt:message key="welcome.studio"/> </option>
+                    <select class="form-control" name="roombed">
+                        <option name="roombed" value="Single"><fmt:message key="welcome.single"/> </option>
+                        <option name="roombed" value="Double"><fmt:message key="welcome.double"/> </option>
+                        <option name="roombed" value="Studio"><fmt:message key="welcome.studio"/> </option>
 
                     </select>
 

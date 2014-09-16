@@ -88,7 +88,7 @@ public class CustomerEditAction implements Action {
         int id = Integer.parseInt(customerId);
 
         try {
-            daoManager.getCustomerDao().updateWithDaoManager(daoManager, inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, userId, bookId, prepayment, id);
+            daoManager.getCustomerDao().update(daoManager, inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, userId, bookId, prepayment, id);
         } catch (DaoException e) {
             throw new ActionException("Исключение при обновлении записи таблицы Customer",e.getCause());
         }

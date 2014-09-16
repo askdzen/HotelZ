@@ -14,11 +14,7 @@ public class TestPersistenceAction {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager= daoFactory.createDaoManager();
         CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
-        persistenceAction.setId(78);
-        persistenceAction.setBookId(1);
-        persistenceAction.setUserId(1);
-        persistenceAction.setPrepayment(1500);
-        persistenceAction.setInputFirstName("Sveta");
+
         persistenceAction.doUpdateAction();
     }
 }

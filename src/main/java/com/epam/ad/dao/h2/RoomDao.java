@@ -152,4 +152,20 @@ RoomDao roomDao=new RoomDao(connection);
         roomDao.update(room);
     }
 
+
+    public List<Room> getAllbyTypeAndBed(String type,String bed) throws DaoException {
+        List<Room> list;
+        String sql = getSelectQuery()+" AND ROOM_TYPE="+"'"+type+"'"+" AND ROOM_BED =" +"'"+bed+"'" ;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            return list;
+
+        } catch (Exception e) {
+
+            throw new DaoException(e);
+
+        }
+
+    }
 }

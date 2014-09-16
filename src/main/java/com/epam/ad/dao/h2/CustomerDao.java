@@ -169,55 +169,23 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
         }
     }
 
-//    public void createCustomerRecord(String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int prepayment, int bookid, int userId) throws DaoException {
-//        CustomerDao customerDao = new CustomerDao(connection);
-//        Customer customer = new Customer();
-//        customer.setFirstName(inputFirstName);
-//        customer.setLastName(inputLastName);
-//        customer.setCity(inputCity);
-//        customer.setRegion(inputRegion);
-//        customer.setCountry(inputCountry);
-//        customer.setPassport(inputPassport);
-//        customer.setPhone(inputPhone);
-//        customer.setEmail(inputEmail);
-//        customer.setPrepayment(prepayment);
-//        customer.setUserId(userId);
-//        customer.setBookId(bookid);
-//        customer.setId(customerDao.create().getId());
-//        customerDao.update(customer);
-//    }
-//    public void updateRecord(String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment, int id) throws  DaoException {
-//        CustomerDao customerDao=new CustomerDao(connection);
-//        Customer customer=new Customer();
-//        customer.setFirstName(inputFirstName);
-//        customer.setLastName(inputLastName);
-//        customer.setCity(inputCity);
-//        customer.setRegion(inputRegion);
-//        customer.setCountry(inputCountry);
-//        customer.setPassport(inputPassport);
-//        customer.setPhone(inputPhone);
-//        customer.setEmail(inputEmail);
-//        customer.setPrepayment(prepayment);
-//        customer.setBookId(bookId);
-//        customer.setUserId(userId);
-//        customer.setId(id);
-//        customerDao.update(customer);
-//
-//    }
-    public void updateWithDaoManager(DaoManager daoManager, String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int userId, int bookId, int prepayment, int id) throws  DaoException {
-        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
-        persistenceAction.setInputFirstName(inputFirstName);
-        persistenceAction.setInputLastName(inputLastName);
-        persistenceAction.setInputCity(inputCity);
-        persistenceAction.setInputRegion(inputRegion);
-        persistenceAction.setInputCountry(inputCountry);
-        persistenceAction.setInputPassport(inputPassport);
-        persistenceAction.setInputPhone(inputPhone);
-        persistenceAction.setInputEmail(inputEmail);
-        persistenceAction.setPrepayment(prepayment);
-        persistenceAction.setUserId(userId);
-        persistenceAction.setBookId(bookId);
-        persistenceAction.setId(id);
+
+    public void update(DaoManager daoManager, String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int userId, int bookId, int prepayment, int id) throws  DaoException {
+        Customer customer=new Customer();
+        customer.setFirstName(inputFirstName);
+        customer.setLastName(inputLastName);
+        customer.setCity(inputCity);
+        customer.setRegion(inputRegion);
+        customer.setCountry(inputCountry);
+        customer.setPassport(inputPassport);
+        customer.setPhone(inputPhone);
+        customer.setEmail(inputEmail);
+        customer.setPrepayment(prepayment);
+        customer.setBookId(bookId);
+        customer.setUserId(userId);
+        customer.setId(id);
+
+        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager,customer);
 
         try {
             persistenceAction.doUpdateAction();
@@ -226,23 +194,39 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
             throw new DaoException("Исключение при обновлении записи таблицы Customer",e.getCause());
         }
     }
-    public void createCustomerWithDaoManager(DaoManager daoManager,String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment) throws ActionException {
-        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager);
-        persistenceAction.setInputFirstName(inputFirstName);
-        persistenceAction.setInputLastName(inputLastName);
-        persistenceAction.setInputCity(inputCity);
-        persistenceAction.setInputRegion(inputRegion);
-        persistenceAction.setInputCountry(inputCountry);
-        persistenceAction.setInputPassport(inputPassport);
-        persistenceAction.setInputPhone(inputPhone);
-        persistenceAction.setInputEmail(inputEmail);
-        persistenceAction.setPrepayment(prepayment);
-        persistenceAction.setUserId(userId);
-        persistenceAction.setBookId(bookId);
+    public void create(DaoManager daoManager, String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int bookId, int userId, int prepayment) throws  DaoException {
+        Customer customer=new Customer();
+        customer.setFirstName(inputFirstName);
+        customer.setLastName(inputLastName);
+        customer.setCity(inputCity);
+        customer.setRegion(inputRegion);
+        customer.setCountry(inputCountry);
+        customer.setPassport(inputPassport);
+        customer.setPhone(inputPhone);
+        customer.setEmail(inputEmail);
+        customer.setPrepayment(prepayment);
+        customer.setBookId(bookId);
+        customer.setUserId(userId);
+        CustomerPersistenceAction persistenceAction=new CustomerPersistenceAction(daoManager,customer);
+
         try {
             persistenceAction.doCreateAction();
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new DaoException("Исключение при создании записи таблицы Customer",e.getCause());
         }
+    }
+    public Customer createCustomer(String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int prepayment, int userId) {
+        Customer customer=new Customer();
+        customer.setFirstName(inputFirstName);
+        customer.setLastName(inputLastName);
+        customer.setCity(inputCity);
+        customer.setRegion(inputRegion);
+        customer.setCountry(inputCountry);
+        customer.setPassport(inputPassport);
+        customer.setPhone(inputPhone);
+        customer.setEmail(inputEmail);
+        customer.setPrepayment(prepayment);
+        customer.setUserId(userId);
+        return customer;
     }
 }
