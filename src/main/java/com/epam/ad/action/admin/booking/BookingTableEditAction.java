@@ -55,26 +55,19 @@ public class BookingTableEditAction implements Action {
     private void getParametersAndUpdate(HttpServletRequest request, DaoManager daoManager) throws ActionException {
         String dateFrom= request.getParameter("datefrom");
         String dateTo = request.getParameter("dateto");
-        String dayCount = request.getParameter("daycount");
         String roomNo = request.getParameter("roomno");
         String userId=request.getParameter("userid");
         String confirm=request.getParameter("confirmupdate");
         String btId=request.getParameter("btid");
-        BookingPersistenceAction persistenceAction=new BookingPersistenceAction(daoManager);
-        persistenceAction.setDateFrom(dateFrom);
-        persistenceAction.setDateTo(dateTo);
-        persistenceAction.setDayCount(dayCount);
-        persistenceAction.setRoomNo(roomNo);
-        persistenceAction.setUserId(userId);
-        persistenceAction.setConfirm(confirm);
-        persistenceAction.setId(Integer.parseInt(btId));
         try {
-            persistenceAction.doUpdateAction();
+            daoManager.getBookingTableDao().update(daoManager, dateFrom, dateTo, roomNo, userId, confirm, btId);
         } catch (DaoException e) {
-            throw new ActionException("Исключение при обновлении записи таблицы BookingTable",e.getCause());
+            throw new ActionException("Исключение при обновлении записи таблицы BookingTable", e.getCause());
         }
 
     }
+
+
 
     private void bookDelete(DaoManager daoManager, String bookingtableDelete) throws ActionException {
         int bookingRecordDeleteId=Integer.parseInt(bookingtableDelete);
@@ -101,15 +94,9 @@ public class BookingTableEditAction implements Action {
         int bookingtableConfirmId=Integer.parseInt(bookingtableConfirmVar);
 
         try {
-        BookingPersistenceAction persistenceAction=new BookingPersistenceAction(daoManager);
         BookingTable booking=daoManager.getBookingTableDao().getByPK(bookingtableConfirmId);
-            persistenceAction.setDateFrom(String.valueOf(booking.getDateFrom()));
-            persistenceAction.setDateTo(String.valueOf(booking.getDateTo()));
-            persistenceAction.setDayCount(String.valueOf(booking.getDayCount()));
-            persistenceAction.setRoomNo(String.valueOf(booking.getRoomNo()));
-            persistenceAction.setUserId(String.valueOf(booking.getUserId()));
-            persistenceAction.setConfirm(String.valueOf(confirm));
-            persistenceAction.setId(booking.getId());
+            booking.setConfirm(confirm);
+            BookingPersistenceAction persistenceAction=new BookingPersistenceAction(daoManager,booking);
             persistenceAction.doUpdateAction();
         } catch (DaoException e) {
             throw new ActionException("Исключение при обновлении таблицы BookingTable",e.getCause());

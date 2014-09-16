@@ -36,7 +36,7 @@ public class BookingTableCreateAction implements Action {
         DaoManager daoManager=daoFactory.createDaoManager();
 
         try {
-            daoManager.getBookingTableDao().createBookingWithDaoManager(daoManager, dateFrom, dateTo, roomNo, userId);
+            daoManager.getBookingTableDao().create(daoManager, dateFrom, dateTo, roomNo, userId);
         } catch (DaoException e) {
             throw new ActionException("Исключение при создании записи BookingTable",e.getCause());
         }
