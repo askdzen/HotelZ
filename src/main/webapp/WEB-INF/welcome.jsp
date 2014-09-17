@@ -2,22 +2,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<fmt:bundle basename="i18n.message">
-<html>
-<head>
+<fmt:bundle basename="${bundlelang}">
+    <html>
+    <head>
 
-    <title><fmt:message key="welcome.title"/> </title>
-</head>
+        <title><fmt:message key="welcome.title"/></title>
+    </head>
 
-<t:genericpage>
+    <t:genericpage>
     <jsp:attribute name="header">
+    <div id="language">
+        <form method="get">
+            <select id="lang" class="form-control" name="language">
+                <option name="language" ${_en} value="_en">English</option>
+                <option name="language" ${_ru} value="_ru">Русский</option>
+
+
+            </select>
+            <button id="langBtn" type="submit" class="btn"><fmt:message key="login.language"/></button>
+            <input hidden="hidden" value="${language}">
+        </form>
+    </div>
 <div id="statusbarcontent">
-    <p id="welcome"> <fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>
-    <a id="account" href="/account">Вход в личный кабинет</a>
+
+    <p id="welcome"><fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>
+    <a id="account" href="/account"><fmt:message key="welcome.signin"/> </a>
+
     <br/>
 
 
 </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="accordion">
@@ -36,47 +51,49 @@
     <jsp:attribute name="footer">
 
     </jsp:attribute>
-    <jsp:body>
+        <jsp:body>
 
-        <form class="form-inline" method="post">
+            <form class="form-inline" method="post">
 
-            <ul id="change" class="nav nav-tabs">
+                <ul id="change" class="nav nav-tabs">
 
-                <li  class="active"> <fmt:message key="welcome.datefrom"/> :
-                    <input id="calendar" type="date" name="calendar" value="2014-08-11"
-                           max="2014-10-09" min="2014-08-11">
-                </li>
-                <li  class="active"> <fmt:message key="welcome.dateto"/> :
-                    <input id="calendar2" type="date" name="calendar2" value="2014-08-15"
-                           max="2014-10-09" min="2012-08-11">
-                </li>
-                <li>
+                    <li class="active"><fmt:message key="welcome.datefrom"/> :
+                        <input id="calendar" type="date" name="calendar" value="2014-08-11"
+                               max="2014-10-09" min="2014-08-11">
+                    </li>
+                    <li class="active"><fmt:message key="welcome.dateto"/> :
+                        <input id="calendar2" type="date" name="calendar2" value="2014-08-15"
+                               max="2014-10-09" min="2012-08-11">
+                    </li>
+                    <li>
 
-                    <select class="form-control" name="roomtype">
-                        <option name="roomtype" value="Standart"><fmt:message key="welcome.standard"/> </option>
-                        <option name="roomtype" value="Econom"><fmt:message key="welcome.econome"/> </option>
-                        <option name="roomtype" value="Deluxe"><fmt:message key="welcome.deluxe"/> </option>
+                        <select class="form-control" name="roomtype">
+                            <option name="roomtype" value="Standart"><fmt:message key="welcome.standard"/></option>
+                            <option name="roomtype" value="Econom"><fmt:message key="welcome.econome"/></option>
+                            <option name="roomtype" value="Deluxe"><fmt:message key="welcome.deluxe"/></option>
 
-                    </select>
-                </li>
-                <li>
+                        </select>
+                    </li>
+                    <li>
 
-                    <select class="form-control" name="roombed">
-                        <option name="roombed" value="Single"><fmt:message key="welcome.single"/> </option>
-                        <option name="roombed" value="Double"><fmt:message key="welcome.double"/> </option>
-                        <option name="roombed" value="Studio"><fmt:message key="welcome.studio"/> </option>
+                        <select class="form-control" name="roombed">
+                            <option name="roombed" value="Single"><fmt:message key="welcome.single"/></option>
+                            <option name="roombed" value="Double"><fmt:message key="welcome.double"/></option>
+                            <option name="roombed" value="Studio"><fmt:message key="welcome.studio"/></option>
 
-                    </select>
+                        </select>
 
-                </li>
-            </ul>
+                    </li>
+                </ul>
 
-            <button id="changeBtn" type="submit" class="b1" ><fmt:message key="welcome.findroom"/> </button>
-            <label id="message">${nullrooms}</label>
-        </form>
+                <button id="changeBtn" type="submit" class="b1"><fmt:message key="welcome.findroom"/></button>
+                <label id="message">${nullrooms}</label>
+            </form>
+            <div id="presentation">
+                <fmt:message key="login.presentation"/>
+            </div>
+        </jsp:body>
+    </t:genericpage>
 
-    </jsp:body>
-</t:genericpage>
-
-</html>
+    </html>
 </fmt:bundle>

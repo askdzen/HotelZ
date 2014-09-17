@@ -7,7 +7,7 @@
 </head>
 <body>
  <%
-
+     session.setAttribute("language","");
      response.sendRedirect(request.getContextPath()+"/login");
 
  %>

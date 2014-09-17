@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 
 public class LoginAction implements Action {
@@ -27,9 +27,24 @@ public class LoginAction implements Action {
     public ActionResult execute(HttpServletRequest req) throws ActionException {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
-        HttpSession session=req.getSession();
-
-       // req.setAttribute("hidden","hidden=\"hidden\"");
+//       HttpSession session=req.getSession();
+//        if ( session.getAttribute("language")==null){
+////        System.out.println(session.getAttribute("language"));
+//            session.setAttribute("language",req.getParameter("language"));
+//            session.setAttribute("bundlelang","i18n.message"+req.getParameter("language"));
+//            session.setAttribute("language",req.getParameter("language"));
+//            session.setAttribute("bundlelang","i18n.message"+req.getParameter("language"));
+//            Map<String,String> selected=new HashMap<>();
+//            selected.put("en","selected");
+//            selected.put("ru","selected");
+//
+//
+//            for (String s : selected.keySet()) {
+//                if (s.equals(req.getParameter("language"))){
+//                    req.setAttribute(s,selected.get(s));
+//                }
+//            }}
+//        System.out.println(session.getAttribute("language")+"by login action");
         try {
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override

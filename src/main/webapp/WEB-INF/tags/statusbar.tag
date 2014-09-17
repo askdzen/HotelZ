@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="statusbar" fragment="true" %>
-<fmt:bundle basename="i18n.message" prefix="statusbar.">
+<fmt:bundle basename="${bundlelang}" prefix="statusbar.">
     <div id="statusbar">
         <jsp:invoke fragment="statusbar"/>
         <div id="statusbarcontent">

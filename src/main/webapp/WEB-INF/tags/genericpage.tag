@@ -7,7 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<fmt:bundle basename="i18n.message" prefix="genericpage.">
+<fmt:bundle basename="${bundlelang}" prefix="genericpage.">
 <body>
 
 <div id="header">
@@ -26,6 +26,7 @@
 
             <h2><fmt:message key="hotelName"/> </h2>
         </div>
+
 
 </div>
 <div id="body">

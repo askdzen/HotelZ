@@ -21,7 +21,7 @@ public class ActionServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String actionName = request.getMethod() + request.getPathInfo();
         LOGGER.info(" Экшиннэйм приходящий в фабрику: {}", actionName);
         Action action = ActionFactory.getAction(actionName);

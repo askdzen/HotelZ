@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@attribute name="welcomelayout" fragment="true" %>
-<fmt:bundle basename="i18n.message">
+<fmt:bundle basename="${bundlelang}">
     <div id="welcomelayout">
         <jsp:invoke fragment="welcomelayout"/>
         <%--<div id="statusbarcontent">--%>

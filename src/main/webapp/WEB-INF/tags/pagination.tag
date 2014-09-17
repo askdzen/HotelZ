@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="paginationtag" fragment="true" %>
-<fmt:bundle basename="i18n.message" prefix="pagination.">
+<fmt:bundle basename="${bundlelang}" prefix="pagination.">
 
 <div id="paginationtag">
     <jsp:invoke fragment="paginationtag"/>

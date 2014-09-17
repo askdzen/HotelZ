@@ -4,7 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html>
-<fmt:bundle basename="i18n.message" prefix="login.">
+<fmt:bundle basename="${bundlelang}" prefix="login.">
 
     <head>
 
@@ -15,14 +15,27 @@
     <jsp:attribute name="statusbar">
 <div id="statusbarcontent">
     <a href="/registration"><fmt:message key="registrationHref"/> </a>
+
 </div>
+
     </jsp:attribute>
 
     </t:statusbar>
     <t:genericpage>
 
     <jsp:attribute name="header">
+  <div id="language">
+      <form method="get">
+          <select id="lang" class="form-control" name="language">
+              <option name="language" ${_en} value="_en">English</option>
+              <option name="language" ${_ru} value="_ru">Русский</option>
 
+
+          </select>
+          <button id="langBtn" type="submit" class="btn"><fmt:message key="language"/></button>
+          <input hidden="hidden" value="${language}">
+      </form>
+  </div>
 
     </jsp:attribute>
 
@@ -74,7 +87,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <p><fmt:message key="${badoremptycontext}"/> </p>
+                            <p><fmt:message key="${badoremptycontext}"/></p>
 
                         </div>
 
@@ -85,6 +98,9 @@
 
                     </div>
                 </div>
+            </div>
+            <div id="presentation">
+                <fmt:message key="presentation"/>
             </div>
         </jsp:body>
     </t:genericpage>

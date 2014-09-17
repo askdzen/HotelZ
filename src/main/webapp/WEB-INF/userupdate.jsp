@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<fmt:bundle basename="i18n.message">
+<fmt:bundle basename="${bundlelang}">
 <html>
 <head>
     <title><fmt:message key="user.title"/> </title>
