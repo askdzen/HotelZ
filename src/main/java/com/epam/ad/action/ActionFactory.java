@@ -50,6 +50,7 @@ public class ActionFactory {
         actions.put("GET/usercreate",new ShowPageAction("usercreate"));
         actions.put("POST/usercreate",new UserCreateAction());
         actions.put("GET/change-locale",new ChangeLocaleAction());
+        actions.put("GET/exitaccount",new ExitAccountAction());
 
 
     }
