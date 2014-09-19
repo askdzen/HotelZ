@@ -319,14 +319,17 @@ a#accordion1{
     text-shadow: 4px 4px 4px #aaa;
 }
 div#language{
-    float: right;
-   padding-top: 220px;
-   padding-right: 0px;
+    float: left;
+    margin: 1px auto 0px auto;
+    width: auto;
+   padding-top: 0px;
+   padding-left: 1500px;
+    padding-right: 1px;
     height: 0;
 }
 select#lang{
     float: left;
-    width: 100px;
+    width: 165px;
     height: 30px;
 }
 button#langBtn{
@@ -339,4 +342,9 @@ div#presentation{
     margin: auto;
     background: url("background2.jpg") repeat-x;
 
+}
+div#welcomesignin{
+    margin: 1px auto 0px auto;
+    height: 0;
+    width: 1500px;
 }

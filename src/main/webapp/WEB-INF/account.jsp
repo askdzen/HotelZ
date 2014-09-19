@@ -125,10 +125,10 @@
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                            <fmt:message key="account.details"/> ${bookid}:
+                            <fmt:message key="account.detailshide"/> :
                         </a>
                     </div>
-                    <div id="collapseOne" class="accordion-body ">
+                    <div id="collapseOne" class="accordion-body collapse in">
                         <div class="accordion-inner">
 
                             <hr>

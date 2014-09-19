@@ -20,15 +20,16 @@
     <link href="../static/style.css" rel="stylesheet" media="screen">
     <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
     <div id="language">
-        <form method="get" action="<c:url value="/change-locale" />" >
+        <form method="get" action="<c:url value="/change-locale" />" name="localechange" >
 
-            <select id="lang" class="form-control" name="locale">
-                <option name="locale" ${en} value="en">English</option>
-                <option name="locale" ${ru} value="ru">Русский</option>
+            <select id="lang" class="form-control" name="locale" onchange="document.forms['localechange'].submit()">
+                <option><fmt:message key="changelocal"/> </option>
+                <option name="locale" ${en} value="en"  >English</option>
+                <option name="locale" ${ru} value="ru"  >Русский</option>
 
 
             </select>
-            <button id="langBtn" type="submit" class="btn"><fmt:message key="language"/></button>
+
             <input hidden="hidden" value="${locale}">
         </form>
     </div>

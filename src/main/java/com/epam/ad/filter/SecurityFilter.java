@@ -22,11 +22,10 @@ public class SecurityFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
         pageRoles.put("/bookingtable", "ADMIN");
-        pageRoles.put("/bookingtablecreate", "ADMIN");
-//        pageRoles.put("/welcome","CLIENT");
-//        pageRoles.put("/welcome","ADMIN");
-
-
+        pageRoles.put("/customer", "ADMIN");
+        pageRoles.put("/room", "ADMIN");
+        pageRoles.put("/user", "ADMIN");
+        pageRoles.put("/admin", "ADMIN");
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
@@ -50,7 +49,7 @@ public class SecurityFilter implements Filter {
 
         }
         if (roleName!=null&&(!user.getRole().equals(roleName))){
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN,"У вас не достаточно прав");
         }
         chain.doFilter(req, resp);
 

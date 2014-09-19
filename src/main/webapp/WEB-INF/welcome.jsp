@@ -18,7 +18,7 @@
     <p id="welcome"><fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>
     <a id="account" href="/account"><fmt:message key="welcome.signin"/> </a>
 
-    <br/>
+    <%--<br/>--%>
 
 
 </div>
