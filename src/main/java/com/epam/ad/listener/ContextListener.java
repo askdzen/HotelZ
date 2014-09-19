@@ -5,13 +5,8 @@ import com.epam.ad.pool.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 
-public class ContextListener implements ServletContextListener
-        {
+public class ContextListener implements ServletContextListener {
 
     // Public constructor is required by servlet spec
     public ContextListener() {
@@ -33,7 +28,7 @@ public class ContextListener implements ServletContextListener
             e.getMessage();
         }
 
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

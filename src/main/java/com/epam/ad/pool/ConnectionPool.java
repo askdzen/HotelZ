@@ -1,8 +1,6 @@
 package com.epam.ad.pool;
 
 import com.epam.ad.action.ActionException;
-import com.epam.ad.action.ShowPageAction;
-import com.epam.ad.dao.h2.DaoFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +13,9 @@ import java.util.concurrent.BlockingQueue;
 
 
 public class ConnectionPool {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionPool.class);
     public static final String PROPERTIES_FILE = "properties.database";
     public static final int DEFAULT_POOL_SIZE = 10;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionPool.class);
     /**
      * single instance
      */
@@ -41,7 +39,7 @@ public class ConnectionPool {
             } catch (SQLException e) {
 
 //               throw new RuntimeException();
-                throw  new ActionException("Нет подключения к Базе данных",e.getCause());
+                throw new ActionException("Нет подключения к Базе данных", e.getCause());
             }
             connectionQueue.offer(connection);
         }
@@ -98,18 +96,18 @@ public class ConnectionPool {
                     // connections"
 
 
-
- //                   System.out.println("нет больше конекшенов" + connectionQueue.size());
+                    //                   System.out.println("нет больше конекшенов" + connectionQueue.size());
                 }
-                if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
-              //  connection.close();
-                String url = rb.getString("db.url");
-                String user = rb.getString("db.user");
-                String password = rb.getString("db.password");
-                connection = DriverManager.getConnection(url, user, password);
-                connectionQueue.put(connection);
-                LOGGER.info("пришел не закрытый конекшн {}", connectionQueue.size());}
-            } else if (connectionQueue.size()<DEFAULT_POOL_SIZE) {
+                if (connectionQueue.size() < DEFAULT_POOL_SIZE) {
+                    //  connection.close();
+                    String url = rb.getString("db.url");
+                    String user = rb.getString("db.user");
+                    String password = rb.getString("db.password");
+                    connection = DriverManager.getConnection(url, user, password);
+                    connectionQueue.put(connection);
+                    LOGGER.info("пришел не закрытый конекшн {}", connectionQueue.size());
+                }
+            } else if (connectionQueue.size() < DEFAULT_POOL_SIZE) {
                 //"Trying to release closed connection. Possible
                 // `leakage` of connections"
                 //  String driver = rb.getString("db.driver");
@@ -119,15 +117,14 @@ public class ConnectionPool {
                 connection = DriverManager.getConnection(url, user, password);
                 connectionQueue.put(connection);
 
-                LOGGER.info("пришел закрытый конекшн {}",connectionQueue.size());
+                LOGGER.info("пришел закрытый конекшн {}", connectionQueue.size());
             }
         } catch (SQLException e) {
             //"SQLException at conection isClosed () checking.
             // Connection not added", e
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-         catch (InterruptedException e) {
-           e.printStackTrace();
-       }
 
     }
 

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class SecurityFilter implements Filter {
 
-    Map<String, String> pageRoles=new HashMap<>();
+    Map<String, String> pageRoles = new HashMap<>();
 
 
     public void destroy() {
@@ -40,16 +40,16 @@ public class SecurityFilter implements Filter {
         HttpSession session = req.getSession();
         String pathInfo = req.getPathInfo();
         User user = (User) session.getAttribute("user");
-        String roleName=null;
-        for (Map.Entry<String,String> e : pageRoles.entrySet()) {
-            if (pathInfo.startsWith(e.getKey())){
-                roleName=e.getValue();
+        String roleName = null;
+        for (Map.Entry<String, String> e : pageRoles.entrySet()) {
+            if (pathInfo.startsWith(e.getKey())) {
+                roleName = e.getValue();
                 break;
             }
 
         }
-        if (roleName!=null&&(!user.getRole().equals(roleName))){
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN,"У вас не достаточно прав");
+        if (roleName != null && (!user.getRole().equals(roleName))) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "У вас не достаточно прав");
         }
         chain.doFilter(req, resp);
 
