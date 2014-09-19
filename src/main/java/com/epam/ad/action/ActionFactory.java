@@ -49,6 +49,7 @@ public class ActionFactory {
         actions.put("POST/roomcreate",new RoomCreateAction());
         actions.put("GET/usercreate",new ShowPageAction("usercreate"));
         actions.put("POST/usercreate",new UserCreateAction());
+        actions.put("GET/change-locale",new ChangeLocaleAction());
 
 
     }

@@ -9,6 +9,7 @@ import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.BookingTableDao;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.entity.BookingTable;
+import com.epam.ad.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

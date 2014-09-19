@@ -4,8 +4,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html>
-<fmt:bundle basename="${bundlelang}" prefix="login.">
 
+<fmt:setLocale value="${fmtlocale}"/>
+<fmt:bundle basename="i18n.message" prefix="login.">
     <head>
 
 
@@ -24,18 +25,7 @@
     <t:genericpage>
 
     <jsp:attribute name="header">
-  <div id="language">
-      <form method="get">
-          <select id="lang" class="form-control" name="language">
-              <option name="language" ${_en} value="_en">English</option>
-              <option name="language" ${_ru} value="_ru">Русский</option>
 
-
-          </select>
-          <button id="langBtn" type="submit" class="btn"><fmt:message key="language"/></button>
-          <input hidden="hidden" value="${language}">
-      </form>
-  </div>
 
     </jsp:attribute>
 

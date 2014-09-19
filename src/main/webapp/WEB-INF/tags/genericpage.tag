@@ -7,7 +7,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<fmt:bundle basename="${bundlelang}" prefix="genericpage.">
+<fmt:setLocale value="${fmtlocale}"/>
+<fmt:bundle basename="i18n.message" prefix="genericpage.">
+
 <body>
 
 <div id="header">
@@ -17,7 +19,19 @@
     <link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../static/style.css" rel="stylesheet" media="screen">
     <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
+    <div id="language">
+        <form method="get" action="<c:url value="/change-locale" />" >
 
+            <select id="lang" class="form-control" name="locale">
+                <option name="locale" ${en} value="en">English</option>
+                <option name="locale" ${ru} value="ru">Русский</option>
+
+
+            </select>
+            <button id="langBtn" type="submit" class="btn"><fmt:message key="language"/></button>
+            <input hidden="hidden" value="${locale}">
+        </form>
+    </div>
         <div id="logo">
             <h1><a href="/" title="Home Page"><fmt:message key="hotelNamePreffix"/> <p id="yes"></p></a></h1>
 
@@ -47,5 +61,6 @@
     </p>
 </div>
 </body>
+
 </fmt:bundle>
 </html>

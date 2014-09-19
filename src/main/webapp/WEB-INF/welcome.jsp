@@ -2,7 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<fmt:bundle basename="${bundlelang}">
+<fmt:setLocale value="${fmtlocale}"/>
+<fmt:bundle basename="i18n.message">
     <html>
     <head>
 
@@ -11,18 +12,7 @@
 
     <t:genericpage>
     <jsp:attribute name="header">
-    <div id="language">
-        <form method="get">
-            <select id="lang" class="form-control" name="language">
-                <option name="language" ${_en} value="_en">English</option>
-                <option name="language" ${_ru} value="_ru">Русский</option>
 
-
-            </select>
-            <button id="langBtn" type="submit" class="btn"><fmt:message key="login.language"/></button>
-            <input hidden="hidden" value="${language}">
-        </form>
-    </div>
 <div id="statusbarcontent">
 
     <p id="welcome"><fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>

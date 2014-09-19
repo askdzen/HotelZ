@@ -1,5 +1,6 @@
 package com.epam.ad.filter;
 
+import com.epam.ad.action.ActionException;
 import com.epam.ad.entity.User;
 
 import javax.servlet.*;
@@ -7,36 +8,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 
 public class SecurityFilter implements Filter {
 
-    Map<String, String> pageRoles;
-
+    Map<String, String> pageRoles=new HashMap<>();
 
 
     public void destroy() {
     }
 
     public void init(FilterConfig config) throws ServletException {
-        pageRoles.put("admin", "ADMIN");
-        pageRoles.put("user", "CLIENT");
+        pageRoles.put("/bookingtable", "ADMIN");
+        pageRoles.put("/bookingtablecreate", "ADMIN");
+//        pageRoles.put("/welcome","CLIENT");
+//        pageRoles.put("/welcome","ADMIN");
 
 
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        doFilter0((HttpServletRequest) req, (HttpServletResponse) resp, chain);
+        try {
+            doFilter0((HttpServletRequest) req, (HttpServletResponse) resp, chain);
+        } catch (ActionException e) {
+            throw new ServletException(e);
+        }
     }
 
-    private void doFilter0(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws UnsupportedEncodingException {
+    private void doFilter0(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException, ActionException {
         HttpSession session = req.getSession();
+        String pathInfo = req.getPathInfo();
         User user = (User) session.getAttribute("user");
+        String roleName=null;
+        for (Map.Entry<String,String> e : pageRoles.entrySet()) {
+            if (pathInfo.startsWith(e.getKey())){
+                roleName=e.getValue();
+                break;
+            }
 
-        user.getRole();
-
+        }
+        if (roleName!=null&&(!user.getRole().equals(roleName))){
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+        chain.doFilter(req, resp);
 
 
     }

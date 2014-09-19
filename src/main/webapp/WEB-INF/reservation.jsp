@@ -2,7 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<fmt:bundle basename="${bundlelang}" >
+<fmt:setLocale value="${fmtlocale}"/>
+<fmt:bundle basename="i18n.message" >
 <html>
 <head>
     <title><fmt:message key="reservation.title"/> </title>

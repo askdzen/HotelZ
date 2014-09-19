@@ -53,13 +53,14 @@ public class ActionServlet extends HttpServlet {
 
             return;
         }
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/" + result.getView() + ".jsp");
 
 
         requestDispatcher.forward(request, response);
 
 
-        LOGGER.info("Путь дисптетчеру, если запрос не отправляется на экшен: {},{},{}", "/WEB-INF/", result.getView(), ".jsp");
+        LOGGER.info("request.getRequestDispatcher: {},{},{}", "/WEB-INF/", result.getView(), ".jsp");
 
 
     }

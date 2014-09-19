@@ -4,8 +4,8 @@
 <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
 <link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="../static/style.css" rel="stylesheet" media="screen">
-
-<fmt:bundle basename="${bundlelang}" prefix="accordion.">
+<fmt:setLocale value="${fmtlocale}"/>
+<fmt:bundle basename="i18n.message" prefix="accordion.">
 
 
     <div class="accordion" id="accordion2" align="center">
