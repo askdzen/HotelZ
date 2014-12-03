@@ -33,7 +33,6 @@ public class AccountAction implements Action {
             BookingTableDao bookingTableDao = daoManager.getBookingTableDao(); //получение ДАО трех таблиц для отображения выбранных записей по ID пользователя
             CustomerDao customerDao = daoManager.getCustomerDao();
             RoomDao roomDao = daoManager.getRoomDao();
-
             daoManager.transactionAndClose(new DaoManager.DaoCommand() {
                 @Override
                 public Object execute(DaoManager daoManager) throws DaoException, SQLException, ActionException {//выполнение и закрытие транзакции
@@ -45,7 +44,7 @@ public class AccountAction implements Action {
                     try {
                         bookingList= bookingTableDao.getByUserId(user.getId());
                     }catch (Exception e){
-                       // throw new ActionException("У вас еще нет ни одного заказа", e.getCause());
+
                         return null;
                     }
 

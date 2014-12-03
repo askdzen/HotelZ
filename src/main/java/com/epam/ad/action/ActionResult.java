@@ -1,8 +1,6 @@
 package com.epam.ad.action;
 
-/**
- * Created by Askar on 15.08.2014.
- */
+
 public class ActionResult {
     private String view;
     private boolean redirection;

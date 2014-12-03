@@ -15,8 +15,6 @@ public class ChangeLocaleAction implements Action {
         HttpSession session=request.getSession();
         session.setAttribute("fmtlocale",locale);
         request.getHeader("Referer");
-        System.out.println("получили локаль с параметра"+localeName);
-        System.out.println("получили локаль с сессии"+session.getAttribute("fmtlocale"));
         return refererPage;
     }
 }

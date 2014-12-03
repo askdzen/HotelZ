@@ -33,7 +33,7 @@ public class ActionServlet extends HttpServlet {
                 throw new ServletException(e);
 
             }
-            LOGGER.info("Это путь контекстный в null: {}", request.getContextPath());
+
             return;
         }
 
@@ -49,7 +49,7 @@ public class ActionServlet extends HttpServlet {
 
             response.sendRedirect(request.getContextPath() + "/" + result.getView());
 
-            LOGGER.info("Это путь контекстный в редеректе + имя странички на которую перенаправляет Экшен {},{},{}", request.getContextPath(), "/", result.getView());
+            LOGGER.info("Путь при редеректе{},{},{}", request.getContextPath(), "/", result.getView());
 
             return;
         }

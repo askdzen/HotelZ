@@ -26,7 +26,7 @@ public class GetAvailableRoomAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult reservation = new ActionResult("reservation", true);  // страница на которую переходят, если номер найден
-        ActionResult welcome=new ActionResult("welcome"); //сстраница на которую переходят, если номер с указанными характеристиками в заданном диапазоне дат не найден
+        ActionResult welcome=new ActionResult("welcome"); //страница на которую переходят, если номер с указанными характеристиками в заданном диапазоне дат не найден
         HttpSession session = request.getSession();
         String date1 = request.getParameter("calendar"); //получение параметров заказа для выполнения логики поиска комнаты с указанными характеристиками в заданном диапазоне дат и последующей передачи их на страницу бронирования
         String date2 = request.getParameter("calendar2");
@@ -41,7 +41,7 @@ public class GetAvailableRoomAction implements Action {
         session.setAttribute("type", roomType);
         session.setAttribute("singledouble", roomBed);
         request.setAttribute("registrationGood", "");
-     //   LOGGER.info(date1 + " " + date2 + " " + roomType + " " + bedNo);
+       LOGGER.info("Параметры комнаты, выбранные пользователем: {}, {}, {}, {}", date1, date2 , roomType , roomBed);
             DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
         try {
@@ -53,7 +53,7 @@ public class GetAvailableRoomAction implements Action {
                     List<BookingTable> bookingRecords  = daoManager.getBookingTableDao().getByDateIntervalId(date1,date2); //получение списка всех броней в заданном диапазоне дат
                     Map<Integer, Integer> resultRooms = getFreeRoomsMap(selectedRooms, bookingRecords); //получение из списка свободных номеров и предоплат случайную(первую в списке) комнату с соответствующей предоплатой
                     for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
-//                        System.out.println(entry.getKey().toString() + " " +resultRooms.get(entry.getKey()));
+                        LOGGER.info("Предложенная системой комната:{}, {}", entry.getKey().toString() ,resultRooms.get(entry.getKey()));
                         if ((entry.getKey()==0)){
                             request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
                             daoFactory.releaseContext();
@@ -87,7 +87,7 @@ public class GetAvailableRoomAction implements Action {
         for (Room room : selectedRooms){
             for (BookingTable bookingRecord : bookingTables) {
                       if (room.getId()==(bookingRecord.getRoomNo())) {   // если id комнаты равен значению одноименного поля брони из списка броней, то эту комнату удаляем из результирующего списка
-                            System.out.println(room.getId() + "равно" + bookingRecord.getRoomNo());
+                            LOGGER.info("Комната c id {} равна комнате {} в списке занятых, будет удалена",room.getId(), bookingRecord.getRoomNo());
                         rooms.remove(room);
                     }
                 }
@@ -95,7 +95,7 @@ public class GetAvailableRoomAction implements Action {
         if (rooms.size()>0) {
             for (Room room1 : rooms) {
                 resultRooms.put(room1.getId(), room1.getRoomRate()); // если результирующий список не пуст, то создаем список со значениями id комнаты и поля prepayment
- //               System.out.println(room1.getId());
+                LOGGER.info("{} - этот номер свободен",room1.getId());
             }
             return resultRooms;
         }else {resultRooms.put(0,0);  // если результирующий список пуст, то создаем список с нулевыми значениями, для последующего вывода сообщения на той же странице

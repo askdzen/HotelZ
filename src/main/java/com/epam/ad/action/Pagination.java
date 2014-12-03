@@ -2,6 +2,8 @@ package com.epam.ad.action;
 
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 public class Pagination<T ,E extends AbstractJDBCDao> {
   public static final int DEFAULT_PAGE_NUMBER = 1;
   public static final int DEFAULT_ROWS_COUNT = 10;
-
+    public static final Logger LOGGER = LoggerFactory.getLogger(Pagination.class);
     public void executePaginationAction(HttpServletRequest request, E genericDao, String pagename) throws DaoException {
 
         int pageNumber = DEFAULT_PAGE_NUMBER;
@@ -20,16 +22,16 @@ public class Pagination<T ,E extends AbstractJDBCDao> {
         String rowsString = request.getParameter("rows");
         String column =request.getParameter("column");
         String value = request.getParameter("value");
-        System.out.println(column+value);
+        LOGGER.info("Поиск по столбцу {} со значением {}",column,value);
         if (pageString != null) pageNumber = Integer.valueOf(pageString);
         if (rowsString != null) rowsCount = Integer.valueOf(rowsString);
-        List<T> tableList = null;
+        List tableList = null;
        if (!(column==null)){
            tableList =genericDao.getRange(pageNumber,rowsCount,column,value);
-           List<T> pagLenghtList = genericDao.getAll(column,value);
+           List pagLenghtList = genericDao.getAll(column, value);
 
            int tableLenght = pagLenghtList.size();
-           System.out.println(tableLenght);
+           LOGGER.info("Количество найденных строк: {}",tableLenght);
            List<Integer> paginationList = new ArrayList<>();
            for (int i = 0; i < tableLenght / rowsCount + 1; i++) {
                paginationList.add(i + 1);
@@ -51,7 +53,7 @@ public class Pagination<T ,E extends AbstractJDBCDao> {
         }else
 
        tableList = genericDao.getRange(pageNumber, rowsCount);
-        List<T> pagLenghtList = genericDao.getAll();
+        List pagLenghtList = genericDao.getAll();
         int tableLenght = pagLenghtList.size();
         List<Integer> paginationList = new ArrayList<>();
         for (int i = 0; i < tableLenght / rowsCount + 1; i++) {
@@ -80,11 +82,11 @@ public class Pagination<T ,E extends AbstractJDBCDao> {
 
         if (pageString != null) pageNumber = Integer.valueOf(pageString);
         if (rowsString != null) rowsCount = Integer.valueOf(rowsString);
-        List<T> tableList = null;
+        List tableList = null;
 
         tableList = genericDao.getRange(pageNumber,rowsCount,userid);
 
-        List<T> pagLenghtList =genericDao.getByUserId(userid) ;
+        List pagLenghtList =genericDao.getByUserId(userid) ;
 
         int tableLenght = pagLenghtList.size();
         System.out.println(tableLenght);

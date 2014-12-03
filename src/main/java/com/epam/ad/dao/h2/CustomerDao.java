@@ -215,7 +215,7 @@ public class CustomerDao extends AbstractJDBCDao<Customer> {
             throw new DaoException("Исключение при создании записи таблицы Customer",e.getCause());
         }
     }
-    public Customer createCustomer(String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int prepayment, int userId) {
+    public Customer create(String inputFirstName, String inputLastName, String inputCity, String inputRegion, String inputCountry, String inputPassport, String inputPhone, String inputEmail, int prepayment, int userId) {
         Customer customer=new Customer();
         customer.setFirstName(inputFirstName);
         customer.setLastName(inputLastName);

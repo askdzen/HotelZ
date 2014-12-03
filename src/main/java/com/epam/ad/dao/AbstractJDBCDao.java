@@ -121,7 +121,7 @@ public abstract class AbstractJDBCDao<T extends Identified> implements GenericDa
     public void update(T object) throws DaoException {
         String sql = getUpdateQuery();
         try (PreparedStatement statement = connection.prepareStatement(sql);) {
-            prepareStatementForUpdate(statement, object); // заполнение аргументов запроса оставим на совесть потомков
+            prepareStatementForUpdate(statement, object);
             int count = statement.executeUpdate();
             if (count != 1) {
                 throw new DaoException("On update modify more then 1 record: " + count);

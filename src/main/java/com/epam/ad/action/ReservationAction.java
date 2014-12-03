@@ -39,7 +39,7 @@ public class ReservationAction implements Action {
         DaoFactory daoFactory=new DaoFactory();
         DaoManager daoManager=daoFactory.createDaoManager();
         BookingTable bookingTable = daoManager.getBookingTableDao().createBooking(dateFrom, dateTo, roomId, userId, confirm);
-        Customer customer = daoManager.getCustomerDao().createCustomer(inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, prepayment, userId);
+        Customer customer = daoManager.getCustomerDao().create(inputFirstName, inputLastName, inputCity, inputRegion, inputCountry, inputPassport, inputPhone, inputEmail, prepayment, userId);
         ReservationPersistenceAction reservationPersistenceAction =new ReservationPersistenceAction(daoManager,bookingTable,customer);
         try {
             reservationPersistenceAction.doAction();
