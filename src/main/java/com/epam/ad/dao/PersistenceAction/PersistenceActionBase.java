@@ -58,7 +58,9 @@ public abstract class PersistenceActionBase {
         });
     }
 
-    protected abstract void   doPersistenceAction(DaoManager daoManager) throws DaoException;
+    protected void doPersistenceAction(DaoManager daoManager) throws DaoException {
+
+    }
 
     protected void   doDeletePersistenceAction(DaoManager daoManager) throws DaoException {
     }
