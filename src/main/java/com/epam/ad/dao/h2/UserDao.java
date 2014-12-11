@@ -15,6 +15,7 @@ import java.util.List;
 
 public class UserDao extends AbstractJDBCDao<User> {
 
+    public static final String SELECT_ID_LOGIN_PASSWORD_ROLE_ISDELETED_FROM_USER_WHERE_ISDELETED_FALSE = "SELECT ID,LOGIN,PASSWORD,ROLE, ISDELETED FROM USER WHERE ISDELETED=FALSE";
     Connection connection;
 
     public UserDao(Connection connection) {
@@ -58,7 +59,7 @@ public class UserDao extends AbstractJDBCDao<User> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT ID,LOGIN,PASSWORD,ROLE, ISDELETED FROM USER WHERE ISDELETED=FALSE";
+        return SELECT_ID_LOGIN_PASSWORD_ROLE_ISDELETED_FROM_USER_WHERE_ISDELETED_FALSE;
     }
 
     @Override

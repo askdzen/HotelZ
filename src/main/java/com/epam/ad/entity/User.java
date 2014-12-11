@@ -3,7 +3,7 @@ package com.epam.ad.entity;
 import com.epam.ad.dao.Identified;
 
 /**
- * Created by Askar on 15.08.2014.
+ *
  */
 public class User implements Identified{
     private int id;
@@ -11,6 +11,9 @@ public class User implements Identified{
     private String password;
     private String role;
     private boolean isDeleted;
+    private enum Role{
+
+    }
 
     public User() {
 

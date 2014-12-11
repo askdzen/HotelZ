@@ -64,6 +64,7 @@
 
     </filter-mapping>
     <error-page>
+        <exception-type></exception-type>
         <location>/error</location>
     </error-page>
 

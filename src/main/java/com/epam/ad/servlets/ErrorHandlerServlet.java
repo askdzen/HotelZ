@@ -30,7 +30,7 @@ public class ErrorHandlerServlet extends HttpServlet {
         if (requestUri == null) {
             requestUri = "Unknown";
         }
-        LOGGER.error("Status code: {}; ",statusCode, message, requestUri, servletName, throwable);
+        LOGGER.info("Status code: {}; ",statusCode, message, requestUri, servletName, throwable);
         request.setAttribute("requesturi",requestUri);
         request.setAttribute("statuscode",statusCode);
         request.setAttribute("message",message);

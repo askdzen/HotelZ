@@ -61,6 +61,7 @@
     </thead>
     <tbody>
 
+
     <c:forEach items="${list}" var="cust">
 
         <tr>
