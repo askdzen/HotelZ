@@ -53,6 +53,9 @@ public class RegistrationAction implements Action {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", newUser);
                     request.setAttribute("registrationmessage", "registration.congratulations");
+//                    String pathInfo = request.getRequestURI().substring(request.getContextPath().length());
+//                    System.out.println(pathInfo);
+//                    request.setAttribute("pathinfo",pathInfo);
                     request.setAttribute("hidden", "");
                     result = registration;
                     return result;

@@ -20,8 +20,10 @@ public class UrlFilter implements Filter {
     private void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
 
         String pathInfo = req.getRequestURI().substring(req.getContextPath().length());
+       req.setAttribute("pathinfo",pathInfo);
         LOGGER.info(pathInfo + ": way of coming to the URL filter");
         if (pathInfo.startsWith("/static/") || pathInfo.startsWith("/webjars/")) {
+            req.setAttribute("staticpathinfo",pathInfo);
             chain.doFilter(req, resp);
             return;
         }

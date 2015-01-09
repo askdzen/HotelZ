@@ -26,7 +26,7 @@
         <button id="changeBtn3" type="submit" class="btn" ><fmt:message key="find"/> </button>
         <input hidden="hidden" value="${column}">
         <br><br>
-        <a href="/roomdetail" ><fmt:message key="tableupdate"/> </a>
+        <a href="/HotelReservation-1.0-SNAPSHOT/roomdetail" ><fmt:message key="tableupdate"/> </a>
     </form>
 </div>
 <div id="roomAdminGeneral">

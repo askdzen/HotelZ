@@ -20,20 +20,20 @@ div#image1 {
     align-content: center;
 }
 div#image2 {
-    background: url("../images/img2.jpg")center no-repeat ;
+    background: url("img5.jpg")center no-repeat ;
     height: 60%;
     width: 60%;
     align-items: center;
     align-content: center;
 }
 div#image3 {
-    background: url("../images/img3.jpg")center no-repeat;
+    background: url("img5.jpg")center no-repeat;
     height: 60%;
     width: 60%;
     align-items: center;
     align-content: center;}
 div#image4 {
-    background: url("../images/img4.jpg")center no-repeat;
+    background: url("img1.jpg")center no-repeat;
     height: 60%;
     width: 60%;
     align-items: center;
@@ -340,7 +340,7 @@ div#presentation{
     width: 1600px;
     height: 120px;
     margin: auto;
-    background: url("background2.jpg") repeat-x;
+    background: url("") repeat-x;
 
 }
 div#welcomesignin{

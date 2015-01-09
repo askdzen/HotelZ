@@ -2,18 +2,36 @@ package com.epam.ad.entity;
 
 import com.epam.ad.dao.Identified;
 
+import javax.inject.Named;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 /**
  *
  */
-public class User implements Identified{
-    private int id;
-    private String username;
-    private String password;
-    private String role;
-    private boolean isDeleted;
-    private enum Role{
+//@Entity
+//@Named("user")
+//@Table(name = "USER")
+//@NamedQuery(name = "User.getAll", query = "select u from User u")
+public class User implements Identified {
 
-    }
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+
+
+    private Integer id;
+
+//    @Column(name = "LOGIN")
+    private String username;
+
+//    @Column(name = "PASSWORD")
+    private String password;
+
+//    @Column(name = "ROLE")
+    private String role;
+
+//    @Column(name = "ISDELETED")
+    private boolean isDeleted;
 
     public User() {
 
@@ -42,12 +60,14 @@ public class User implements Identified{
     public void setRole(String role) {
         this.role = role;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
-    @Override
+
+
     public Integer getId() {
         return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean isDeleted() {
@@ -56,5 +76,13 @@ public class User implements Identified{
 
     public void setDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public String toString() {
+        return "User {"+
+                "id="+id+
+                ", username="+ username +'\''+
+                ", password="+password+
+                ", role"+role+'}';
     }
 }

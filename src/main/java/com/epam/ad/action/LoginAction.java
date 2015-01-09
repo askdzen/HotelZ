@@ -8,7 +8,6 @@ import com.epam.ad.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 

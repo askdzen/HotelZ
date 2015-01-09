@@ -29,6 +29,7 @@
                 <a href="#" class="close" data-dismiss="alert">×</a>
                 <p><fmt:message key="${registrationmessage}"/> </p>
 
+<p>${pathinfo}</p>
             </div>
         </div>
         </div>

@@ -51,7 +51,7 @@
                         <td>${bl.roomNo}</td>
                         <td>${bl.userId}</td>
                         <td>${bl.confirm}</td>
-                        <td><a href="/account?bookid=${bl.id}&roomid=${bl.roomNo}&hidden=${hidden}" class="btn btn-lg btn-primary"
+                        <td><a href="/HotelReservation-1.0-SNAPSHOT/account?bookid=${bl.id}&roomid=${bl.roomNo}&hidden=${hidden}" class="btn btn-lg btn-primary"
                                data-toggle="modal"><fmt:message key="account.details"/> </a></td>
 
                     </tr>

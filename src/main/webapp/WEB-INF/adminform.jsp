@@ -20,13 +20,13 @@
 <jsp:attribute name="footer"/>
 <jsp:body>
 
-    <button  onClick='location.href="/bookingtable"'   type="submit" class="adminbtn"><fmt:message key="adminform.gotoboking"/> </button>
+    <button  onClick='location.href="/HotelReservation-1.0-SNAPSHOT/bookingtable"'   type="submit" class="adminbtn"><fmt:message key="adminform.gotoboking"/> </button>
     <hr>
-    <button  onClick='location.href="/customerdetail"'  type="submit" class="adminbtn"><fmt:message key="adminform.gotocustomer"/> </button>
+    <button  onClick='location.href="/HotelReservation-1.0-SNAPSHOT/customerdetail"'  type="submit" class="adminbtn"><fmt:message key="adminform.gotocustomer"/> </button>
     <hr>
-    <button  onClick='location.href="/roomdetail"' type="submit" class="adminbtn"><fmt:message key="adminform.gotoroomedit"/> </button>
+    <button  onClick='location.href="/HotelReservation-1.0-SNAPSHOT/roomdetail"' type="submit" class="adminbtn"><fmt:message key="adminform.gotoroomedit"/> </button>
     <hr>
-    <button  onClick='location.href="/userdetail"' type="submit" class="adminbtn"><fmt:message key="adminform.gotouseredit"/> </button>
+    <button  onClick='location.href="/HotelReservation-1.0-SNAPSHOT/userdetail"' type="submit" class="adminbtn"><fmt:message key="adminform.gotouseredit"/> </button>
     <hr>
 </jsp:body>
 </t:genericpage>

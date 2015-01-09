@@ -2,7 +2,6 @@ package com.epam.ad.dao.h2;
 
 import com.epam.ad.dao.AbstractJDBCDao;
 import com.epam.ad.dao.DaoException;
-import com.epam.ad.dao.Identified;
 import com.epam.ad.entity.User;
 
 import java.sql.Connection;
@@ -189,7 +188,7 @@ public class UserDao extends AbstractJDBCDao<User> {
 
     private class PersistUser extends User {
         @Override
-        public void setId(int id) {
+        public void setId(Integer id) {
             super.setId(id);
         }
     }

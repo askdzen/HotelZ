@@ -15,7 +15,7 @@
     <t:statusbar>
     <jsp:attribute name="statusbar">
 <div id="statusbarcontent">
-    <a href="/registration"><fmt:message key="registrationHref"/> </a>
+    <a href="/HotelReservation-1.0-SNAPSHOT/registration"><fmt:message key="registrationHref"/> </a>
 
 </div>
 
@@ -25,7 +25,6 @@
     <t:genericpage>
 
     <jsp:attribute name="header">
-
 
     </jsp:attribute>
 

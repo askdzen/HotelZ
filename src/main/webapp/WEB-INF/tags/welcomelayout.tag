@@ -8,7 +8,7 @@
         <jsp:invoke fragment="welcomelayout"/>
         <%--<div id="statusbarcontent">--%>
             <p id="welcome"> <fmt:message key="welcomelayout.welcome"/> , ${user.username} ! </p>
-            <a id="account" href="/exitaccount"><fmt:message key="welcomelayout.gotomain"/> </a>
+            <a id="account" href="/HotelReservation-1.0-SNAPSHOT/exitaccount"><fmt:message key="welcomelayout.gotomain"/> </a>
         </div>
     <%--</div>--%>
 </fmt:bundle>

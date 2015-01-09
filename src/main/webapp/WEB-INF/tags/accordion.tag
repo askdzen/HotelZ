@@ -1,9 +1,9 @@
 <%@tag description="Accordion template" pageEncoding="UTF-8" %>
 <%@attribute name="accordion" fragment="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="../../static/mistral.ttf" rel="stylesheet" type="text/css" />
-<link href="webjars/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="../static/style.css" rel="stylesheet" media="screen">
+<link href="<c:url value="/static/style.css" />" rel="stylesheet" media="screen">
 <fmt:setLocale value="${fmtlocale}"/>
 <fmt:bundle basename="i18n.message" prefix="accordion.">
 

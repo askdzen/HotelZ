@@ -2,6 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<script type='text/javascript' src='<c:url value="/webjars/jquery/2.0.3/jquery.min.js"/>'></script>
+<script type='text/javascript' src='<c:url value="/webjars/bootstrap/3.0.0/js/bootstrap.min.js"/>'></script>
+<script type='text/javascript' src='<c:url value="/webjars/bootstrap/3.0.0/css/bootstrap.min.css"/>'></script>
+<link href='<c:url value="/webjars/bootstrap/3.0.0/css/bootstrap.min.css"/> ' rel="stylesheet" media="screen">
+<link href='<c:url value="/static/style.css" />' rel="stylesheet" media="screen">
 <fmt:setLocale value="${fmtlocale}"/>
 <fmt:bundle basename="i18n.message">
     <html>
@@ -16,7 +21,7 @@
 <div id="statusbarcontent">
 
     <p id="welcome"><fmt:message key="welcomelayout.welcome"/> , ${user.username} !</p>
-    <a id="account" href="/account"><fmt:message key="welcome.signin"/> </a>
+    <a id="account" href="/HotelReservation-1.0-SNAPSHOT/account"><fmt:message key="welcome.signin"/> </a>
 
     <%--<br/>--%>
 
@@ -47,13 +52,11 @@
 
                 <ul id="change" class="nav nav-tabs">
 
-                    <li class="active"><fmt:message key="welcome.datefrom"/> :
-                        <input id="calendar" type="date" name="calendar" value="2014-08-11"
-                               max="2014-10-09" min="2014-08-11">
+                    <li class="active"><fmt:message key="welcome.datefrom"/>
+                        <input id="calendar" type="date" name="calendar"  >
                     </li>
-                    <li class="active"><fmt:message key="welcome.dateto"/> :
-                        <input id="calendar2" type="date" name="calendar2" value="2014-08-15"
-                               max="2014-10-09" min="2012-08-11">
+                    <li class="active"><fmt:message key="welcome.dateto"/>
+                        <input id="calendar2" type="date" name="calendar2" >
                     </li>
                     <li>
 

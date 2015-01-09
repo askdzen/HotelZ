@@ -19,7 +19,7 @@
         <button  type="submit" class="btn" name="create" ${disabled}><fmt:message key="addItem"/> </button>
     </form>
 
-    <button  onClick='location.href="/${gotohome}"' type="submit" class="btn"><fmt:message key="goHome"/> </button>
+    <button  onClick='location.href="/HotelReservation-1.0-SNAPSHOT/${gotohome}"' type="submit" class="btn"><fmt:message key="goHome"/> </button>
 
     <div>
         <ul id="paginat" class="nav nav-tabs">
