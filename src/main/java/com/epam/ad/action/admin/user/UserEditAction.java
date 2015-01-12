@@ -3,20 +3,14 @@ package com.epam.ad.action.admin.user;
 import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
-import com.epam.ad.crud.UserJPAService;
-import com.epam.ad.dao.DaoException;
-import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.dao.h2.UserDao;
-import com.epam.ad.entity.User;
+import com.epam.ad.crud.UserJPADao;
 import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 
 public class UserEditAction implements Action {
-    UserJPAService userJPAService=new UserJPAService();
+    UserJPADao userJPADao =new UserJPADao();
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult userdetail = new ActionResult("userdetail", true);
@@ -37,7 +31,7 @@ public class UserEditAction implements Action {
 //                throw new ActionException("Исключение при удалении записи таблицы User",e.getCause());
 //            }
 //            daoFactory.releaseContext();
-            userDelete(userDeleteString);
+            userDelete(request,userDeleteString);
             return userdetail;
         }
 //        try {
@@ -71,17 +65,17 @@ public class UserEditAction implements Action {
             String password =request.getParameter("password");
             String role = request.getParameter("role");
             String userId = request.getParameter("userid");
-        UserEntity userfromDB=userJPAService.get(Integer.parseInt(userId));
+        UserEntity userfromDB= (UserEntity) userJPADao.getByPK(Integer.parseInt(userId));
         UserEntity userEntity=new UserEntity();
         userEntity.setId(userfromDB.getId());
         userEntity.setLogin(username);
         userEntity.setPassword(password);
         userEntity.setRole(role);
         userEntity.setIsdeleted(false);
-        userJPAService.update(userEntity);
+        userJPADao.update(userEntity);
     }
 
-    private void userDelete(String userDeleteString) throws ActionException {
+    private void userDelete(HttpServletRequest request, String userDeleteString) throws ActionException {
 //        try {
 //
 //            int userRecordDeleteId=Integer.parseInt(userDeleteString);
@@ -91,10 +85,16 @@ public class UserEditAction implements Action {
 //        } catch (DaoException e) {
 //            throw new ActionException("Исключение при удалении записи таблицы User",e.getCause());
 //        }
-        UserEntity userfromDB=userJPAService.get(Integer.parseInt(userDeleteString));
+        String username = request.getParameter("username");
+        String password =request.getParameter("password");
+        String role = request.getParameter("role");
+        UserEntity userfromDB= (UserEntity) userJPADao.getByPK(Integer.parseInt(userDeleteString));
         UserEntity userEntity=new UserEntity();
         userEntity.setId(userfromDB.getId());
+        userEntity.setLogin(username);
+        userEntity.setPassword(password);
+        userEntity.setRole(role);
         userEntity.setIsdeleted(true);
-        userJPAService.update(userEntity);
+        userJPADao.update(userEntity);
     }
 }

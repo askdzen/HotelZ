@@ -3,16 +3,10 @@ package com.epam.ad.action.admin.user;
 import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
-import com.epam.ad.crud.UserJPAService;
-import com.epam.ad.dao.DaoException;
-import com.epam.ad.dao.DaoManager;
-import com.epam.ad.dao.h2.DaoFactory;
-import com.epam.ad.dao.h2.UserDao;
-import com.epam.ad.entity.User;
+import com.epam.ad.crud.UserJPADao;
 import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 public class UserCreateAction implements Action {
     @Override
@@ -42,7 +36,7 @@ public class UserCreateAction implements Action {
             String username = request.getParameter("login");
             String password =request.getParameter("pass");
             String role = request.getParameter("roles");
-        UserJPAService service=new UserJPAService();
+        UserJPADao service=new UserJPADao();
         UserEntity user=new UserEntity();
         user.setLogin(username);
         user.setPassword(password);

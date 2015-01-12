@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 //@Entity
 //@Named("user")
 //@Table(name = "USER")
-//@NamedQuery(name = "User.getAll", query = "select u from User u")
+//@NamedQuery(name = "User.getAll", GetAllQuery = "select u from User u")
 public class User implements Identified {
 
 //    @Id

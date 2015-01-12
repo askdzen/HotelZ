@@ -4,10 +4,11 @@ import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
 import com.epam.ad.action.Pagination;
+import com.epam.ad.crud.UserJPADao;
 import com.epam.ad.dao.DaoException;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.dao.h2.UserDao;
-import com.epam.ad.entity.User;
+import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 
 public class UserAction implements Action {
+    UserJPADao userJPADao =new UserJPADao();
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult userdetail = new ActionResult("userdetail");
@@ -27,12 +29,14 @@ public class UserAction implements Action {
         String userUpdateDataString = request.getParameter("update");
         String userCreate = request.getParameter("create");
         if (userCreate !=null){
-            daoFactory.releaseContext();
+//            daoFactory.releaseContext();
+
             return usercreate;
         }
         if (userUpdateDataString!=null){
-            setAttributesForUpdate(request, userDao, userUpdateDataString);
-            daoFactory.releaseContext();
+//            setAttributesForUpdate(request, userDao, userUpdateDataString);
+            setAttributesForUpdate(request, userUpdateDataString);
+//            daoFactory.releaseContext();
             return userupdate;
         }else {
             try {
@@ -40,7 +44,7 @@ public class UserAction implements Action {
                 request.setAttribute("value",0);
                 request.setAttribute("hiddenButton","");
                 request.setAttribute("disabled","");
-                Pagination<User, UserDao> pagination = new Pagination<>();
+                Pagination<UserEntity, UserDao> pagination = new Pagination<>();
                 pagination.executePaginationAction(request, userDao, "userdetail");
                 Map<String,String> selectedColumn=new HashMap<>();
                 selectedColumn.put("ID","selected");
@@ -62,16 +66,16 @@ public class UserAction implements Action {
         }
     }
 
-    private void setAttributesForUpdate(HttpServletRequest request, UserDao userDao, String userUpdateDataString) throws ActionException {
+    private void setAttributesForUpdate(HttpServletRequest request, String userUpdateDataString) throws ActionException {
         int bookingtableUpdateDataId = Integer.parseInt(userUpdateDataString);
-        User tableRecord = null;
-        try {
-            tableRecord = userDao.getByPK(bookingtableUpdateDataId);
-        } catch (DaoException e) {
-            throw new ActionException("Исключение при поиске записи в таблице User", e.getCause());
-        }
+        UserEntity tableRecord = (UserEntity) userJPADao.getByPK(bookingtableUpdateDataId);
+//        try {
+//            tableRecord = userDao.getByPK(bookingtableUpdateDataId);
+//        } catch (DaoException e) {
+//            throw new ActionException("Исключение при поиске записи в таблице User", e.getCause());
+//        }
         HttpSession session = request.getSession();
-        session.setAttribute("username",tableRecord.getUsername());
+        session.setAttribute("username",tableRecord.getLogin());
         session.setAttribute("password",tableRecord.getPassword());
         session.setAttribute("role",tableRecord.getRole());
         session.setAttribute("userid",tableRecord.getId());

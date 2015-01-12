@@ -55,7 +55,9 @@ public class GetAvailableRoomAction implements Action {
                     for (Map.Entry<Integer, Integer> entry : resultRooms.entrySet()) {
                         LOGGER.info("Предложенная системой комната:{}, {}", entry.getKey().toString() ,resultRooms.get(entry.getKey()));
                         if ((entry.getKey()==0)){
-                            request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат заняты!");
+                            String date1 = request.getParameter("calendar"); //получение параметров заказа для выполнения логики поиска комнаты с указанными характеристиками в заданном диапазоне дат и последующей передачи их на страницу бронирования
+                            String date2 = request.getParameter("calendar2");
+                            request.setAttribute("nullrooms","Все комнаты в заданном диапазоне дат (c "+date1+" по "+date2+") заняты!");
                             daoFactory.releaseContext();
                             result=welcome;
                             return result;
@@ -86,7 +88,7 @@ public class GetAvailableRoomAction implements Action {
         List<Room>rooms=new ArrayList<>(selectedRooms); // создание списка комнат с указанными характеристиками, для последующего удаления из него комнат в занятый диапазон дат
         for (Room room : selectedRooms){
             for (BookingTable bookingRecord : bookingTables) {
-                      if (room.getId()==(bookingRecord.getRoomNo())) {   // если id комнаты равен значению одноименного поля брони из списка броней, то эту комнату удаляем из результирующего списка
+                      if (room.getId().equals(bookingRecord.getRoomNo())) {   // если id комнаты равен значению одноименного поля брони из списка броней, то эту комнату удаляем из результирующего списка
                             LOGGER.info("Комната c id {} равна комнате {} в списке занятых, будет удалена",room.getId(), bookingRecord.getRoomNo());
                         rooms.remove(room);
                     }

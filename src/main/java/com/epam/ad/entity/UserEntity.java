@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USER", schema = "PUBLIC", catalog = "HOTEL")
-@NamedQuery(name = "UserEntity.getAll", query = "select u from UserEntity u")
+//@NamedQuery(name = "UserEntity.getAll", query = "select u from UserEntity u")
 public class UserEntity {
     private int id;
     private String login;
