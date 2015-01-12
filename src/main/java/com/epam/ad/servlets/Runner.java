@@ -23,6 +23,9 @@ public class Runner {
         UserEntity user1=service.add(user);
         System.out.println(user1);
     }
+    public void updateRecord(){
+
+    }
 
     public static void main(String[] args) throws Exception {
        Runner runner=new Runner();

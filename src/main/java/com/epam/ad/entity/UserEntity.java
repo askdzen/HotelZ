@@ -2,9 +2,6 @@ package com.epam.ad.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Admin on 1/9/2015.
- */
 @Entity
 @Table(name = "USER", schema = "PUBLIC", catalog = "HOTEL")
 @NamedQuery(name = "UserEntity.getAll", query = "select u from UserEntity u")
@@ -81,5 +78,14 @@ public class UserEntity {
 
     public void setIsdeleted(Boolean isdeleted) {
         this.isdeleted = isdeleted;
+    }
+
+    @Override
+    public String toString() {
+        return "User {"+
+                "id="+id+
+                ", username="+ login +'\''+
+                ", password="+password+
+                ", role"+role+'}';
     }
 }
