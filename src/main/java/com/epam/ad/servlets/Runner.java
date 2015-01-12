@@ -4,6 +4,7 @@ package com.epam.ad.servlets;
 
 import com.epam.ad.crud.UserJPAService;
 import com.epam.ad.entity.User;
+import com.epam.ad.entity.UserEntity;
 
 import javax.inject.Named;
 
@@ -11,15 +12,15 @@ import javax.inject.Named;
 public class Runner {
     UserJPAService service=new UserJPAService();
     public void testSaveRecord()throws Exception {
-        User user=new User();
+        UserEntity user=new UserEntity();
 //        FacesContext facesContext=FacesContext.getCurrentInstance();
 //        Object o = facesContext.getAttributes().get(user.getUsername());
 
-        user.setUsername("TestUser");
+        user.setLogin("TestUser");
         user.setPassword("TestPass");
         user.setRole("admin");
-        user.setDeleted(false);
-        User user1=service.add(user);
+        user.setIsdeleted(false);
+        UserEntity user1=service.add(user);
         System.out.println(user1);
     }
 

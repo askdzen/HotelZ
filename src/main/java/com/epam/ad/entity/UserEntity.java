@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "USER", schema = "PUBLIC", catalog = "HOTEL")
-@NamedQuery(name = "User.getAll", query = "select u from UserEntity u")
+@NamedQuery(name = "UserEntity.getAll", query = "select u from UserEntity u")
 public class UserEntity {
     private int id;
     private String login;
@@ -17,6 +17,7 @@ public class UserEntity {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
     }

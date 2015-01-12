@@ -9,6 +9,7 @@ import com.epam.ad.dao.DaoManager;
 import com.epam.ad.dao.h2.DaoFactory;
 import com.epam.ad.dao.h2.UserDao;
 import com.epam.ad.entity.User;
+import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -42,11 +43,11 @@ public class UserCreateAction implements Action {
             String password =request.getParameter("pass");
             String role = request.getParameter("roles");
         UserJPAService service=new UserJPAService();
-        User user=new User();
-        user.setUsername(username);
+        UserEntity user=new UserEntity();
+        user.setLogin(username);
         user.setPassword(password);
         user.setRole(role);
-        user.setDeleted(false);
+        user.setIsdeleted(false);
         service.add(user);
 
 
