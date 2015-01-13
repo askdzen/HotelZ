@@ -1,15 +1,5 @@
 package com.epam.ad.action;
 
-import com.epam.ad.crud.AbstractJPADao;
-import com.epam.ad.dao.AbstractJDBCDao;
-import com.epam.ad.dao.DaoException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-
 //
 //public class PaginationJPA<T ,E extends AbstractJPADao> {
 //  public static final int DEFAULT_PAGE_NUMBER = 1;

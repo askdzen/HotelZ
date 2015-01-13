@@ -3,7 +3,7 @@ package com.epam.ad.action.admin.user;
 import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
-import com.epam.ad.crud.UserJPADao;
+import com.epam.ad.crud.JPADao;
 import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class UserCreateAction implements Action {
             String username = request.getParameter("login");
             String password =request.getParameter("pass");
             String role = request.getParameter("roles");
-        UserJPADao service=new UserJPADao();
+        JPADao service=new JPADao(UserEntity.class);
         UserEntity user=new UserEntity();
         user.setLogin(username);
         user.setPassword(password);

@@ -3,14 +3,14 @@ package com.epam.ad.action.admin.user;
 import com.epam.ad.action.Action;
 import com.epam.ad.action.ActionException;
 import com.epam.ad.action.ActionResult;
-import com.epam.ad.crud.UserJPADao;
+import com.epam.ad.crud.JPADao;
 import com.epam.ad.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 public class UserEditAction implements Action {
-    UserJPADao userJPADao =new UserJPADao();
+    JPADao userJPADao =new JPADao(UserEntity.class);
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         ActionResult userdetail = new ActionResult("userdetail", true);
